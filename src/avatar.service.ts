@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
-
+import { Source } from "./source.model";
 const avatarColors: string[] = [
   "#1abc9c", "#3498db", "#f1c40f", "#8e44ad", "#e74c3c", "#d35400", "#2c3e50", "#7f8c8d"
-]
+];
+
+export const sources = [
+  "FACEBOOK",
+  "GOOGLE",
+  "TWITTER",
+  "SKYPE",
+  "GRAVATAR",
+  "CUSTOM",
+  "INITIALS"];
 
 @Injectable()
 export class AvatarService {
@@ -31,15 +40,6 @@ export class AvatarService {
     return "";
   }
 
-  getInitials(name: string): string {
-    let result = "";
-    if (name) {
-      name.split(" ").forEach(element => {
-        result += element[0].toUpperCase();
-      });
-    }
-    return result;
-  }
 
   getRandomColor(): string {
     return avatarColors[Math.floor(Math.random() * avatarColors.length)];
@@ -49,9 +49,13 @@ export class AvatarService {
     return typeof Storage !== 'undefined';
   }
 
-  _hasFetchFailed(source: string) {
+  _fetchHasFailed(source: string) {
     const cache = localStorage.getItem("ng2-avatar") || '';
     return cache.indexOf(source) > -1;
+  }
+
+  getSourcePriority(source: string) {
+    return sources.indexOf(source.toUpperCase());
   }
 
 }
