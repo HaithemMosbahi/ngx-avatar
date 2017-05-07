@@ -1,5 +1,5 @@
-# angular2-avatar
-[![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)]
+# # &lt;ng-avatar&gt;
+[![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)
 ## Installation
 
 To install this library, run:
