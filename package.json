@@ -8,8 +8,7 @@
     "docs:build": "compodoc -p tsconfig.json -n angular2-avatar -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
-    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
-    "test": "tsc && karma start"
+    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts"
   },
   "repository": {
     "type": "git",
