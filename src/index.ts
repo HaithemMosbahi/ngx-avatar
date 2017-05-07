@@ -15,7 +15,7 @@ export * from './avatar.service';
   ],
   exports: [
     AvatarComponent
-  ]
+     ]
 })
 export class AvatarModule {
   static forRoot(): ModuleWithProviders {
