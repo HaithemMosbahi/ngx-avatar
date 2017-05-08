@@ -18,7 +18,7 @@ import { Source } from "./source.model";
       [width]="size"
       [height]="size"
       [ngStyle]="avatarStyle"
-      (error)="updateUrl($event)"
+      (error)="fetch($event)"
      />
 
    <div *ngIf="!renderAsImage"
@@ -155,6 +155,21 @@ export class AvatarComponent implements OnInit {
 
   _addAvatarSource(sourceKey: string, sourceValue: string) {
     this._sources.push({ sourceKey, sourceValue });
+  }
+
+  
+  /**
+   * Fetch avatar source
+   * 
+   * @param {any} event 
+   * 
+   * @memberOf AvatarComponent
+   */
+  fetch(event){
+    console.log("event  "+JSON.stringify(event));
+    this.renderAsImage = false;
+    this._value = "HM";
+    this._renderAsText()
   }
 
 
