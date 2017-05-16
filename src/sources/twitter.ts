@@ -11,9 +11,9 @@ import { Source } from "./source";
  */
 export class Twitter implements Source {
     readonly sourceType: string = "TWITTER";
-    constructor(public sourceId: string, public size: number) {
+    constructor(public sourceId: string) {
     }
-    getAvatar(): string {
-        return `https://twitter.com/${this.sourceId}/profile_image?size=${this.size}`;
+    getAvatar(size:number): string {
+        return `https://twitter.com/${this.sourceId}/profile_image?size=${size}`;
     }
 }

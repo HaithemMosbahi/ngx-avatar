@@ -11,12 +11,11 @@ import { Source } from "./source";
 export class Facebook implements Source {
     readonly sourceType: string = "FACEBOOK";
 
-
-    constructor(public sourceId: string, public size: number) {
+    constructor(public sourceId: string) {
     }
 
-    getAvatar(): string {
+    getAvatar(size: number): string {
         return 'https://graph.facebook.com/' +
-            `${this.sourceId}/picture?width=${this.size}&height=${this.size}`;
+            `${this.sourceId}/picture?width=${size}&height=${size}`;
     }
 }

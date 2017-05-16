@@ -9,11 +9,6 @@
 export interface Source {
     sourceType: string;
     sourceId: string;
-    size?: number;
-    getAvatar(): string;
+    getAvatar(size?: number): string;
 }
 
-/**
- * Export all sources 
- */
-export * from './';
