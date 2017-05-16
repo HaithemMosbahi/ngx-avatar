@@ -1,7 +1,7 @@
 import { Source } from "./source";
 
 /**
- * Google source impelementation.
+ *  Google source impelementation.
  *  Fetch avatar source based on google identifier
  *  and image size
  * 

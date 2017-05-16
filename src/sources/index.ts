@@ -4,6 +4,7 @@
 export * from './source';
 export * from './facebook';
 export * from './google';
+export * from './skype';
 export * from './twitter';
 export * from './gravatar';
 export * from './initials';
