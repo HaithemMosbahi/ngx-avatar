@@ -11,7 +11,8 @@ export const sources = [
   "SKYPE",
   "GRAVATAR",
   "CUSTOM",
-  "INITIALS"];
+  "INITIALS",
+  "VALUE"];
 
 @Injectable()
 export class AvatarService {

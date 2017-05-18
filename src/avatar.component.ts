@@ -1,7 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarService } from "./avatar.service";
-import { AvatarSource } from "./utils";
-import { Source } from "./source.model";
+import { Source } from "./sources/source";
+import { Facebook } from "./sources/facebook";
+import { Twitter } from "./sources/twitter";
+import { Google } from "./sources/google";
+import { Custom } from "./sources/custom";
+import { Initials } from "./sources/initials";
+import { Gravatar } from "./sources/gravatar";
+import { Skype } from "./sources/skype";
+import { Value } from "./sources/value";
+
+
+
 
 @Component({
   selector: 'ng-avatar',
@@ -13,7 +23,7 @@ import { Source } from "./source.model";
   `],
   template: `
     <div  [ngStyle]="hostStyle">
-    <img *ngIf="renderAsImage"
+    <img *ngIf="src"
       [src]="src"
       [width]="size"
       [height]="size"
@@ -21,8 +31,8 @@ import { Source } from "./source.model";
       (error)="fetch($event)"
      />
 
-   <div *ngIf="!renderAsImage"
-     [ngStyle]="avatarStyle">{{value}}</div>
+   <div *ngIf="!src"
+     [ngStyle]="avatarStyle">{{data}}</div>
    </div>`,
   providers: [AvatarService]
 })
@@ -47,8 +57,12 @@ export class AvatarComponent implements OnInit {
 
   _currentSource: number = 0;
   _sources: Source[] = Array();
+  _domains: Map<string, string>;
+  counter: number = 0;
 
   src: string;
+  // used for text
+  data: string;
 
   renderAsImage: boolean = true;
   avatarStyle: any = {}
@@ -60,25 +74,22 @@ export class AvatarComponent implements OnInit {
   ngOnInit() {
 
     this._sources.sort((leftSide, rightSide) => {
-      return this.avatarService.getSourcePriority(leftSide.sourceKey) - this.avatarService.getSourcePriority(rightSide.sourceKey);
+      return this.avatarService.getSourcePriority(leftSide.sourceId) - this.avatarService.getSourcePriority(rightSide.sourceId);
     });
 
-    this._sources.forEach((item, index) => {
-      console.log("Priority : " + index + " - value : " + item.sourceKey);
-    });
+  
+
+    if (this._sources.find(element => { return element.sourceId === "initials" })) {
+      console.log();
+    }
 
     this.hostStyle = {
       display: 'inline-block',
-      width: this.size,
-      height: this.size,
+      width: this.size + 'px',
+      height: this.size + 'px',
       ...this.style
     }
-    this._fetchAvatarSource();
-    if (this.renderAsImage) {
-      this._renderAsImage();
-    } else {
-      this._renderAsText();
-    }
+   this.fetch();
 
   }
 
@@ -89,7 +100,8 @@ export class AvatarComponent implements OnInit {
   @Input('facebookId')
   set facebookId(value: string) {
     this._facebookId = value;
-    this._addAvatarSource('facebook', this._facebookId);
+    this._sources.push(new Facebook(this._facebookId));
+
   }
 
   get twitterId(): string {
@@ -99,7 +111,8 @@ export class AvatarComponent implements OnInit {
   @Input('twitterId')
   set twitterId(value: string) {
     this._twitterId = value;
-    this._addAvatarSource('twitter', this._twitterId);
+    this._sources.push(new Twitter(this._twitterId));
+
   }
 
   get googleId(): string {
@@ -109,7 +122,7 @@ export class AvatarComponent implements OnInit {
   @Input('googleId')
   set googleId(value: string) {
     this._googleId = value;
-    this._addAvatarSource('google', this._googleId);
+    this._sources.push(new Google(this._googleId));
   }
 
   get skypeId(): string {
@@ -119,7 +132,7 @@ export class AvatarComponent implements OnInit {
   @Input('skypeId')
   set skypeId(value: string) {
     this._skypeId = value;
-    this._addAvatarSource('skype', this._skypeId);
+    this._sources.push(new Skype(this._skypeId));
 
   }
 
@@ -130,7 +143,7 @@ export class AvatarComponent implements OnInit {
   @Input('gravatarId')
   set gravatarId(value: string) {
     this._gravatarId = value;
-    this._addAvatarSource('gravatar', this._gravatarId);
+    this._sources.push(new Gravatar(this._gravatarId));
   }
 
   get customImage(): string {
@@ -140,7 +153,7 @@ export class AvatarComponent implements OnInit {
   @Input('custom')
   set customImage(value: string) {
     this._customImage = value;
-    this._addAvatarSource('custom', this._customImage);
+    this._sources.push(new Custom(this._customImage));
   }
 
   get name(): string {
@@ -149,15 +162,22 @@ export class AvatarComponent implements OnInit {
 
   @Input('name')
   set name(value: string) {
-    this._initials = this._getInitials(value);
-    this._addAvatarSource('initials', this._initials);
+    this._initials = value;
+    this._sources.push(new Initials(this._initials));
   }
 
-  _addAvatarSource(sourceKey: string, sourceValue: string) {
-    this._sources.push({ sourceKey, sourceValue });
+  get value(): string {
+    return this._value;
   }
 
-  
+  @Input('value')
+  set value(data: string) {
+    this._value = data;
+    this._sources.push(new Initials(this._value));
+
+  }
+
+
   /**
    * Fetch avatar source
    * 
@@ -165,42 +185,26 @@ export class AvatarComponent implements OnInit {
    * 
    * @memberOf AvatarComponent
    */
-  fetch(event){
-    console.log("event  "+JSON.stringify(event));
-    this.renderAsImage = false;
-    this._value = "HM";
-    this._renderAsText()
-  }
+  fetch(event?:any) {
+    this.src = this._sources[this.counter].getAvatar(this.size);
 
-
-  /**
-   * Fetch avatar url based on the source type
-   * 
-   * @memberOf AvatarComponent
-   */
-  _fetchAvatarSource() {
-    let avatarSrc = this.src;
-    let source = this._sources[this._currentSource];
-    switch (source.sourceKey) {
-      case "facebook":
-        this.src = this.avatarService.getFacebookAvatar(source.sourceValue, this.size);
-        break;
-      case "twitter":
-        this.src = this.avatarService.getTwitterAvatar(source.sourceValue, this.size);
-        break;
-      case "google":
-        this.src = this.avatarService.getGoogleAvatar(source.sourceValue, this.size);
-        break;
-      case "skype":
-        this.src = this.avatarService.getSkypeAvatar(source.sourceValue);
-      default:
-        // default - render as text
-        if (!this.src)
-          this.renderAsImage = false;
-        break;
+    //this.renderAsImage = false;
+    if (this._sources[this.counter].sourceType == "INITIALS" ||
+      this._sources[this.counter].sourceType == "VALUE") {
+      this.data = this._sources[this.counter].getAvatar();
+      this._renderAsText();
+      this.src = undefined;
+    } else {
+      this.src = this._sources[this.counter].getAvatar();
     }
-
+    this.counter++;
+    //this._value = "HM";
+    //this._renderAsText();
   }
+
+
+ 
+
 
   updateUrl() {
     console.log("Fallback option");
@@ -213,10 +217,12 @@ export class AvatarComponent implements OnInit {
       borderRadius: this.round ? '100%' : '0%',
       textTransform: 'uppercase',
       color: this.fgColor,
-      backgroundColor: '',
+      backgroundColor: 'red',
+      font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
+      lineHeight: this.size + 'px', // yes, px suffix is needed on lineHeight
       ...this.hostStyle
     }
-    this.avatarStyle = initiatStyle
+    this.avatarStyle = initiatStyle;
 
   }
 

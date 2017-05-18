@@ -1,6 +1,6 @@
 import { Source } from "./source";
 /**
- * Facebook source impelementation.
+ *  Facebook source impelementation.
  *  Fetch avatar source based on facebook identifier
  *  and image size
  * 
@@ -10,7 +10,7 @@ import { Source } from "./source";
  */
 export class Facebook implements Source {
     readonly sourceType: string = "FACEBOOK";
-
+    
     constructor(public sourceId: string) {
     }
 
