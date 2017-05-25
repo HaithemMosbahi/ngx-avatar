@@ -1,11 +1,25 @@
 # # &lt;ng-avatar&gt;
 [![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)
 
+![Angular Avatar component preview](demo/demo.png)
+
+
 A universal avatar component for Angular applications that generates avatar image from different sources and provides a fallback options out of the box.
 
 You can use this component whether you have a single source such as facebook, google, etc,  or a multiple avatar sources.
 
  Moreover, the component can shows name initials or a value as avatar.
+
+ Supported avatar sources:
+
+ * Facebook
+ * Google
+ * Twitter
+ * Skype
+ * Gravatar
+ * Custom image
+ * name initials
+ * value
 ## Installation
 
 Install avatar component using [NPM](https://www.npmjs.com/)::
