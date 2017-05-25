@@ -45,7 +45,7 @@ export class AvatarComponent implements OnInit {
   @Input() round: boolean = true;
   @Input() size: number = 50;
   @Input() textSizeRatio: number = 3;
-  @Input() bgColor: string = "transparent";
+  @Input() bgColor: string;
   @Input() fgColor: string = "#FFF";
   @Input() borderColor: string;
   @Input() style: any={};
