@@ -1,10 +1,10 @@
-# # &lt;ng-avatar&gt;
+# # &lt;ngx-avatar&gt;
 [![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)
 
 ![Angular Avatar component preview](demo/demo.png)
 
 
-A universal avatar component for Angular applications that generates avatar image from different sources and provides a fallback options out of the box.
+A universal avatar component for Angular 2+ applications that generates avatar image from different sources and provides a fallback system if one of the source has failed.
 
 You can use this component whether you have a single source such as facebook, google, etc,  or a multiple avatar sources.
 
@@ -20,6 +20,9 @@ You can use this component whether you have a single source such as facebook, go
  * Custom image
  * name initials
  * value
+
+ Fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
+
 ## Installation
 
 Install avatar component using [NPM](https://www.npmjs.com/)::
@@ -51,7 +54,6 @@ import { AvatarModule } from 'angular2-avatar';
   ],
   imports: [
     BrowserModule,
-
     // Specify AvatarModule as an import
     AvatarModule
   ],
@@ -65,18 +67,18 @@ export class AppModule { }
 Once the AvatarModule is imported, you can start using the component in your Angular application:
 
 ```html
-<ng-avatar></ng-avatar>
+<ngx-avatar></ngx-avatar>
 ```
 ## Examples
 
 ```html
-<ng-avatar facebookId="1508319875"></ng-avatar>
-<ng-avatar googleId="1508319875"></ng-avatar>
-<ng-avatar twitterId="1508319875"></ng-avatar>
-<ng-avatar name="Jhon Doe"></ng-avatar>
-<ng-avatar value="75%"></ng-avatar>
+<ngx-avatar facebookId="1508319875"></ngx-avatar>
+<ngx-avatar googleId="1508319875"></ngx-avatar>
+<ngx-avatar twitterId="1508319875"></ngx-avatar>
+<ngx-avatar name="Jhon Doe"></ngx-avatar>
+<ngx-avatar value="75%"></ngx-avatar>
 
-<ng-avatar source="facebook" skypeId="skype" googleId="google" name="Haithem Mosbahi" custom="assets/custom.jpg" value="28%" initials facebookId="100008343750912" twitterId="twitter" gravatarId="gravatar" size="100" [round]="true"></ng-avatar>
+<ngx-avatar source="facebook" skypeId="skype" googleId="google" name="Haithem Mosbahi" custom="assets/custom.jpg" value="28%" initials facebookId="100008343750912" twitterId="twitter" gravatarId="gravatar" size="100" [round]="true"></ngx-avatar>
 
 ```
 

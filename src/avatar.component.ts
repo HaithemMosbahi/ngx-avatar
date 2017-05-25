@@ -20,7 +20,7 @@ import * as utils from "./sources/utils";
  */
 
 @Component({
-  selector: 'ng-avatar',
+  selector: 'ngx-avatar',
   styles: [`
   :host{
     display:inline-block;
