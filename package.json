@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HaithemMosbahi/angular2-avatar"
+    "url": "https://github.com/HaithemMosbahi/ngx-avatar"
   },
   "author": {
     "name": "Haithem Mosbahi",
@@ -23,13 +23,14 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HaithemMosbahi/angular2-avatar/issues"
+    "url": "https://github.com/HaithemMosbahi/ngx-avatar/issues"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/core": "^4.0.0",
+    "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@compodoc/compodoc": "^1.0.0-beta.7",

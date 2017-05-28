@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Http } from "@angular/http";
 import { Source } from "./sources/source";
 import { Facebook } from "./sources/facebook";
 import { Twitter } from "./sources/twitter";
@@ -38,7 +39,8 @@ import * as utils from "./sources/utils";
 
    <div *ngIf="!src && data"
      [ngStyle]="avatarStyle">{{data}}</div>
-   </div>`})
+   </div>`
+})
 export class AvatarComponent implements OnInit {
 
   @Input() round: boolean = true;
@@ -47,7 +49,7 @@ export class AvatarComponent implements OnInit {
   @Input() bgColor: string;
   @Input() fgColor: string = "#FFF";
   @Input() borderColor: string;
-  @Input() style: any={};
+  @Input() style: any = {};
 
   _currentSource: number = 0;
   _sources: Source[] = Array();
@@ -59,7 +61,7 @@ export class AvatarComponent implements OnInit {
   avatarStyle: any = {}
   hostStyle: any = {};
 
-  constructor() {
+  constructor(public http: Http) {
   }
 
   /**
@@ -83,7 +85,7 @@ export class AvatarComponent implements OnInit {
       // Fetch avatar source
       this.fetch();
     } else {
-       console.error("ng-avatar : No avatar source has been provided");
+      console.error("ng-avatar : No avatar source has been provided");
     }
   }
 
@@ -148,8 +150,12 @@ export class AvatarComponent implements OnInit {
       this.avatarStyle = this._initialsStyle();
 
     } else {
-      this.avatarStyle = this._imageStyle()
-      this.src = this._sources[this._currentSource].getAvatar(this.size);
+      this.avatarStyle = this._imageStyle();
+      if (this._sources[this._currentSource].sourceType == "GOOGLE") {
+        this._fetchGoogleAvatar(this._sources[this._currentSource]);
+      } else {
+        this.src = this._sources[this._currentSource].getAvatar(this.size);
+      }
 
     }
     this._currentSource++;
@@ -157,12 +163,12 @@ export class AvatarComponent implements OnInit {
 
   }
 
- /**
-  * 
-  * @returns initials style
-  * 
-  * @memberOf AvatarComponent
-  */
+  /**
+   * 
+   * @returns initials style
+   * 
+   * @memberOf AvatarComponent
+   */
   _initialsStyle() {
     return {
       textAlign: 'center',
@@ -176,13 +182,13 @@ export class AvatarComponent implements OnInit {
     }
 
   }
- 
- /**
-  * 
-  * @returns image style
-  * 
-  * @memberOf AvatarComponent
-  */
+
+  /**
+   * 
+   * @returns image style
+   * 
+   * @memberOf AvatarComponent
+   */
   _imageStyle() {
     return {
       maxWidth: '100%',
@@ -190,6 +196,15 @@ export class AvatarComponent implements OnInit {
       width: this.size,
       height: this.size,
     }
+  }
+
+  _fetchGoogleAvatar(source: Source) {
+    this.http.get(source.getAvatar()).subscribe(response => {
+      const avatarSrc = response.json().entry.gphoto$thumbnail.$t;
+      if(avatarSrc){
+         this.src = avatarSrc.replace('s64', 's' + this.size);;
+      }
+    });
   }
 
 }
