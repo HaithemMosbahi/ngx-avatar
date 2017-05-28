@@ -28,7 +28,7 @@ Moreover, the component can shows name initials or simple value as avatar.
 Install avatar component using [NPM](https://www.npmjs.com/)::
 
 ```bash
-$ npm install angularx-avatar --save
+$ npm install ngx-avatar --save
 ```
 Or [download as ZIP](https://github.com/HaithemMosbahi/ngx-avatar/archive/master.zip).
 
