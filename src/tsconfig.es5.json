@@ -21,8 +21,8 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "angular2-avatar.js",
-    "flatModuleId": "angular2-avatar"
+    "flatModuleOutFile": "ngx-avatar.js",
+    "flatModuleId": "ngx-avatar"
   },
   "files": [
     "./index.ts"

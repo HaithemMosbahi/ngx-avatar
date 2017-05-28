@@ -23,7 +23,6 @@ import * as utils from "./sources/utils";
   selector: 'ngx-avatar',
   styles: [`
   :host{
-    display:inline-block;
     border-radius: "50%";
   }
   `],
@@ -37,7 +36,7 @@ import * as utils from "./sources/utils";
       (error)="fetch($event)"
      />
 
-   <div *ngIf="!src"
+   <div *ngIf="!src && data"
      [ngStyle]="avatarStyle">{{data}}</div>
    </div>`})
 export class AvatarComponent implements OnInit {
@@ -77,7 +76,6 @@ export class AvatarComponent implements OnInit {
       });
       // Host style 
       this.hostStyle = {
-        display: 'inline-block',
         width: this.size + 'px',
         height: this.size + 'px',
         ...this.style
