@@ -10,6 +10,8 @@ import { Gravatar } from "./sources/gravatar";
 import { Skype } from "./sources/skype";
 import { Value } from "./sources/value";
 import * as utils from "./sources/utils";
+import { Md5 } from "ts-md5/dist/md5";
+
 
 /**
  * Universal avatar component that
@@ -115,7 +117,7 @@ export class AvatarComponent implements OnInit {
 
   @Input('gravatarId')
   set gravatarId(value: string) {
-    this._sources.push(new Gravatar(value));
+    this._sources.push(new Gravatar(Md5.hashStr(value).toString()));
   }
 
   @Input('custom')

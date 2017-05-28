@@ -63,6 +63,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "is-retina": "^1.0.3"
+    "is-retina": "^1.0.3",
+    "ts-md5": "^1.2.0"
   }
 }

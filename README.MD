@@ -5,7 +5,7 @@ A universal avatar component for Angular 2+ applications that fetch / generates 
 
 You can use this component whether you have a single source or a multiple avatar sources. In this case the fallback system will fetch the first valid avatar.
 
-Moreover, the component can shows name initials or a value as avatar.
+Moreover, the component can shows name initials or simple value as avatar.
 
 ![Angular Avatar component preview](demo/demo.png)
 
@@ -21,23 +21,23 @@ Moreover, the component can shows name initials or a value as avatar.
  * name initials
  * value
 
- Fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
+ The fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
 
 ## Installation
 
 Install avatar component using [NPM](https://www.npmjs.com/)::
 
 ```bash
-$ npm install angular2-avatar --save
+$ npm install angularx-avatar --save
 ```
-Or [download as ZIP](https://github.com/HaithemMosbahi/angular2-avatar/archive/master.zip).
+Or [download as ZIP](https://github.com/HaithemMosbahi/ngx-avatar/archive/master.zip).
 
 
 ## Usage
 
 1. Import AvatarModule :
 
-Once you have installed ng2-avatar, you can import it in your `AppModule`:
+Once you have installed ngx-avatar, you can import it in your `AppModule`:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -46,7 +46,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your AvatarModule
-import { AvatarModule } from 'angular2-avatar';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [

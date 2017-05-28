@@ -1,5 +1,4 @@
 import { Source } from "./source";
-
 /**
  *  Gravatar source impelementation.
  *  Fetch avatar source based on gravatar email
@@ -14,7 +13,7 @@ export class Gravatar implements Source {
     constructor(public sourceId: string) {
     }
 
-    getAvatar(): string {
-        return "";
+    getAvatar(size:number): string {
+        return `https://secure.gravatar.com/avatar/${this.sourceId}?s=${size}&d=404`;
     }
 }
