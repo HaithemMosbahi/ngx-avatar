@@ -1,14 +1,14 @@
 # # &lt;ngx-avatar&gt;
 [![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)
 
+A universal avatar component for Angular 2+ applications that fetch / generates avatar based on the informations you have about the user. The component has a fallback system that if for example an invalid Facebook ID is used it will try google ID and so on.
+
+You can use this component whether you have a single source or a multiple avatar sources. In this case the fallback system will fetch the first valid avatar.
+
+Moreover, the component can shows name initials or a value as avatar.
+
 ![Angular Avatar component preview](demo/demo.png)
 
-
-A universal avatar component for Angular 2+ applications that generates avatar image from different sources and provides a fallback system if one of the source has failed.
-
-You can use this component whether you have a single source such as facebook, google, etc,  or a multiple avatar sources.
-
- Moreover, the component can shows name initials or a value as avatar.
 
  Supported avatar sources:
 
