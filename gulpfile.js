@@ -94,6 +94,15 @@ gulp.task('copy:manifest', function () {
     .pipe(gulp.dest(distFolder));
 });
 
+
+/**
+ * 9. Copy README.md from / to /dist
+ */
+gulp.task('copy:readme', function () {
+  return gulp.src([path.join(rootFolder, 'README.MD')])
+    .pipe(gulp.dest(distFolder));
+});
+
 /**
  * 8. Delete /.tmp folder
  */
@@ -117,6 +126,7 @@ gulp.task('compile', function () {
     'rollup',
     'copy:build',
     'copy:manifest',
+    'copy:readme',
     'clean:build',
     'clean:tmp',
     function (err) {
