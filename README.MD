@@ -75,10 +75,19 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 <ngx-avatar facebookId="1508319875"></ngx-avatar>
 <ngx-avatar googleId="1508319875"></ngx-avatar>
 <ngx-avatar twitterId="1508319875"></ngx-avatar>
-<ngx-avatar name="Jhon Doe"></ngx-avatar>
+<ngx-avatar skypeId="1508319875"></ngx-avatar>
+<ngx-avatar gravatarId="adde9b2b981a8083cf084c63ad86f753"></ngx-avatar>
+<ngx-avatar gravatarId="user@gmail.com"></ngx-avatar>
+<ngx-avatar src="assets/avatar.jpg"></ngx-avatar>
+<ngx-avatar name="John Doe"></ngx-avatar>
 <ngx-avatar value="75%"></ngx-avatar>
 
-<ngx-avatar source="facebook" skypeId="skype" googleId="google" name="Haithem Mosbahi" custom="assets/custom.jpg" value="28%" initials facebookId="100008343750912" twitterId="twitter" gravatarId="gravatar" size="100" [round]="true"></ngx-avatar>
+<ngx-avatar facebookId="userFacebookID" skypeId="userSkypeID"
+ googleId="google" name="Haithem Mosbahi" src="assets/avatar.jpg"
+ value="28%"  twitterId="twitter"
+ gravatarId="adde9b2b981a8083cf084c63ad86f753" 
+ size="100" [round]="true">
+</ngx-avatar>
 
 ```
 
