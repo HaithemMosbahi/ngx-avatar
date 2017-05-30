@@ -104,10 +104,10 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 | `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string*          |         | Show a value as avatar                                                                                 |
 | `bgColor`       | *string*          | random  | Give the background a fixed color with a hex like for example #FF0000 |
-| `fgColor`     | *string*          | #FFF  | Used Give the text a fixed color with a hex like for example #FF0000 |
+| `fgColor`     | *string*          | #FFF  | Give the text a fixed color with a hex like for example #FF0000 |
 | `size`        | *number*             | 50      | Size of the avatar                                                                                     |
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
-| `round`       | *bool*            | true   | Round the avatar corners                                                                               |
+| `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
 
 ## Release Notes
