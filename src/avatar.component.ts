@@ -209,7 +209,7 @@ export class AvatarComponent implements OnInit {
       }
     },
      err =>{
-       console.error("ngx-avatar: error while fetching google avatar "+JSON.stringify(err));
+       console.error("ngx-avatar: error while fetching google avatar ");
      });
   }
 
