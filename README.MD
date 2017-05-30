@@ -1,5 +1,5 @@
 # # &lt;ngx-avatar&gt;
-[![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/ngx-avatar)
+[![Build Status](https://travis-ci.org/HaithemMosbahi/angular2-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/angular2-avatar)
 
 A universal avatar component for Angular 2+ applications that fetch / generates avatar based on the informations you have about the user. The component has a fallback system that if for example an invalid Facebook ID is used it will try google ID and so on.
 
@@ -86,18 +86,19 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 
 |   Attribute   |      Type      | Default |                                              Description                                               |
 | ------------- | ----------------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| `facebook-id` | *string* |         |                                                                                                        |
-| `twitter-id` | *string* |         |                                                                                                        |
-| `google-id`   | *string*             |         |                                                                                                        |
-| `skype-id`    | *string*          |         |                                                                                                        |
+| `facebookId` | *string* |         | Facebook ID                                                                                                       |
+| `googleId` | *string* |         |  Google ID                                                                                                     |
+| `twitterId`   | *string*             |         | Twitter Handle                                                                                                       |
+| `skypeId`    | *string*          |       |  Skype ID                                                                                                      |
+| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                      |
+| `src`         | *string*          |         | Fallback image to use                                                                                  |
 | `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string*          |         | Show a value as avatar                                                                                 |
-| `color`       | *string*          | random  | Give the background a fixed color with a hex like for example #FF0000 |
-| `fgColor`     | *string*          | #FFF  | Used in combination with `name` and `value`. Give the text a fixed color with a hex like for example #FF0000 |
+| `bgColor`       | *string*          | random  | Give the background a fixed color with a hex like for example #FF0000 |
+| `fgColor`     | *string*          | #FFF  | Used Give the text a fixed color with a hex like for example #FF0000 |
 | `size`        | *number*             | 50      | Size of the avatar                                                                                     |
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
 | `round`       | *bool*            | true   | Round the avatar corners                                                                               |
-| `src`         | *string*          |         | Fallback image to use                                                                                  |
 | `style`         | *object*          |         | Style that will be applied on the root element
 
 ## Development
