@@ -101,6 +101,9 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 | `round`       | *bool*            | true   | Round the avatar corners                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
 
+## Release Notes
+* 1.0 : Avatar component that fetches / generates user avatar from different sources.
+
 ## Development
 
 To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:

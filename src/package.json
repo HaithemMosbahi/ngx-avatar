@@ -1,6 +1,6 @@
 {
   "name": "ngx-avatar",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/HaithemMosbahi/ngx-avatar"
@@ -12,9 +12,7 @@
   "keywords": [
     "angular",
     "avatar",
-    "facebook avatar",
-    "twitter",
-    "gravatar",
+    "component",
     "initials"
   ],
   "license": "MIT",
@@ -23,9 +21,12 @@
   },
   "module": "ngx-avatar.js",
   "typings": "ngx-avatar.d.ts",
+  "dependencies": {
+    "ts-md5": "^1.2.0"
+  },
   "peerDependencies": {
     "@angular/core": "^4.0.0",
-    "@angular/http":"^4.0.0",
+    "@angular/http": "^4.0.0",
     "ts-md5": "^1.2.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"

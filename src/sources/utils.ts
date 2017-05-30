@@ -1,13 +1,4 @@
 
-export type AvatarSource =
-    'facebook' |
-    'google' |
-    'twitter' |
-    'skype' |
-    'gravatar' |
-    'custom' |
-    'initials';
-
 /**
  * list of Supported avatar sources
  */
