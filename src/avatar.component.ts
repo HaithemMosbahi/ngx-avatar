@@ -117,10 +117,11 @@ export class AvatarComponent implements OnInit {
 
   @Input('gravatarId')
   set gravatarId(value: string) {
-    this._sources.push(new Gravatar(Md5.hashStr(value).toString()));
+    let md5Email = value.match('^[a-f0-9]{32}$')?value:Md5.hashStr(value).toString();
+    this._sources.push(new Gravatar(md5Email));
   }
 
-  @Input('custom')
+  @Input('src')
   set customImage(value: string) {
     this._sources.push(new Custom(value));
   }
@@ -201,12 +202,15 @@ export class AvatarComponent implements OnInit {
   }
 
   _fetchGoogleAvatar(source: Source) {
-    this.http.get(source.getAvatar()).subscribe(response => {
+      this.http.get(source.getAvatar()).subscribe(response => {
       const avatarSrc = response.json().entry.gphoto$thumbnail.$t;
       if(avatarSrc){
          this.src = avatarSrc.replace('s64', 's' + this.size);;
       }
-    });
+    },
+     err =>{
+       console.error("ngx-avatar: error while fetching google avatar "+JSON.stringify(err));
+     });
   }
 
 }
