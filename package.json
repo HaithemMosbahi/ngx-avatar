@@ -1,6 +1,6 @@
 {
   "name": "ngx-avatar",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -63,6 +63,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "is-retina": "^1.0.3",
     "ts-md5": "^1.2.0"
   }
 }

@@ -1,4 +1,5 @@
 import { Source } from "./source";
+import { isRetina } from "is-retina";
 /**
  *  Gravatar source impelementation.
  *  Fetch avatar source based on gravatar email
@@ -14,6 +15,7 @@ export class Gravatar implements Source {
     }
 
     getAvatar(size:number): string {
-        return `https://secure.gravatar.com/avatar/${this.sourceId}?s=${size}&d=404`;
+        const avatarSize = isRetina ? size * 2 : size;
+        return `https://secure.gravatar.com/avatar/${this.sourceId}?s=${avatarSize}&d=404`;
     }
 }
