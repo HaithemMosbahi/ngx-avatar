@@ -1,6 +1,6 @@
 <div>
   <h2>Avatar from different sources</h2>
-<ngx-avatar facebookId="1508319875" size="70"></ngx-avatar>
+<ngx-avatar (clickOnAvatar)="avatarClicked($event)" facebookId="1508319875" size="70"></ngx-avatar>
 <ngx-avatar googleId="103055244388830425867" [round]="false" size="70"></ngx-avatar>
 <ngx-avatar twitterId="StevenWilsonHQ" size="70"></ngx-avatar>
 <!-- use facebook as avatar source, if it fails, it will use twitter -->
@@ -10,6 +10,15 @@
 <ngx-avatar gravatarId="adde9b2b981a8083cf084c63ad86f753" size="70"></ngx-avatar>
 <!-- use gravatar as source, if it fails, it will use a fallback image -->
 <ngx-avatar gravatarId="adde9b2b981a8083cf084c63aQDQSDQSDd86f753" src="assets/img/avatar.jpg" size="70"></ngx-avatar>
+
+<br>
+  <h2>Avatar with fallback</h2>
+
+<!-- Avatar with multiple sources -->
+<ngx-avatar facebookId="invalidFBId" twitterId="invalidTwitterHandle"
+            gravatarId="invalidGravatarId"
+            name="Steven Wilson"
+            (clickOnAvatar)="avatarClicked($event)" size="70"></ngx-avatar>
 
 <br><br>
 

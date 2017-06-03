@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  avatarClicked(event:any){
+    alert("click on avatar fetched from "+event.sourceType);
+  }
+
 }
