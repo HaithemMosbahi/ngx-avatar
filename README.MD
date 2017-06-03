@@ -90,10 +90,18 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 </ngx-avatar>
 
 ```
+Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/demo/src/app/app.component.html) for more examples on how to use ngx-avatar in your application.
 
+## Demo
 The demo folder contains an application generated with angular cli that uses ngx-avatar component.
 
-Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/demo/src/app/app.component.html) for more examples on how to use ngx-avatar in your application.
+To run the demo application :
+```bash
+$ npm install
+$ ng serve
+```
+
+
 
 ## Options
 
@@ -113,7 +121,7 @@ Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/d
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
 | `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
-| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.
+| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.|
  The source object has the following properties:
  * sourceType : avatar source ( Facebook, twitter, etc)
  * sourceId : identifier of the user
