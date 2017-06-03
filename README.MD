@@ -121,7 +121,8 @@ $ ng serve
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
 | `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
-| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.|
+| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.||
+
  The source object has the following properties:
  * sourceType : avatar source ( Facebook, twitter, etc)
  * sourceId : identifier of the user
