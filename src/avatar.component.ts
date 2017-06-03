@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,
+         EventEmitter, Renderer2, ElementRef } from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
 import { Facebook } from "./sources/facebook";
@@ -52,6 +53,7 @@ export class AvatarComponent implements OnInit {
   @Input() fgColor: string = "#FFF";
   @Input() borderColor: string;
   @Input() style: any = {};
+  @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
   _sources: Source[] = Array();
@@ -63,7 +65,11 @@ export class AvatarComponent implements OnInit {
   avatarStyle: any = {}
   hostStyle: any = {};
 
-  constructor(public http: Http) {
+  constructor(public http: Http,public renderer: Renderer2, public elementRef: ElementRef) {
+    // listen to click events on the root element
+    this.renderer.listen(this.elementRef.nativeElement,"click", (event) => {
+       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
+    });
   }
 
   /**
@@ -117,7 +123,7 @@ export class AvatarComponent implements OnInit {
 
   @Input('gravatarId')
   set gravatarId(value: string) {
-    let md5Email = value.match('^[a-f0-9]{32}$')?value:Md5.hashStr(value).toString();
+    let md5Email = value.match('^[a-f0-9]{32}$') ? value : Md5.hashStr(value).toString();
     this._sources.push(new Gravatar(md5Email));
   }
 
@@ -202,15 +208,15 @@ export class AvatarComponent implements OnInit {
   }
 
   _fetchGoogleAvatar(source: Source) {
-      this.http.get(source.getAvatar()).subscribe(response => {
+    this.http.get(source.getAvatar()).subscribe(response => {
       const avatarSrc = response.json().entry.gphoto$thumbnail.$t;
-      if(avatarSrc){
-         this.src = avatarSrc.replace('s64', 's' + this.size);;
+      if (avatarSrc) {
+        this.src = avatarSrc.replace('s64', 's' + this.size);;
       }
     },
-     err =>{
-       console.error("ngx-avatar: error while fetching google avatar ");
-     });
+      err => {
+        console.error("ngx-avatar: error while fetching google avatar ");
+      });
   }
 
 }
