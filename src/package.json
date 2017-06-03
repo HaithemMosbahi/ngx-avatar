@@ -1,6 +1,6 @@
 {
   "name": "ngx-avatar",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/HaithemMosbahi/ngx-avatar"
@@ -23,13 +23,11 @@
   "typings": "ngx-avatar.d.ts",
   "dependencies": {
     "ts-md5": "^1.2.0",
-     "is-retina": "^1.0.3"
+    "is-retina": "^1.0.3"
   },
   "peerDependencies": {
     "@angular/core": "^4.0.0",
     "@angular/http": "^4.0.0",
-    "ts-md5": "^1.2.0",
-    "is-retina": "^1.0.3",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   }

@@ -1,4 +1,4 @@
-# # &lt;ngx-avatar&gt;
+## &lt;ngx-avatar&gt;
 [![npm version](https://badge.fury.io/js/ngx-avatar.svg)](https://badge.fury.io/js/ngx-avatar) [![Build Status](https://travis-ci.org/HaithemMosbahi/ngx-avatar.svg?branch=master)](https://travis-ci.org/HaithemMosbahi/ngx-avatar)
 
 A universal avatar component for Angular 2+ applications that fetches / generates avatar based on the informations you have about the user. The component has a fallback system that if for example an invalid Facebook ID is used it will try google ID and so on.
@@ -91,6 +91,10 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 
 ```
 
+The demo folder contains an application generated with angular cli that uses ngx-avatar component.
+
+Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/demo/src/app/app.component.html) for more examples on how to use ngx-avatar in your application.
+
 ## Options
 
 |   Attribute   |      Type      | Default |                                              Description                                               |
@@ -109,8 +113,13 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
 | `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
-
+| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.
+ The source object has the following properties:
+ * sourceType : avatar source ( Facebook, twitter, etc)
+ * sourceId : identifier of the user
+ * getAvatar(size?) : method to fetch user avatar from the current source
 ## Release Notes
+* 1.1 : Listen to click events on avatar and support retina display.
 * 1.0 : Avatar component that fetches / generates user avatar from different sources.
 
 ## Development
