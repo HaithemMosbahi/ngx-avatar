@@ -1,5 +1,5 @@
 import { Source } from "./source";
-import * as isRetina from "is-retina";
+import isRetina from "is-retina";
 /**
  *  Gravatar source impelementation.
  *  Fetch avatar source based on gravatar email
