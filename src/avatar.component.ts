@@ -53,6 +53,7 @@ export class AvatarComponent implements OnInit {
   @Input() fgColor: string = "#FFF";
   @Input() borderColor: string;
   @Input() style: any = {};
+  @Input() cornerRadius: number = 0;
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
@@ -181,7 +182,8 @@ export class AvatarComponent implements OnInit {
   _initialsStyle() {
     return {
       textAlign: 'center',
-      borderRadius: this.round ? '100%' : '0%',
+      borderRadius: this.round ? '100%' : this.cornerRadius+'px',
+      border: this.borderColor ? '1px solid '+this.borderColor : '',
       textTransform: 'uppercase',
       color: this.fgColor,
       backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(),
@@ -201,7 +203,8 @@ export class AvatarComponent implements OnInit {
   _imageStyle() {
     return {
       maxWidth: '100%',
-      borderRadius: this.round ? '50%' : '0%',
+      borderRadius: this.round ? '50%' : this.cornerRadius+'px',
+      border: this.borderColor ? '1px solid '+this.borderColor : '',
       width: this.size,
       height: this.size,
     }
