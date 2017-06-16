@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, Output,
-         EventEmitter, Renderer2, ElementRef } from '@angular/core';
+import {
+  Component, Input, OnInit, Output,
+  EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange
+} from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
 import { Facebook } from "./sources/facebook";
@@ -44,7 +46,7 @@ import { Md5 } from "ts-md5/dist/md5";
      [ngStyle]="avatarStyle">{{data}}</div>
    </div>`
 })
-export class AvatarComponent implements OnInit {
+export class AvatarComponent implements OnInit, OnChanges {
 
   @Input() round: boolean = true;
   @Input() size: number = 50;
@@ -66,10 +68,10 @@ export class AvatarComponent implements OnInit {
   avatarStyle: any = {}
   hostStyle: any = {};
 
-  constructor(public http: Http,public renderer: Renderer2, public elementRef: ElementRef) {
+  constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef) {
     // listen to click events on the root element
-    this.renderer.listen(this.elementRef.nativeElement,"click", (event) => {
-       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
+    this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
+      this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
     });
   }
 
@@ -95,6 +97,12 @@ export class AvatarComponent implements OnInit {
       this.fetch();
     } else {
       console.error("ng-avatar : No avatar source has been provided");
+    }
+  }
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    for (let propName in changes) {
+      console.log(`propName ${propName} has been changed`);
     }
   }
 
@@ -182,8 +190,8 @@ export class AvatarComponent implements OnInit {
   _initialsStyle() {
     return {
       textAlign: 'center',
-      borderRadius: this.round ? '100%' : this.cornerRadius+'px',
-      border: this.borderColor ? '1px solid '+this.borderColor : '',
+      borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
+      border: this.borderColor ? '1px solid ' + this.borderColor : '',
       textTransform: 'uppercase',
       color: this.fgColor,
       backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(),
@@ -203,8 +211,8 @@ export class AvatarComponent implements OnInit {
   _imageStyle() {
     return {
       maxWidth: '100%',
-      borderRadius: this.round ? '50%' : this.cornerRadius+'px',
-      border: this.borderColor ? '1px solid '+this.borderColor : '',
+      borderRadius: this.round ? '50%' : this.cornerRadius + 'px',
+      border: this.borderColor ? '1px solid ' + this.borderColor : '',
       width: this.size,
       height: this.size,
     }
