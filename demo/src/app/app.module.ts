@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AvatarModule } from "ngx-avatar";
+import { UserService } from "./user.service";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { AvatarModule } from "ngx-avatar";
     // import AvatarModule in your app
     AvatarModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
