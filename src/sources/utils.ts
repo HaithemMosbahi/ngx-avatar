@@ -46,3 +46,14 @@ export function getRandomColor(colors = defaultColors): string {
 export function getSourcePriority(source: string, avatarSources = sources){
     return sources.indexOf(source.toUpperCase());
 }
+
+/**
+ * Check if the given source is a valid avatar source or not.
+ * 
+ * @export
+ * @param {string} source 
+ * @returns {boolean} 
+ */
+export function isSource(source:string):boolean{
+    return sources.includes(source.toUpperCase());
+}

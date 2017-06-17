@@ -13,7 +13,6 @@ import { Gravatar } from "./sources/gravatar";
 import { Skype } from "./sources/skype";
 import { Value } from "./sources/value";
 import * as utils from "./sources/utils";
-import { Md5 } from "ts-md5/dist/md5";
 
 
 /**
@@ -82,6 +81,29 @@ export class AvatarComponent implements OnInit, OnChanges {
    */
   ngOnInit() {
 
+    //this._initializeAvatar();
+
+  }
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    for (let propName in changes) {
+      if (utils.isSource(propName)) {
+        let currentValue = changes[propName].currentValue;
+        this._addSource(propName,currentValue);
+      }
+
+    }
+    // reintialize the avatar component when a source property value has changed
+    // the fallback system must be re-invoked with the new values.
+    this._initializeAvatar()
+
+  }
+
+  /**
+   * Initialize the avatar component and its fallback system
+   */
+  _initializeAvatar() {
+    this._currentSource = 0;
     if (this._sources.length > 0 && this._sources[this._currentSource]) {
       // Order sources array by source priority
       this._sources.sort((leftSide, rightSide) => {
@@ -95,61 +117,40 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
       // Fetch avatar source
       this.fetch();
-    } else {
-      console.error("ng-avatar : No avatar source has been provided");
-    }
-  }
-
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    for (let propName in changes) {
-      console.log(`propName ${propName} has been changed`);
     }
   }
 
 
   @Input('facebookId')
-  set facebookId(value: string) {
-    this._sources.push(new Facebook(value));
-
+  set facebook(value: string) {
   }
 
   @Input('twitterId')
-  set twitterId(value: string) {
-    this._sources.push(new Twitter(value));
-
+  set twitter(value: string) {
   }
 
   @Input('googleId')
-  set googleId(value: string) {
-    this._sources.push(new Google(value));
+  set google(value: string) {
   }
 
   @Input('skypeId')
-  set skypeId(value: string) {
-    this._sources.push(new Skype(value));
-
+  set skype(value: string) {
   }
 
   @Input('gravatarId')
-  set gravatarId(value: string) {
-    let md5Email = value.match('^[a-f0-9]{32}$') ? value : Md5.hashStr(value).toString();
-    this._sources.push(new Gravatar(md5Email));
+  set gravatar(value: string) {
   }
 
   @Input('src')
-  set customImage(value: string) {
-    this._sources.push(new Custom(value));
+  set custom(value: string) {
   }
 
   @Input('name')
-  set name(value: string) {
-    this._sources.push(new Initials(value));
+  set initials(value: string) {
   }
 
   @Input('value')
   set value(value: string) {
-    this._sources.push(new Value(value));
-
   }
 
 
@@ -228,6 +229,69 @@ export class AvatarComponent implements OnInit, OnChanges {
       err => {
         console.error("ngx-avatar: error while fetching google avatar ");
       });
+  }
+
+  /**
+   * Add avatar source
+   * 
+   * @param sourceType avatar source type e.g facebook,twitter, etc.
+   * @param sourceValue  source value e.g facebookId value, etc.
+   */
+  _addSource(sourceType:string,sourceValue: string) {
+    if (sourceValue) {
+      if(!this._updateExistingSource(sourceType,sourceValue)){
+        switch (sourceType) {
+        case "facebook":
+          this._sources.push(new Facebook(sourceValue));
+          break;
+        case "twitter":
+          this._sources.push(new Twitter(sourceValue));
+          break;
+        case "skype":
+          this._sources.push(new Skype(sourceValue));
+          break;
+        case "gravatar":
+          this._sources.push(new Gravatar(sourceValue));
+          break;
+        case "google":
+          this._sources.push(new Google(sourceValue));
+          break;
+        case "custom":
+          this._sources.push(new Custom(sourceValue));
+          break;
+        case "value":
+          this._sources.push(new Value(sourceValue));
+          break;
+        default:
+          // initials
+          this._sources.push(new Initials(sourceValue));
+          break;
+      }
+      }
+    }
+
+
+
+  }
+  /**
+   * This method check wether an avatar source has been added. If so
+   * the source value will be updated with the new value passed as
+   * paramater.
+   * It returns true if the source exists and update can be performed,
+   * returns false if not found
+   * 
+   * @param {string} sourceType the type of the source
+   * @param {string} sourceValue the new value of the source 
+   * 
+   * @memberof AvatarComponent
+   */
+  _updateExistingSource(sourceType:string,sourceValue:string){
+    let sourceIndex = this._sources.findIndex((source) => source.sourceType === sourceType.toUpperCase());
+    if(sourceIndex > -1){
+      this._sources[sourceIndex].sourceId = sourceValue;
+      return true;
+    }
+    return false;
   }
 
 }

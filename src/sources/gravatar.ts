@@ -1,5 +1,7 @@
 import { Source } from "./source";
 import isRetina from "is-retina";
+import { Md5 } from "ts-md5/dist/md5";
+
 /**
  *  Gravatar source impelementation.
  *  Fetch avatar source based on gravatar email
@@ -10,8 +12,10 @@ import isRetina from "is-retina";
  */
 export class Gravatar implements Source {
     readonly sourceType: string = "GRAVATAR";
+    public sourceId:string;
 
-    constructor(public sourceId: string) {
+    constructor(public value: string) {
+       this.sourceId= value.match('^[a-f0-9]{32}$') ? value : Md5.hashStr(value).toString();
     }
 
     getAvatar(size:number): string {
