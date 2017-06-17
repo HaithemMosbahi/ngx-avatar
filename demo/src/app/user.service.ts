@@ -19,6 +19,11 @@ export class UserService {
                         .map(response => response.json() as User);
     }
 
+    getUserFacebook():Observable<string>{
+       return this.http.get("assets/data/data.json")
+                        .map(response => response.json().facebookId);
+    }
+
 
     
 }

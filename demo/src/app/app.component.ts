@@ -10,6 +10,7 @@ import {User} from './user.model'
 export class AppComponent implements OnInit{
 
   userName:string = "Haithem Mosbahi";
+  userFB:string = "wrongId";
 
 
   constructor(public userService:UserService){
@@ -19,7 +20,13 @@ export class AppComponent implements OnInit{
   ngOnInit(){
      this.userService.fetchInformations().subscribe(user => {
          this.userName = user.username;
+          this.userService.getUserFacebook().subscribe(data => {
+            this.userFB = data;
+         });
+    
+        
      });
+    
   }
 
   avatarClicked(event:any){
