@@ -2,15 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AvatarModule } from "ngx-avatar";
 import { UserService } from "./user.service";
+import { AvatarModule } from "ngx-avatar";
+import { HttpModule } from "@angular/http";
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent  ],
   imports: [
     BrowserModule,
+    HttpModule,
     // import AvatarModule in your app
     AvatarModule
   ],

@@ -9,7 +9,7 @@ import {User} from './user.model'
 })
 export class AppComponent implements OnInit{
 
-  userName:string;
+  userName:string = "Haithem Mosbahi";
 
 
   constructor(public userService:UserService){
@@ -18,7 +18,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
      this.userService.fetchInformations().subscribe(user => {
-       console.log("fetch informations is called = "+user.facebookId);
          this.userName = user.username;
      });
   }

@@ -1,3 +1,4 @@
+
 <div>
   <h2>Avatar from different sources</h2>
 <ngx-avatar (clickOnAvatar)="avatarClicked($event)" facebookId="1508319875" size="70"></ngx-avatar>
@@ -33,4 +34,11 @@
 <ngx-avatar size="40" cornerRadius="4"  [round]="false" name="Opeth Junior A"></ngx-avatar>
 <ngx-avatar size="40" value="1"></ngx-avatar>
 <ngx-avatar size="40" borderColor="#000" [round]="false" value="10"></ngx-avatar>
+
+<h2>Asynchrounous Avatars</h2>
+
+<ngx-avatar bgColor="red" fgColor="black" size="50" [name]="userName" ></ngx-avatar>
+
 </div>
+
+
