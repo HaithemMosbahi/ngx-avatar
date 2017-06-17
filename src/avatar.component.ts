@@ -4,14 +4,7 @@ import {
 } from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
-import { Facebook } from "./sources/facebook";
-import { Twitter } from "./sources/twitter";
-import { Google } from "./sources/google";
-import { Custom } from "./sources/custom";
-import { Initials } from "./sources/initials";
-import { Gravatar } from "./sources/gravatar";
-import { Skype } from "./sources/skype";
-import { Value } from "./sources/value";
+import {SourceFactory} from './sources/source.factory'
 import * as utils from "./sources/utils";
 
 
@@ -43,9 +36,10 @@ import * as utils from "./sources/utils";
 
    <div *ngIf="!src && data"
      [ngStyle]="avatarStyle">{{data}}</div>
-   </div>`
+   </div>`,
+   providers:[SourceFactory]
 })
-export class AvatarComponent implements OnInit, OnChanges {
+export class AvatarComponent implements OnChanges {
 
   @Input() round: boolean = true;
   @Input() size: number = 50;
@@ -67,7 +61,8 @@ export class AvatarComponent implements OnInit, OnChanges {
   avatarStyle: any = {}
   hostStyle: any = {};
 
-  constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef) {
+  constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef,
+             public sourceFactory:SourceFactory) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
@@ -75,16 +70,12 @@ export class AvatarComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Init Avatar component
+   * Detect inputs change
    * 
-   * @memberOf AvatarComponent
+   * @param {{ [propKey: string]: SimpleChange }} changes 
+   * 
+   * @memberof AvatarComponent
    */
-  ngOnInit() {
-
-    //this._initializeAvatar();
-
-  }
-
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
       if (utils.isSource(propName)) {
@@ -240,45 +231,17 @@ export class AvatarComponent implements OnInit, OnChanges {
   _addSource(sourceType:string,sourceValue: string) {
     if (sourceValue) {
       if(!this._updateExistingSource(sourceType,sourceValue)){
-        switch (sourceType) {
-        case "facebook":
-          this._sources.push(new Facebook(sourceValue));
-          break;
-        case "twitter":
-          this._sources.push(new Twitter(sourceValue));
-          break;
-        case "skype":
-          this._sources.push(new Skype(sourceValue));
-          break;
-        case "gravatar":
-          this._sources.push(new Gravatar(sourceValue));
-          break;
-        case "google":
-          this._sources.push(new Google(sourceValue));
-          break;
-        case "custom":
-          this._sources.push(new Custom(sourceValue));
-          break;
-        case "value":
-          this._sources.push(new Value(sourceValue));
-          break;
-        default:
-          // initials
-          this._sources.push(new Initials(sourceValue));
-          break;
-      }
+        this._sources.push(this.sourceFactory.newInstance(sourceType,sourceValue));
       }
     }
-
-
 
   }
   /**
    * This method check wether an avatar source has been added. If so
    * the source value will be updated with the new value passed as
    * paramater.
-   * It returns true if the source exists and update can be performed,
-   * returns false if not found
+   * It returns true if the source exists and update has been performed,
+   * returns false if the source was not found
    * 
    * @param {string} sourceType the type of the source
    * @param {string} sourceValue the new value of the source 
