@@ -1,5 +1,5 @@
 import {
-  Component, Input, OnInit, Output,
+  Component, Input, Output,
   EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange
 } from '@angular/core';
 import { Http } from "@angular/http";
@@ -49,6 +49,14 @@ export class AvatarComponent implements OnChanges {
   @Input() borderColor: string;
   @Input() style: any = {};
   @Input() cornerRadius: number = 0;
+  @Input('facebookId') facebook:string;
+  @Input('twitterId') twitter:string;
+  @Input('googleId') google:string;
+  @Input('skypeId') skype:string
+  @Input('gravatarId') gravatar:string;
+  @Input('src') custom:string;
+  @Input('name') initials:string;
+  @Input('value') value:string;
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
@@ -110,40 +118,6 @@ export class AvatarComponent implements OnChanges {
       this.fetch();
     }
   }
-
-
-  @Input('facebookId')
-  set facebook(value: string) {
-  }
-
-  @Input('twitterId')
-  set twitter(value: string) {
-  }
-
-  @Input('googleId')
-  set google(value: string) {
-  }
-
-  @Input('skypeId')
-  set skype(value: string) {
-  }
-
-  @Input('gravatarId')
-  set gravatar(value: string) {
-  }
-
-  @Input('src')
-  set custom(value: string) {
-  }
-
-  @Input('name')
-  set initials(value: string) {
-  }
-
-  @Input('value')
-  set value(value: string) {
-  }
-
 
   /**
    * Fetch avatar source
