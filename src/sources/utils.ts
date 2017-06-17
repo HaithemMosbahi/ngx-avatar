@@ -55,5 +55,5 @@ export function getSourcePriority(source: string, avatarSources = sources){
  * @returns {boolean} 
  */
 export function isSource(source:string):boolean{
-    return sources.includes(source.toUpperCase());
+  return sources.findIndex((item) => item === source.toUpperCase()) > -1;
 }
