@@ -127,12 +127,12 @@ export class AvatarComponent implements OnChanges {
    * @memberOf AvatarComponent
    */
   fetch(event?: any) {
-    if (this._sources[this._currentSource].sourceType == "INITIALS" ||
-      this._sources[this._currentSource].sourceType == "VALUE") {
-      this.data = this._sources[this._currentSource].getAvatar();
+    let avatarSource = this._sources[this._currentSource];
+    if (avatarSource.sourceType == "INITIALS" ||
+        avatarSource.sourceType == "VALUE") {
+      this.data = avatarSource.getAvatar();
       this.src = undefined;
-      this.avatarStyle = this._initialsStyle();
-
+      this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {
       this.avatarStyle = this._imageStyle();
       if (this._sources[this._currentSource].sourceType == "GOOGLE") {
@@ -153,14 +153,14 @@ export class AvatarComponent implements OnChanges {
    * 
    * @memberOf AvatarComponent
    */
-  _initialsStyle() {
+  _initialsStyle(avatarValue:string) {
     return {
       textAlign: 'center',
       borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
       border: this.borderColor ? '1px solid ' + this.borderColor : '',
       textTransform: 'uppercase',
       color: this.fgColor,
-      backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(),
+      backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue),
       font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
       lineHeight: this.size + 'px',
       ...this.hostStyle

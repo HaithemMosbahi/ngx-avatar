@@ -28,13 +28,19 @@ export const defaultColors = [
 
 
 /**
- * Get a random color 
+ * Get a random color. 
+ * The color is based on the ascii code of the given value.
+ * This will guarantee that avatars with the same value
+ * will have the same background color
  * 
  * @export
  * @returns {string} 
  */
-export function getRandomColor(colors = defaultColors): string {
-    return colors[Math.floor(Math.random() * colors.length)];
+export function getRandomColor(value:string): string {
+    if(!value)
+      return 'transparent';
+    const asciiCodeSum = _calculateAsciiCode(value);
+    return defaultColors[asciiCodeSum % defaultColors.length];
 }
 
 /**
@@ -56,4 +62,13 @@ export function getSourcePriority(source: string, avatarSources = sources){
  */
 export function isSource(source:string):boolean{
   return sources.findIndex((item) => item === source.toUpperCase()) > -1;
+}
+
+/**
+ * return the sum of ascii code of the given string
+ * @param value 
+ */
+function _calculateAsciiCode(value:string){
+    return value.split('').map(letter => letter.charCodeAt(0))
+                          .reduce((previous,current) => previous + current);
 }
