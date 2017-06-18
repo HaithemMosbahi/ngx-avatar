@@ -3,38 +3,39 @@
 module.exports = function(config) {
   config.set({
 
+    // ...
+    frameworks: ['jasmine', 'karma-typescript'],
+    // ...
+    preprocessors: {
+        '**/*.ts': ['karma-typescript']
+    },
+    karmaTypescriptConfig: {
+      bundlerOptions: {
+        entrypoints: /\.spec\.ts$/,
+        transforms: [
+          require('karma-typescript-angular2-transform')
+        ]
+      },
+      compilerOptions: {
+        lib: ['ES2015', 'DOM']
+      }
+    },
+    reporters: ['progress', 'karma-typescript'],
+
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
       'init-test-bed.spec.ts',
-      'src/**/*.spec.ts'
+      'src/**/*.ts'
     ],
 
 
     // list of files to exclude
     exclude: [
     ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
-
-
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
 
     // web server port
     port: 9876,

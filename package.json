@@ -8,6 +8,7 @@
     "docs:build": "compodoc -p tsconfig.json -n ngx-avatar -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
+    "test": "karma start karma.conf.js",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts"
   },
   "repository": {

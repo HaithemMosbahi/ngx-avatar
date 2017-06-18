@@ -10,6 +10,9 @@
     ],
     "target": "es5",
     "skipLibCheck": true,
-    "types": []
+    "types": [
+      "jasmine",
+      "node"
+    ]
   }
 }
