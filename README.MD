@@ -130,6 +130,7 @@ $ ng serve
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
 ## Release Notes
+* 1.4 : background color is now generated based on the sum of ASCII values of avatar's text.
 * 1.3 : Bug Fixes ( support dynamic avatar data )
 * 1.2 : Add border related properties.
 * 1.1 : Listen to click events on avatar and support retina display.
