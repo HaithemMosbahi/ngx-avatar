@@ -1,5 +1,4 @@
 // Karma configuration
-// Generated on Sun May 07 2017 14:05:21 GMT+0100 (CET)
 
 module.exports = function(config) {
   config.set({
@@ -15,7 +14,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*spec.ts'
+      'init-test-bed.spec.ts',
+      'src/**/*.spec.ts'
     ],
 
 
@@ -60,7 +60,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
