@@ -7,6 +7,8 @@ import { Initials } from "./initials";
 import { Gravatar } from "./gravatar";
 import { Skype } from "./skype";
 import { Value } from "./value";
+import { Vkontakte } from "./vkontakte";
+
 import { Injectable } from "@angular/core";
 import { SourceCreator } from "./source.creator";
 
@@ -32,6 +34,8 @@ export class SourceFactory {
         this._sources['custom'] = Custom;
         this._sources['initials'] = Initials;
         this._sources['value'] = Value;
+        this._sources['vkontakte'] = Vkontakte;
+
     }
 
     public newInstance(sourceType: string, sourceValue: string): Source {

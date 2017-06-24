@@ -10,7 +10,7 @@ import { Source } from "./source";
  * @implements {Source}
  */
 const apiVersion = 5.8;
-export class vkontakte implements Source {
+export class Vkontakte implements Source {
     readonly sourceType: string = "VKONTAKTE";
 
     constructor(public sourceId: string) {
