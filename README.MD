@@ -15,6 +15,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Facebook
  * Google
  * Twitter
+ * Vkontakte (VK)
  * Skype
  * Gravatar
  * Custom image
@@ -110,6 +111,7 @@ $ ng serve
 | `facebookId` | *string* |         | Facebook ID                                                                                                       |
 | `googleId` | *string* |         |  Google ID                                                                                                     |
 | `twitterId`   | *string*             |         | Twitter Handle                                                                                                       |
+| `vkontakteId`   | *string*             |         | VK ID|
 | `skypeId`    | *string*          |       |  Skype ID                                                                                                      |
 | `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                      |
 | `src`         | *string*          |         | Fallback image to use                                                                                  |
@@ -130,6 +132,7 @@ $ ng serve
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
 ## Release Notes
+* 2.0 : add support to vkontakte source
 * 1.4 : background color is now generated based on the sum of ASCII values of avatar's text.
 * 1.3 : Bug Fixes ( support dynamic avatar data )
 * 1.2 : Add border related properties.
