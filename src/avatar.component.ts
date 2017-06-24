@@ -129,13 +129,13 @@ export class AvatarComponent implements OnChanges {
    */
   fetch(event?: any) {
     let avatarSource = this._sources[this._currentSource];
-    if (utils._isTextAvatar(avatarSource.sourceType)) {
+    if (utils.isTextAvatar(avatarSource.sourceType)) {
       this.data = avatarSource.getAvatar();
       this.src = undefined;
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {
       this.avatarStyle = this._imageStyle();
-      if (utils._isAsyncAvatar(avatarSource.sourceType)) {
+      if (utils.isAsyncAvatar(avatarSource.sourceType)) {
         this._fetchAsyncAvatar(avatarSource);
       } else {
         this.src = avatarSource.getAvatar(this.size);
@@ -183,35 +183,23 @@ export class AvatarComponent implements OnChanges {
       height: this.size,
     }
   }
-
+  /**
+   * Fetch avatar image asynchrounsly.
+   * 
+   * @param {Source} source represents avatar source
+   * @memberof AvatarComponent
+   */
   _fetchAsyncAvatar(source: Source) {
     this.http.get(source.getAvatar()).subscribe(response => {
-      if (source.sourceType == "GOOGLE") {
-        this.src = this._extractGoogleAvatar(response.json());
-      }
-      if (source.sourceType == "VKONTAKTE") {
-        this.src = this._extractVkontakteAvatar(response.json());
-      }
+      // extract avatar image from the response data
+      let data = response.json();
+      this.src = utils.extractAsyncAvatarData(source.sourceType,data,this.size);
     },
       err => {
         console.error(`ngx-avatar: error while fetching ${source.sourceType} avatar `);
       });
   }
-
-  _extractGoogleAvatar(data: any) {
-    const avatarSrc = data.entry.gphoto$thumbnail.$t;
-    if (avatarSrc) {
-      return avatarSrc.replace('s64', 's' + this.size);;
-    }
-  }
-
-  _extractVkontakteAvatar(data: any) {
-    // avatar key property is the size used to generate avatar url
-    // size property is always the last key in the response object
-    const sizeProperty = Object.keys(data["response"][0]).pop();
-    // return avatar src
-    return data["response"][0][sizeProperty];
-  }
+  
 
 
   /**

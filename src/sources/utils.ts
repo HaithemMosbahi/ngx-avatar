@@ -80,7 +80,7 @@ function _calculateAsciiCode(value:string){
  * Async avatar sources require an http call in order to fetch avatar image
  * @param sourceType 
  */
-export function _isAsyncAvatar(sourceType:string):boolean{
+export function isAsyncAvatar(sourceType:string):boolean{
     return ["GOOGLE","VKONTAKTE"].indexOf(sourceType) > -1;
 }
 
@@ -91,7 +91,56 @@ export function _isAsyncAvatar(sourceType:string):boolean{
  * @param {string} sourceType 
  * @returns {boolean} 
  */
-export function _isTextAvatar(sourceType:string):boolean{
+export function isTextAvatar(sourceType:string):boolean{
     return ["INITIALS","VALUE"].indexOf(sourceType) > -1;
 
 }
+
+/**
+ * Extract avatar image from the given data object.
+ * The extraction path is based on the sourceType.
+ * 
+ * @export
+ * @param {string} sourceType 
+ * @param {*} data 
+ */
+export function extractAsyncAvatarData(sourceType:string,data:any,size:number){
+    switch (sourceType) {
+        case "GOOGLE":
+            return _extractGoogleAvatar(data,size);
+        case "VKONTAKTE":
+            return _extractVkontakteAvatar(data);
+        default:
+            // source not defined
+            return undefined;
+    }
+}
+
+  /**
+   * Extract google avatar from json data
+   * 
+   * @param {*} data 
+   * @returns 
+   * @memberof AvatarComponent
+   */
+  function _extractGoogleAvatar(data: any,size:number) {
+    const avatarSrc = data.entry.gphoto$thumbnail.$t;
+    if (avatarSrc) {
+      return avatarSrc.replace('s64', 's' +size);;
+    }
+  }
+
+  /**
+   * extract vkontakte avatar from json data
+   * 
+   * @param {*} data 
+   * @returns 
+   * @memberof AvatarComponent
+   */
+  function _extractVkontakteAvatar(data: any) {
+    // avatar key property is the size used to generate avatar url
+    // size property is always the last key in the response object
+    const sizeProperty = Object.keys(data["response"][0]).pop();
+    // return avatar src
+    return data["response"][0][sizeProperty];
+  }
