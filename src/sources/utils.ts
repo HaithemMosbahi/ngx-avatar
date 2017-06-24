@@ -6,6 +6,7 @@ export const sources = [
   "FACEBOOK",
   "GOOGLE",
   "TWITTER",
+  "VKONTAKTE",
   "SKYPE",
   "GRAVATAR",
   "CUSTOM",
@@ -64,6 +65,7 @@ export function isSource(source:string):boolean{
   return sources.findIndex((item) => item === source.toUpperCase()) > -1;
 }
 
+
 /**
  * return the sum of ascii code of the given string
  * @param value 
@@ -71,4 +73,25 @@ export function isSource(source:string):boolean{
 function _calculateAsciiCode(value:string){
     return value.split('').map(letter => letter.charCodeAt(0))
                           .reduce((previous,current) => previous + current);
+}
+
+/**
+ * check wether the avatar type is asyn or not
+ * Async avatar sources require an http call in order to fetch avatar image
+ * @param sourceType 
+ */
+export function _isAsyncAvatar(sourceType:string):boolean{
+    return ["GOOGLE","VKONTAKTE"].indexOf(sourceType) > -1;
+}
+
+/**
+ * Check wether the type of avatar is text or not.
+ * 
+ * @export
+ * @param {string} sourceType 
+ * @returns {boolean} 
+ */
+export function _isTextAvatar(sourceType:string):boolean{
+    return ["INITIALS","VALUE"].indexOf(sourceType) > -1;
+
 }
