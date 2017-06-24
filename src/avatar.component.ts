@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
-import {SourceFactory} from './sources/source.factory'
+import { SourceFactory } from './sources/source.factory'
 import * as utils from "./sources/utils";
 
 
@@ -37,7 +37,7 @@ import * as utils from "./sources/utils";
    <div *ngIf="!src && data"
      [ngStyle]="avatarStyle">{{data}}</div>
    </div>`,
-   providers:[SourceFactory]
+  providers: [SourceFactory]
 })
 export class AvatarComponent implements OnChanges {
 
@@ -49,14 +49,15 @@ export class AvatarComponent implements OnChanges {
   @Input() borderColor: string;
   @Input() style: any = {};
   @Input() cornerRadius: number = 0;
-  @Input('facebookId') facebook:string;
-  @Input('twitterId') twitter:string;
-  @Input('googleId') google:string;
-  @Input('skypeId') skype:string
-  @Input('gravatarId') gravatar:string;
-  @Input('src') custom:string;
-  @Input('name') initials:string;
-  @Input('value') value:string;
+  @Input('facebookId') facebook: string;
+  @Input('twitterId') twitter: string;
+  @Input('googleId') google: string;
+  @Input('vkontakteId') vkontakte: string;
+  @Input('skypeId') skype: string
+  @Input('gravatarId') gravatar: string;
+  @Input('src') custom: string;
+  @Input('name') initials: string;
+  @Input('value') value: string;
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
@@ -70,7 +71,7 @@ export class AvatarComponent implements OnChanges {
   hostStyle: any = {};
 
   constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef,
-             public sourceFactory:SourceFactory) {
+    public sourceFactory: SourceFactory) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
@@ -88,7 +89,7 @@ export class AvatarComponent implements OnChanges {
     for (let propName in changes) {
       if (utils.isSource(propName)) {
         let currentValue = changes[propName].currentValue;
-        this._addSource(propName,currentValue);
+        this._addSource(propName, currentValue);
       }
 
     }
@@ -128,17 +129,16 @@ export class AvatarComponent implements OnChanges {
    */
   fetch(event?: any) {
     let avatarSource = this._sources[this._currentSource];
-    if (avatarSource.sourceType == "INITIALS" ||
-        avatarSource.sourceType == "VALUE") {
+    if (utils._isTextAvatar(avatarSource.sourceType)) {
       this.data = avatarSource.getAvatar();
       this.src = undefined;
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {
       this.avatarStyle = this._imageStyle();
-      if (this._sources[this._currentSource].sourceType == "GOOGLE") {
-        this._fetchGoogleAvatar(this._sources[this._currentSource]);
+      if (utils._isAsyncAvatar(avatarSource.sourceType)) {
+        this._fetchAsyncAvatar(avatarSource);
       } else {
-        this.src = this._sources[this._currentSource].getAvatar(this.size);
+        this.src = avatarSource.getAvatar(this.size);
       }
 
     }
@@ -153,7 +153,7 @@ export class AvatarComponent implements OnChanges {
    * 
    * @memberOf AvatarComponent
    */
-  _initialsStyle(avatarValue:string) {
+  _initialsStyle(avatarValue: string) {
     return {
       textAlign: 'center',
       borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
@@ -184,17 +184,35 @@ export class AvatarComponent implements OnChanges {
     }
   }
 
-  _fetchGoogleAvatar(source: Source) {
+  _fetchAsyncAvatar(source: Source) {
     this.http.get(source.getAvatar()).subscribe(response => {
-      const avatarSrc = response.json().entry.gphoto$thumbnail.$t;
-      if (avatarSrc) {
-        this.src = avatarSrc.replace('s64', 's' + this.size);;
+      if (source.sourceType == "GOOGLE") {
+        this.src = this._extractGoogleAvatar(response.json());
+      }
+      if (source.sourceType == "VKONTAKTE") {
+        this.src = this._extractVkontakteAvatar(response.json());
       }
     },
       err => {
-        console.error("ngx-avatar: error while fetching google avatar ");
+        console.error(`ngx-avatar: error while fetching ${source.sourceType} avatar `);
       });
   }
+
+  _extractGoogleAvatar(data: any) {
+    const avatarSrc = data.entry.gphoto$thumbnail.$t;
+    if (avatarSrc) {
+      return avatarSrc.replace('s64', 's' + this.size);;
+    }
+  }
+
+  _extractVkontakteAvatar(data: any) {
+    // avatar key property is the size used to generate avatar url
+    // size property is always the last key in the response object
+    const sizeProperty = Object.keys(data["response"][0]).pop();
+    // return avatar src
+    return data["response"][0][sizeProperty];
+  }
+
 
   /**
    * Add avatar source
@@ -202,10 +220,10 @@ export class AvatarComponent implements OnChanges {
    * @param sourceType avatar source type e.g facebook,twitter, etc.
    * @param sourceValue  source value e.g facebookId value, etc.
    */
-  _addSource(sourceType:string,sourceValue: string) {
+  _addSource(sourceType: string, sourceValue: string) {
     if (sourceValue) {
-      if(!this._updateExistingSource(sourceType,sourceValue)){
-        this._sources.push(this.sourceFactory.newInstance(sourceType,sourceValue));
+      if (!this._updateExistingSource(sourceType, sourceValue)) {
+        this._sources.push(this.sourceFactory.newInstance(sourceType, sourceValue));
       }
     }
 
@@ -222,9 +240,9 @@ export class AvatarComponent implements OnChanges {
    * 
    * @memberof AvatarComponent
    */
-  _updateExistingSource(sourceType:string,sourceValue:string){
+  _updateExistingSource(sourceType: string, sourceValue: string) {
     let sourceIndex = this._sources.findIndex((source) => source.sourceType === sourceType.toUpperCase());
-    if(sourceIndex > -1){
+    if (sourceIndex > -1) {
       this._sources[sourceIndex].sourceId = sourceValue;
       return true;
     }
