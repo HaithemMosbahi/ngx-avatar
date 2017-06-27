@@ -153,6 +153,17 @@ To lint all `*.ts` files:
 $ npm run lint
 ```
 
+
+## Contributing
+
+Contributions and all possible collaboration are welcome.
+
+* Fork it.
+* Create your feature branch.
+* Commit your changes.
+* submit a pull request.
+
+
 ## License
 
 MIT © [Haithem Mosbahi](mailto:elmosbahihaithem@gmail.com)
