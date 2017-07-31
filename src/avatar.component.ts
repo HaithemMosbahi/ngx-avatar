@@ -33,8 +33,8 @@ import * as utils from "./sources/utils";
       [ngStyle]="avatarStyle"
       (error)="fetch($event)"
      />
-
-   <div *ngIf="!src && data"
+   
+   <div *ngIf="data && !src"
      [ngStyle]="avatarStyle">{{data}}</div>
    </div>`,
   providers: [SourceFactory]
