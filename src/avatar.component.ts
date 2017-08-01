@@ -36,9 +36,8 @@ import * as utils from "./sources/utils";
    
    <div *ngIf="data && !src"
      [ngStyle]="avatarStyle">{{data}}</div>
-   </div>`,
-  providers: [SourceFactory]
-})
+   </div>`
+  })
 export class AvatarComponent implements OnChanges {
 
   @Input() round: boolean = true;
