@@ -25,6 +25,8 @@ Moreover, the component can shows name initials or simple value as avatar.
 
  The fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
 
+ If you enjoy watching videos, check out this [tutorial](https://medium.com/letsboot/lets-play-with-ngx-avatar-ec585dc39161) on medium which explains how to use ngx-avatar in your angular application.
+
 ## Installation
 
 Install avatar component using [NPM](https://www.npmjs.com/)::
@@ -159,10 +161,11 @@ $ npm run lint
 
 Contributions and all possible collaboration are welcome.
 
-* Fork it.
-* Create your feature branch.
-* Commit your changes.
-* submit a pull request.
+* Fork it!
+* Create your feature branch: git checkout -b my-new-feature
+* Commit your changes: git commit -am 'Add some feature'
+* Push to the branch: git push origin my-new-feature
+* Submit a pull request :D
 
 
 ## License
