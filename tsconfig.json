@@ -8,11 +8,7 @@
       "es2015",
       "dom"
     ],
-    "target": "es5",
     "skipLibCheck": true,
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "types": []
   }
 }
