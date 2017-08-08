@@ -1,0 +1,7 @@
+#IDE configuration files
+.idea
+.vscode
+
+# Dependency directory
+node_modules
+typings
