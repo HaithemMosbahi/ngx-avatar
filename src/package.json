@@ -1,6 +1,6 @@
 {
   "name": "ngx-avatar",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/HaithemMosbahi/ngx-avatar"
@@ -19,7 +19,9 @@
   "bugs": {
     "url": "https://github.com/HaithemMosbahi/ngx-avatar/issues"
   },
+  "main": "ngx-avatar.umd.js",
   "module": "ngx-avatar.js",
+  "jsnext:main": "ngx-avatar.js",
   "typings": "ngx-avatar.d.ts",
   "dependencies": {
     "ts-md5": "^1.2.0",
