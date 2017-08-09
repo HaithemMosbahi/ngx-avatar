@@ -26,6 +26,8 @@ Moreover, the component can shows name initials or simple value as avatar.
  The fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
 
  If you enjoy watching videos, check out this [tutorial](https://medium.com/letsboot/lets-play-with-ngx-avatar-ec585dc39161) on medium which explains how to use ngx-avatar in your angular application.
+ 
+ Check out this [link](https://stackblitz.com/edit/ngx-avatar-demo) to play with ngx-avatar :grinning:
 
 ## Installation
 
@@ -97,7 +99,10 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/demo/src/app/app.component.html) for more examples on how to use ngx-avatar in your application.
 
 ## Demo
-The demo folder contains an application generated with angular cli that uses ngx-avatar component.
+Check out this [link](https://ngx-avatar-demo.stackblitz.io/) for a live demo.
+Also, you can play with ngx-avatar using an online editor [here](https://stackblitz.com/edit/ngx-avatar-demo) on stackblitz.
+
+Moreover, the demo folder contains an application generated with angular cli that uses ngx-avatar component.
 
 To run the demo application :
 ```bash
