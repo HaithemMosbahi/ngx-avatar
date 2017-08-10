@@ -8,6 +8,7 @@ import { Gravatar } from "./gravatar";
 import { Skype } from "./skype";
 import { Value } from "./value";
 import { Vkontakte } from "./vkontakte";
+import { Github } from "./github";
 
 import { Injectable } from "@angular/core";
 import { SourceCreator } from "./source.creator";
@@ -35,6 +36,7 @@ export class SourceFactory {
         this._sources['initials'] = Initials;
         this._sources['value'] = Value;
         this._sources['vkontakte'] = Vkontakte;
+        this._sources['github'] = Github;
 
     }
 

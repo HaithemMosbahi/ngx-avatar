@@ -54,6 +54,7 @@ export class AvatarComponent implements OnChanges {
   @Input('vkontakteId') vkontakte: string;
   @Input('skypeId') skype: string
   @Input('gravatarId') gravatar: string;
+  @Input('githubId') github: string;
   @Input('src') custom: string;
   @Input('name') initials: string;
   @Input('value') value: string;
