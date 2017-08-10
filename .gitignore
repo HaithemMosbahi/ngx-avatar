@@ -5,3 +5,5 @@
 # Dependency directory
 node_modules
 typings
+
+/dist
