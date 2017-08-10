@@ -156,9 +156,8 @@ function _extractVkontakteAvatar(data: any) {
 * @memberof AvatarComponent
 */
 function _extractGithubAvatar(data: any, size?: number) {
-    if (!size) {
-        return data.avatar_url;
-    } else {
+    if (size) {
         return `${data.avatar_url}&s=${size}`;
     }
+    return data.avatar_url;
 }
