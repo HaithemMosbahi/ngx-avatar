@@ -3,15 +3,16 @@
  * list of Supported avatar sources
  */
 export const sources = [
-  "FACEBOOK",
-  "GOOGLE",
-  "TWITTER",
-  "VKONTAKTE",
-  "SKYPE",
-  "GRAVATAR",
-  "CUSTOM",
-  "INITIALS",
-  "VALUE"];
+    "FACEBOOK",
+    "GOOGLE",
+    "TWITTER",
+    "VKONTAKTE",
+    "SKYPE",
+    "GRAVATAR",
+    "GITHUB",
+    "CUSTOM",
+    "INITIALS",
+    "VALUE"];
 
 /**
  * list of default colors
@@ -39,7 +40,7 @@ export const defaultColors = [
  */
 export function getRandomColor(value:string): string {
     if(!value)
-      return 'transparent';
+        return 'transparent';
     const asciiCodeSum = _calculateAsciiCode(value);
     return defaultColors[asciiCodeSum % defaultColors.length];
 }
@@ -62,7 +63,7 @@ export function getSourcePriority(source: string, avatarSources = sources){
  * @returns {boolean} 
  */
 export function isSource(source:string):boolean{
-  return sources.findIndex((item) => item === source.toUpperCase()) > -1;
+    return sources.findIndex((item) => item === source.toUpperCase()) > -1;
 }
 
 
@@ -72,7 +73,7 @@ export function isSource(source:string):boolean{
  */
 function _calculateAsciiCode(value:string){
     return value.split('').map(letter => letter.charCodeAt(0))
-                          .reduce((previous,current) => previous + current);
+        .reduce((previous,current) => previous + current);
 }
 
 /**
@@ -80,8 +81,8 @@ function _calculateAsciiCode(value:string){
  * Async avatar sources require an http call in order to fetch avatar image
  * @param sourceType 
  */
-export function isAsyncAvatar(sourceType:string):boolean{
-    return ["GOOGLE","VKONTAKTE"].indexOf(sourceType) > -1;
+export function isAsyncAvatar(sourceType: string): boolean {
+    return ["GOOGLE", "VKONTAKTE", "GITHUB"].indexOf(sourceType) > -1;
 }
 
 /**
@@ -110,37 +111,53 @@ export function extractAsyncAvatarData(sourceType:string,data:any,size:number){
             return _extractGoogleAvatar(data,size);
         case "VKONTAKTE":
             return _extractVkontakteAvatar(data);
+        case "GITHUB":
+            return _extractGithubAvatar(data, size);
         default:
             // source not defined
             return undefined;
     }
 }
 
-  /**
-   * Extract google avatar from json data
-   * 
-   * @param {*} data 
-   * @returns 
-   * @memberof AvatarComponent
-   */
-  function _extractGoogleAvatar(data: any,size:number) {
+/**
+ * Extract google avatar from json data
+ * 
+ * @param {*} data 
+ * @returns 
+ * @memberof AvatarComponent
+ */
+function _extractGoogleAvatar(data: any,size:number) {
     const avatarSrc = data.entry.gphoto$thumbnail.$t;
     if (avatarSrc) {
-      return avatarSrc.replace('s64', 's' +size);;
+        return avatarSrc.replace('s64', 's' +size);;
     }
-  }
+}
 
-  /**
-   * extract vkontakte avatar from json data
-   * 
-   * @param {*} data 
-   * @returns 
-   * @memberof AvatarComponent
-   */
-  function _extractVkontakteAvatar(data: any) {
+/**
+ * extract vkontakte avatar from json data
+ * 
+ * @param {*} data 
+ * @returns 
+ * @memberof AvatarComponent
+ */
+function _extractVkontakteAvatar(data: any) {
     // avatar key property is the size used to generate avatar url
     // size property is always the last key in the response object
     const sizeProperty = Object.keys(data["response"][0]).pop();
     // return avatar src
     return data["response"][0][sizeProperty];
-  }
+}
+
+/**
+* extract github avatar from json data
+*
+* @param {*} data
+* @returns url of the github avatar icon
+* @memberof AvatarComponent
+*/
+function _extractGithubAvatar(data: any, size?: number) {
+    if (size) {
+        return `${data.avatar_url}&s=${size}`;
+    }
+    return data.avatar_url;
+}
