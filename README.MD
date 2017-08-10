@@ -19,6 +19,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Vkontakte (VK)
  * Skype
  * Gravatar
+ * Github
  * Custom image
  * name initials
  * value
@@ -121,7 +122,8 @@ $ ng serve
 | `twitterId`   | *string*             |         | Twitter Handle                                                                                                       |
 | `vkontakteId`   | *string*             |         | VK ID|
 | `skypeId`    | *string*          |       |  Skype ID                                                                                                      |
-| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                      |
+| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                  |
+| `githubId`    | *string*          |         | Github ID                                                                                      
 | `src`         | *string*          |         | Fallback image to use                                                                                  |
 | `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string*          |         | Show a value as avatar                                                                                 |
@@ -140,6 +142,9 @@ $ ng serve
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
 ## Release Notes
+* 2.3 : Add support for github avatar
+* 2.2 : Fix prod and aot build
+* 2.1 : Bug fixes
 * 2.0 : add support to vkontakte source
 * 1.4 : background color is now generated based on the sum of ASCII values of avatar's text.
 * 1.3 : Bug Fixes ( support dynamic avatar data )
