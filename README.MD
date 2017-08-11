@@ -19,6 +19,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Vkontakte (VK)
  * Skype
  * Gravatar
+ * Github
  * Custom image
  * name initials
  * value
@@ -26,6 +27,8 @@ Moreover, the component can shows name initials or simple value as avatar.
  The fallback system uses the same order as the above source list, Facebook has the highest priority, if it fails, google source will be used, and so on.
 
  If you enjoy watching videos, check out this [tutorial](https://medium.com/letsboot/lets-play-with-ngx-avatar-ec585dc39161) on medium which explains how to use ngx-avatar in your angular application.
+ 
+ Check out this [link](https://stackblitz.com/edit/ngx-avatar-demo) to play with ngx-avatar :grinning:
 
 ## Installation
 
@@ -97,7 +100,10 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 Check out this [file](https://github.com/HaithemMosbahi/ngx-avatar/blob/master/demo/src/app/app.component.html) for more examples on how to use ngx-avatar in your application.
 
 ## Demo
-The demo folder contains an application generated with angular cli that uses ngx-avatar component.
+Check out this [link](https://ngx-avatar-demo.stackblitz.io/) for a live demo.
+Also, you can play with ngx-avatar using an online editor [here](https://stackblitz.com/edit/ngx-avatar-demo) on stackblitz.
+
+Moreover, the demo folder contains an application generated with angular cli that uses ngx-avatar component.
 
 To run the demo application :
 ```bash
@@ -116,7 +122,8 @@ $ ng serve
 | `twitterId`   | *string*             |         | Twitter Handle                                                                                                       |
 | `vkontakteId`   | *string*             |         | VK ID|
 | `skypeId`    | *string*          |       |  Skype ID                                                                                                      |
-| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                      |
+| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                  |
+| `githubId`    | *string*          |         | Github ID                                                                                      
 | `src`         | *string*          |         | Fallback image to use                                                                                  |
 | `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string*          |         | Show a value as avatar                                                                                 |
@@ -135,6 +142,9 @@ $ ng serve
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
 ## Release Notes
+* 2.3 : Add support for github avatar
+* 2.2 : Fix prod and aot build
+* 2.1 : Bug fixes
 * 2.0 : add support to vkontakte source
 * 1.4 : background color is now generated based on the sum of ASCII values of avatar's text.
 * 1.3 : Bug Fixes ( support dynamic avatar data )
