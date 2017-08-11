@@ -10,7 +10,8 @@ import { Source } from "./source";
  */
 export class Facebook implements Source {
     readonly sourceType: string = "FACEBOOK";
-    
+    readonly isAsync = false;
+
     constructor(public sourceId: string) {
     }
 

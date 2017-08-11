@@ -3,7 +3,7 @@ import {
   EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange
 } from '@angular/core';
 import { Http } from "@angular/http";
-import { Source } from "./sources/source";
+import { Source, AsyncSource } from "./sources/source";
 import { SourceFactory } from './sources/source.factory'
 import * as utils from "./sources/utils";
 
@@ -135,8 +135,8 @@ export class AvatarComponent implements OnChanges {
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {
       this.avatarStyle = this._imageStyle();
-      if (utils.isAsyncAvatar(avatarSource.sourceType)) {
-        this._fetchAsyncAvatar(avatarSource);
+      if (avatarSource.isAsync) {
+        this._fetchAsyncAvatar(<AsyncSource>avatarSource);
       } else {
         this.src = avatarSource.getAvatar(this.size);
       }
@@ -189,11 +189,11 @@ export class AvatarComponent implements OnChanges {
    * @param {Source} source represents avatar source
    * @memberof AvatarComponent
    */
-  _fetchAsyncAvatar(source: Source) {
+  _fetchAsyncAvatar(source: AsyncSource) {
     this.http.get(source.getAvatar()).subscribe(response => {
       // extract avatar image from the response data
       let data = response.json();
-      this.src = utils.extractAsyncAvatarData(source.sourceType,data,this.size);
+      this.src = source.processResponse(data, this.size);
     },
       err => {
         console.error(`ngx-avatar: error while fetching ${source.sourceType} avatar `);

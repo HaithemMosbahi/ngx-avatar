@@ -10,6 +10,7 @@ import { Source } from "./source";
  */
 export class Initials implements Source {
     readonly sourceType: string = "INITIALS";
+    readonly isAsync = false;
 
     constructor(public sourceId: string) {
     }

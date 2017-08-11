@@ -11,6 +11,8 @@ import { Source } from "./source";
  */
 export class Twitter implements Source {
     readonly sourceType: string = "TWITTER";
+    readonly isAsync = false;
+
     constructor(public sourceId: string) {
     }
     getAvatar(size:number): string {
