@@ -141,7 +141,8 @@ $ ng serve
  * sourceType : avatar source ( Facebook, twitter, etc)
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
-## Release Notes
+## Release Notes & History
+* 2.4 : Refactor async sources
 * 2.3 : Add support for github avatar
 * 2.2 : Fix prod and aot build
 * 2.1 : Bug fixes
