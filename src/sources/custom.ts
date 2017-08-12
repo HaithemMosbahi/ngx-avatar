@@ -9,7 +9,6 @@ import { Source } from "./source";
  */
 export class Custom implements Source {
     readonly sourceType: string = "CUSTOM";
-    readonly isAsync = false;
 
     constructor(public sourceId: string) {
     }

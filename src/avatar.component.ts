@@ -3,7 +3,8 @@ import {
   EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange
 } from '@angular/core';
 import { Http } from "@angular/http";
-import { Source, AsyncSource } from "./sources/source";
+import { Source } from "./sources/source";
+import { AsyncSource } from "./sources/async.source";
 import { SourceFactory } from './sources/source.factory'
 import * as utils from "./sources/utils";
 
@@ -135,7 +136,7 @@ export class AvatarComponent implements OnChanges {
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {
       this.avatarStyle = this._imageStyle();
-      if (avatarSource.isAsync) {
+      if (avatarSource instanceof AsyncSource) {
         this._fetchAsyncAvatar(<AsyncSource>avatarSource);
       } else {
         this.src = avatarSource.getAvatar(this.size);

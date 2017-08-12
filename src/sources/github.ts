@@ -1,4 +1,4 @@
-import { AsyncSource } from "./source";
+import { AsyncSource } from "./async.source";
 
 /**
  *  Github source impelementation.
@@ -8,11 +8,11 @@ import { AsyncSource } from "./source";
  * @class Github
  * @implements {AsyncSource}
  */
-export class Github implements AsyncSource {
+export class Github extends AsyncSource {
     readonly sourceType = "GITHUB";
-    readonly isAsync = true;
 
-    constructor(public sourceId: string) {
+    constructor(sourceId: string) {
+        super(sourceId);
     }
 
     getAvatar(): string {

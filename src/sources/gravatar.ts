@@ -13,7 +13,6 @@ import { Md5 } from "ts-md5/dist/md5";
 export class Gravatar implements Source {
     readonly sourceType: string = "GRAVATAR";
     public sourceId:string;
-    readonly isAsync = false;
 
     constructor(public value: string) {
        this.sourceId= value.match('^[a-f0-9]{32}$') ? value : Md5.hashStr(value).toString();

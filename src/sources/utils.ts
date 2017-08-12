@@ -77,15 +77,6 @@ function _calculateAsciiCode(value:string){
 }
 
 /**
- * check wether the avatar type is asyn or not
- * Async avatar sources require an http call in order to fetch avatar image
- * @param sourceType 
- */
-export function isAsyncAvatar(sourceType: string): boolean {
-    return ["GOOGLE", "VKONTAKTE", "GITHUB"].indexOf(sourceType) > -1;
-}
-
-/**
  * Check wether the type of avatar is text or not.
  * 
  * @export

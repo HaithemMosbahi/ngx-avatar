@@ -1,4 +1,4 @@
-import { AsyncSource } from "./source";
+import { AsyncSource } from "./async.source";
 
 /**
  *  Google source impelementation.
@@ -9,11 +9,11 @@ import { AsyncSource } from "./source";
  * @class Google
  * @implements {AsyncSource}
  */
-export class Google implements AsyncSource {
+export class Google extends AsyncSource {
     readonly sourceType = "GOOGLE";
-    readonly isAsync = true;
 
-    constructor(public sourceId: string) {
+    constructor(sourceId: string) {
+        super(sourceId);
     }
 
     getAvatar(): string {

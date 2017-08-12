@@ -1,4 +1,4 @@
-import { AsyncSource } from "./source";
+import { AsyncSource } from "./async.source";
 
 /**
  *  Vkontakte source impelementation.
@@ -10,11 +10,11 @@ import { AsyncSource } from "./source";
  * @implements {AsyncSource}
  */
 const apiVersion = 5.8;
-export class Vkontakte implements AsyncSource {
+export class Vkontakte extends AsyncSource {
     readonly sourceType: string = "VKONTAKTE";
-    readonly isAsync = true;
 
-    constructor(public sourceId: string) {
+    constructor(sourceId: string) {
+        super(sourceId);
     }
 
     getAvatar(size: number): string {

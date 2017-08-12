@@ -9,7 +9,6 @@ import { Source } from "./source";
  */
 export class Skype implements Source {
     readonly sourceType: string = "SKYPE";
-    readonly isAsync = false;
 
     constructor(public sourceId: string) {
     }
