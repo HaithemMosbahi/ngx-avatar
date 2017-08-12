@@ -26,17 +26,19 @@ import * as utils from "./sources/utils";
   }
   `],
   template: `
-    <div  [ngStyle]="hostStyle">
+    <div class="avatar-container" [ngStyle]="hostStyle">
     <img *ngIf="src"
       [src]="src"
       [width]="size"
       [height]="size"
       [ngStyle]="avatarStyle"
       (error)="fetch($event)"
+      class="avatar-content"
      />
    
    <div *ngIf="data && !src"
-     [ngStyle]="avatarStyle">{{data}}</div>
+     [ngStyle]="avatarStyle"
+     class="avatar-content">{{data}}</div>
    </div>`
   })
 export class AvatarComponent implements OnChanges {
@@ -163,8 +165,7 @@ export class AvatarComponent implements OnChanges {
       color: this.fgColor,
       backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue),
       font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
-      lineHeight: this.size + 'px',
-      ...this.hostStyle
+      lineHeight: this.size + 'px'
     }
 
   }
