@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
-import { AsyncSource } from "./sources/async.source";
+import { AsyncSource } from "./sources/async-source";
 import { SourceFactory } from './sources/source.factory'
 import * as utils from "./sources/utils";
 

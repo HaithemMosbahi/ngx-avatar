@@ -1,4 +1,4 @@
-import { AsyncSource } from "./async.source";
+import { AsyncSource } from "./async-source";
 
 /**
  *  Github source impelementation.
