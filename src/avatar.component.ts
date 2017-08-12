@@ -137,7 +137,7 @@ export class AvatarComponent implements OnChanges {
     } else {
       this.avatarStyle = this._imageStyle();
       if (avatarSource instanceof AsyncSource) {
-        this._fetchAsyncAvatar(<AsyncSource>avatarSource);
+        this._fetchAsyncAvatar(avatarSource);
       } else {
         this.src = avatarSource.getAvatar(this.size);
       }
