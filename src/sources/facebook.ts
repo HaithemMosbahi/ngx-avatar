@@ -10,7 +10,7 @@ import { Source } from "./source";
  */
 export class Facebook implements Source {
     readonly sourceType: string = "FACEBOOK";
-    
+
     constructor(public sourceId: string) {
     }
 

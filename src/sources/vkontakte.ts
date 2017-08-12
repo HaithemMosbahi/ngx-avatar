@@ -1,4 +1,4 @@
-import { Source } from "./source";
+import { AsyncSource } from "./async.source";
 
 /**
  *  Vkontakte source impelementation.
@@ -7,13 +7,14 @@ import { Source } from "./source";
  * 
  * @export
  * @class Google
- * @implements {Source}
+ * @implements {AsyncSource}
  */
 const apiVersion = 5.8;
-export class Vkontakte implements Source {
+export class Vkontakte extends AsyncSource {
     readonly sourceType: string = "VKONTAKTE";
 
-    constructor(public sourceId: string) {
+    constructor(sourceId: string) {
+        super(sourceId);
     }
 
     getAvatar(size: number): string {
@@ -36,5 +37,20 @@ export class Vkontakte implements Source {
             return 'photo_200';
 
         return 'photo_max';
+    }
+
+    /**
+     * extract vkontakte avatar from json data
+     *
+     * @param {*} data
+     * @returns
+     * @memberof Vkontakte
+     */
+    processResponse(data: any) {
+        // avatar key property is the size used to generate avatar url
+        // size property is always the last key in the response object
+        const sizeProperty = Object.keys(data["response"][0]).pop();
+        // return avatar src
+        return data["response"][0][sizeProperty];
     }
 }

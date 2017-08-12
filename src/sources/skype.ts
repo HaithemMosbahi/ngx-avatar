@@ -9,7 +9,7 @@ import { Source } from "./source";
  */
 export class Skype implements Source {
     readonly sourceType: string = "SKYPE";
-    
+
     constructor(public sourceId: string) {
     }
 
