@@ -11,6 +11,13 @@ export class AppComponent implements OnInit{
 
   userName:string = "Haithem Mosbahi";
   userFB:string = "wrongId";
+  customStyle = {
+    backgroundColor: "#27ae60",
+    border: "1px solid #bdc3c7",
+    borderRadius: "50%",
+    color: "white",
+    cursor: "pointer"
+  };
 
 
   constructor(public userService:UserService){
