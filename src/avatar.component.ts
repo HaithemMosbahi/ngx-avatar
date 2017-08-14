@@ -115,8 +115,7 @@ export class AvatarComponent implements OnChanges {
       // Host style 
       this.hostStyle = {
         width: this.size + 'px',
-        height: this.size + 'px',
-        ...this.style
+        height: this.size + 'px'
       }
       // Fetch avatar source
       this.fetch();
@@ -165,7 +164,8 @@ export class AvatarComponent implements OnChanges {
       color: this.fgColor,
       backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue),
       font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
-      lineHeight: this.size + 'px'
+      lineHeight: this.size + 'px',
+      ...this.style
     }
 
   }
@@ -183,6 +183,7 @@ export class AvatarComponent implements OnChanges {
       border: this.borderColor ? '1px solid ' + this.borderColor : '',
       width: this.size,
       height: this.size,
+      ...this.style
     }
   }
   /**
