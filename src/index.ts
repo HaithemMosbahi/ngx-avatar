@@ -1,3 +1,4 @@
+import { AvatarConfig } from './avatar-config';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvatarComponent } from './avatar.component';
@@ -23,10 +24,10 @@ export * from './sources/utils';
 
 })
 export class AvatarModule {
-  static forRoot(avatarColors:string[]):ModuleWithProviders{
+  static forRoot(avatarConfig:AvatarConfig):ModuleWithProviders{
     return {
       ngModule: AvatarModule,
-      providers:[{provide:'avatarColors',useValue: avatarColors}]
+      providers:[{provide:'avatarConfig',useValue: avatarConfig}]
     }
   }
  }
