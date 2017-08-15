@@ -22,4 +22,11 @@ export * from './sources/utils';
   ]
 
 })
-export class AvatarModule { }
+export class AvatarModule {
+  static forRoot(avatarColors:string[]):ModuleWithProviders{
+    return {
+      ngModule: AvatarModule,
+      providers:[{provide:'avatarColors',useValue: avatarColors}]
+    }
+  }
+ }

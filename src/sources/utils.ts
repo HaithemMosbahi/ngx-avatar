@@ -38,11 +38,11 @@ export const defaultColors = [
  * @export
  * @returns {string} 
  */
-export function getRandomColor(value:string): string {
+export function getRandomColor(value:string,avatarColors:string[] = defaultColors): string {
     if(!value)
         return 'transparent';
     const asciiCodeSum = _calculateAsciiCode(value);
-    return defaultColors[asciiCodeSum % defaultColors.length];
+    return avatarColors[asciiCodeSum % avatarColors.length];
 }
 
 /**

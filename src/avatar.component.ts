@@ -1,6 +1,6 @@
 import {
   Component, Input, Output,
-  EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange
+  EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange,Inject
 } from '@angular/core';
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
@@ -74,7 +74,8 @@ export class AvatarComponent implements OnChanges {
   hostStyle: any = {};
 
   constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef,
-    public sourceFactory: SourceFactory) {
+    public sourceFactory: SourceFactory,
+    @Inject('avatarColors') private avatarColors:string[]) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
@@ -162,7 +163,7 @@ export class AvatarComponent implements OnChanges {
       border: this.borderColor ? '1px solid ' + this.borderColor : '',
       textTransform: 'uppercase',
       color: this.fgColor,
-      backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue),
+      backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue,this.avatarColors),
       font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
       lineHeight: this.size + 'px',
       ...this.style
