@@ -1,5 +1,5 @@
 import { AvatarConfig } from './avatar-config';
-import { Injectable,Inject } from '@angular/core';
+import { Injectable,Optional } from '@angular/core';
 
 /**
  * list of Supported avatar sources
@@ -36,7 +36,10 @@ const defaultColors = [
 @Injectable()
 export class AvatarService {
 
-    constructor(@Inject('avatarColors') private avatarConfig:AvatarConfig) { }
+    private _avatarColors:string[];
+
+    constructor(@Optional() private avatarConfig:AvatarConfig) { 
+    }
 
     /**
     * Get a random color. 
@@ -46,11 +49,12 @@ export class AvatarService {
     * 
     * @returns {string} 
     */
-    getRandomColor(value: string, avatarColors: string[] = defaultColors): string {
+    getRandomColor(value: string): string {
         if (!value)
             return 'transparent';
         const asciiCodeSum = this._calculateAsciiCode(value);
-        return avatarColors[asciiCodeSum % avatarColors.length];
+        const colors = this.getAvatarColors();
+        return colors[asciiCodeSum % colors.length];
     }
 
     /**
@@ -79,7 +83,7 @@ export class AvatarService {
      * @returns {string[]}
      */
     getAvatarColors():string[] {
-       if(this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0){
+       if(this.avatarConfig && this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0){
            return this.avatarConfig.avatarColors;
        }
        return this.getDefaultColors();

@@ -5,8 +5,9 @@ import {
 import { Http } from "@angular/http";
 import { Source } from "./sources/source";
 import { AsyncSource } from "./sources/async-source";
-import { SourceFactory } from './sources/source.factory'
-import * as utils from "./sources/utils";
+import { SourceFactory } from './sources/source.factory';
+import { AvatarService } from './avatar.service';
+
 
 
 /**
@@ -74,8 +75,7 @@ export class AvatarComponent implements OnChanges {
   hostStyle: any = {};
 
   constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef,
-    public sourceFactory: SourceFactory,
-    @Inject('avatarColors') private avatarColors:string[]) {
+    public sourceFactory: SourceFactory, private avatarService:AvatarService) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
@@ -91,7 +91,7 @@ export class AvatarComponent implements OnChanges {
    */
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
-      if (utils.isSource(propName)) {
+      if (this.avatarService.isSource(propName)) {
         let currentValue = changes[propName].currentValue;
         this._addSource(propName, currentValue);
       }
@@ -111,7 +111,7 @@ export class AvatarComponent implements OnChanges {
     if (this._sources.length > 0 && this._sources[this._currentSource]) {
       // Order sources array by source priority
       this._sources.sort((leftSide, rightSide) => {
-        return utils.getSourcePriority(leftSide.sourceId) - utils.getSourcePriority(rightSide.sourceId);
+        return this.avatarService.getSourcePriority(leftSide.sourceId) - this.avatarService.getSourcePriority(rightSide.sourceId);
       });
       // Host style 
       this.hostStyle = {
@@ -132,7 +132,7 @@ export class AvatarComponent implements OnChanges {
    */
   fetch(event?: any) {
     let avatarSource = this._sources[this._currentSource];
-    if (utils.isTextAvatar(avatarSource.sourceType)) {
+    if (this.avatarService.isTextAvatar(avatarSource.sourceType)) {
       this.data = avatarSource.getAvatar();
       this.src = undefined;
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
@@ -163,7 +163,7 @@ export class AvatarComponent implements OnChanges {
       border: this.borderColor ? '1px solid ' + this.borderColor : '',
       textTransform: 'uppercase',
       color: this.fgColor,
-      backgroundColor: this.bgColor ? this.bgColor : utils.getRandomColor(avatarValue,this.avatarColors),
+      backgroundColor: this.bgColor ? this.bgColor : this.avatarService.getRandomColor(avatarValue),
       font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
       lineHeight: this.size + 'px',
       ...this.style
