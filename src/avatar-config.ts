@@ -1,6 +1,6 @@
 
 /**
- * Represents avatar configyration Object.
+ * Represents avatar configuration Object.
  */
 export class AvatarConfig{
 
