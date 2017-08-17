@@ -142,6 +142,43 @@ $ ng serve
  * sourceId : identifier of the user
  * getAvatar(size?) : method to fetch user avatar from the current source
 
+## Override Avatar Configuration
+The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the backgroud color of the avatar. Thus, it's possible to chnage the default list of colors and to pass your own list.
+
+All you need to do is to configure the AvatarModule by calling **forRoot** method. The forRoot method takes an AvatarConfig Object that contains the overridden options. 
+
+At this moment, the AvatarConfig object has one parameter which is the avatarColors. In future releases, we will probably enrich this object to override more options ( such as the source priority )
+
+Here's an example on how to import the AvatarModule with your own set of colors.
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { UserService } from "./user.service";
+import { AvatarModule,AvatarConfig } from "ngx-avatar";
+import { HttpModule } from "@angular/http";
+
+const avatarConfig = new AvatarConfig(['red','blue','pink']);
+
+@NgModule({
+  declarations: [
+    AppComponent  ],
+  imports: [
+    BrowserModule,
+    HttpModule,
+    // import AvatarModule in your app with your own configuration
+    AvatarModule.forRoot(avatarConfig)
+  ],
+  providers: [UserService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
+
  **Avatar Styling**
 
  In addition to the style attribute, ngx-avatar style can be customized usinhg css classes. Thus, the generated code offers two css classes that can be overridden :
@@ -149,6 +186,7 @@ $ ng serve
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
 
 ## Release Notes & History
+* 2.6 : Customize avatar options
 * 2.5 : Bug fixes & new css classes
 * 2.4 : Refactor async sources
 * 2.3 : Add support for github avatar
