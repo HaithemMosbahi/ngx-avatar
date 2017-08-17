@@ -1,5 +1,6 @@
+import { AVATAR_CONFIG } from './avatar-config.token';
 import { AvatarConfig } from './avatar-config';
-import { Injectable,Optional } from '@angular/core';
+import { Injectable,Inject,Optional } from '@angular/core';
 
 /**
  * list of Supported avatar sources
@@ -38,7 +39,7 @@ export class AvatarService {
 
     private _avatarColors:string[];
 
-    constructor(@Optional() private avatarConfig:AvatarConfig) { 
+    constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig:AvatarConfig) { 
     }
 
     /**
