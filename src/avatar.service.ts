@@ -1,6 +1,11 @@
 import { AVATAR_CONFIG } from './avatar-config.token';
 import { AvatarConfig } from './avatar-config';
 import { Injectable,Inject,Optional } from '@angular/core';
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+
+
 
 /**
  * list of Supported avatar sources
@@ -39,7 +44,8 @@ export class AvatarService {
 
     private _avatarColors:string[];
 
-    constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig:AvatarConfig) { 
+    constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig:AvatarConfig,
+                private http: Http) { 
     }
 
     /**
@@ -131,6 +137,15 @@ export class AvatarService {
     isTextAvatar(sourceType: string): boolean {
         return ["INITIALS", "VALUE"].indexOf(sourceType) > -1;
 
+    }
+
+    /**
+     * Retuns an Observable which is responisble of fetching async avatars
+     * @param {avatarUrl} url of the avatar
+     * @return {Observable} of json data
+     */
+    fetchAvatar(avatarUrl:string):Observable<any>{
+       return this.http.get(avatarUrl).map(response => response.json());
     }
 
 }

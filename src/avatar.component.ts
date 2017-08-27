@@ -2,7 +2,6 @@ import {
   Component, Input, Output,
   EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange,Inject
 } from '@angular/core';
-import { Http } from "@angular/http";
 import { Source } from "./sources/source";
 import { AsyncSource } from "./sources/async-source";
 import { SourceFactory } from './sources/source.factory';
@@ -74,7 +73,7 @@ export class AvatarComponent implements OnChanges {
   avatarStyle: any = {}
   hostStyle: any = {};
 
-  constructor(public http: Http, public renderer: Renderer2, public elementRef: ElementRef,
+  constructor(public renderer: Renderer2, public elementRef: ElementRef,
     public sourceFactory: SourceFactory, private avatarService:AvatarService) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
@@ -194,9 +193,8 @@ export class AvatarComponent implements OnChanges {
    * @memberof AvatarComponent
    */
   _fetchAsyncAvatar(source: AsyncSource) {
-    this.http.get(source.getAvatar()).subscribe(response => {
+    this.avatarService.fetchAvatar(source.getAvatar()).subscribe(data => {
       // extract avatar image from the response data
-      let data = response.json();
       this.src = source.processResponse(data, this.size);
     },
       err => {
