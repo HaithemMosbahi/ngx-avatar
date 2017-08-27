@@ -186,6 +186,7 @@ export class AppModule { }
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
 
 ## Release Notes & History
+* 2.7 : code refactoring
 * 2.6 : Customize avatar options
 * 2.5 : Bug fixes & new css classes
 * 2.4 : Refactor async sources
