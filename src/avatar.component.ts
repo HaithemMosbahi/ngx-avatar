@@ -61,6 +61,7 @@ export class AvatarComponent implements OnChanges {
   @Input('src') custom: string;
   @Input('name') initials: string;
   @Input('value') value: string;
+  @Input('placeholder') placeholder: string;  
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
