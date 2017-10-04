@@ -127,6 +127,7 @@ $ ng serve
 | `src`         | *string*          |         | Fallback image to use                                                                                  |
 | `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string*          |         | Show a value as avatar                                                                                 |
+| `initialsSize`        | *number*          |   undefined      | Restricts the size of initials - it goes along with the name property and can be used to fix the number of characters that will be displayed as initials.  |
 | `bgColor`       | *string*          | random  | Give the background a fixed color with a hex like for example #FF0000 |
 | `fgColor`     | *string*          | #FFF  | Give the text a fixed color with a hex like for example #FF0000 |
 | `size`        | *number*             | 50      | Size of the avatar                                                                                     |
@@ -135,7 +136,7 @@ $ ng serve
 | `borderCorner`       | *number*            | 0   | Square avatars can have rounded corners using this property                                                                              |
 | `borderColor`       | *string*            | undefined   | Add border with the given color. boder's default style is '1px solid borderColor'                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
-| `clickOnAvatar`         | *callback*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.||
+| `clickOnAvatar`         | *Output*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.||
 
  The source object has the following properties:
  * sourceType : avatar source ( Facebook, twitter, etc)
@@ -186,6 +187,7 @@ export class AppModule { }
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
 
 ## Release Notes & History
+* 2.8 : add initials size option
 * 2.7 : code refactoring
 * 2.6 : Customize avatar options
 * 2.5 : Bug fixes & new css classes
