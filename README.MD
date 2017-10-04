@@ -181,7 +181,7 @@ export class AppModule { }
 
  **Avatar Styling**
 
- In addition to the style attribute, ngx-avatar style can be customized usinhg css classes. Thus, the generated code offers two css classes that can be overridden :
+ In addition to the style attribute, ngx-avatar style can be customized using css classes. Thus, the generated code offers two css classes that can be overridden :
  * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar wether is an image or text.
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
 
