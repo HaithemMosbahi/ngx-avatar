@@ -61,7 +61,8 @@ export class AvatarComponent implements OnChanges {
   @Input('src') custom: string;
   @Input('name') initials: string;
   @Input('value') value: string;
-  @Input('placeholder') placeholder: string;  
+  @Input('placeholder') placeholder: string; 
+  @Input('initialsSize') initialsSize: number;    
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   _currentSource: number = 0;
@@ -133,7 +134,7 @@ export class AvatarComponent implements OnChanges {
   fetch(event?: any) {
     let avatarSource = this._sources[this._currentSource];
     if (this.avatarService.isTextAvatar(avatarSource.sourceType)) {
-      this.data = avatarSource.getAvatar();
+      this.data = avatarSource.getAvatar(this.initialsSize);
       this.src = undefined;
       this.avatarStyle = this._initialsStyle(avatarSource.sourceId);
     } else {

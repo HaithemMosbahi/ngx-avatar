@@ -9,22 +9,32 @@ import { Source } from "./source";
  * @implements {Source}
  */
 export class Initials implements Source {
-    readonly sourceType: string = "INITIALS";
+  readonly sourceType: string = "INITIALS";
 
-    constructor(public sourceId: string) {
-    }
+  constructor(public sourceId: string) {
+  }
 
-    getAvatar(): string {
-        return this._getInitials(this.sourceId);
-    }
+  getAvatar(initialsSize: number): string {
+    return this._getInitials(this.sourceId, initialsSize);
+  }
 
-     _getInitials(name: string): string {
-    let result = "";
+  _getInitials(name: string, size: number): string {
     if (name) {
-      name.split(" ").forEach(element => {
-        result += element[0].toUpperCase();
-      });
+      let initials = name.split(" ");
+      if (size && size < initials.length) {
+        return this._constructInitials(initials.slice(0, size));
+      } else {
+        return this._constructInitials(initials);
+      }
+
     }
-    return result;
+    return "";
+  }
+
+  _constructInitials(elements: string[]) {
+    if (elements && elements.length > 0) {
+      return elements.map(element => element[0].toUpperCase()).join('');
+    }
+    return '';
   }
 }
