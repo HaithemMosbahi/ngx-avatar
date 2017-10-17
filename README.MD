@@ -185,6 +185,19 @@ export class AppModule { }
  In addition to the style attribute, ngx-avatar style can be customized using css classes. Thus, the generated code offers two css classes that can be overridden :
  * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar wether is an image or text.
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
+ 
+ To overcome Angular's view encapsulation, you may need to use the /deep/ operator to target it. Here's an example that shows how to override ngx-avatar style : 
+ 
+ ```html
+   <ngx-avatar class="my-avatar" value="HM"> </ngx-avatar>
+ ```
+ Your css file might look like this 
+ 
+ ```css
+ .my-avatar /deep/ .avatar-content {
+     background-color : red !important;
+ }
+ ```
 
 ## Release Notes & History
 * 2.8 : add initials size option
