@@ -3,7 +3,7 @@ import { Source } from "./source";
 /**
  *  Initials source impelementation.
  *  return the initals of the given value
- * 
+ *
  * @export
  * @class Value
  * @implements {Source}
@@ -20,7 +20,7 @@ export class Initials implements Source {
 
   _getInitials(name: string, size: number): string {
     if (name) {
-      let initials = name.split(" ");
+      let initials = name.trim().split(" ");
       if (size && size < initials.length) {
         return this._constructInitials(initials.slice(0, size));
       } else {
@@ -33,7 +33,8 @@ export class Initials implements Source {
 
   _constructInitials(elements: string[]) {
     if (elements && elements.length > 0) {
-      return elements.map(element => element[0].toUpperCase()).join('');
+      return elements.filter(element => element && element.length > 0)
+                     .map(element => element[0].toUpperCase()).join('');
     }
     return '';
   }
