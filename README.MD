@@ -200,6 +200,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 2.9 : Bug fixes [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16) & [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16)
 * 2.8 : add initials size option
 * 2.7 : code refactoring
 * 2.6 : Customize avatar options
