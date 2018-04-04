@@ -1,13 +1,8 @@
-import {
-  Component, Input, Output,
-  EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange,Inject
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, Renderer2, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { Source } from "./sources/source";
 import { AsyncSource } from "./sources/async-source";
 import { SourceFactory } from './sources/source.factory';
 import { AvatarService } from './avatar.service';
-
-
 
 /**
  * Universal avatar component that
@@ -17,7 +12,6 @@ import { AvatarService } from './avatar.service';
  * @class AvatarComponent
  * @implements {OnInit} 
  */
-
 @Component({
   selector: 'ngx-avatar',
   styles: [`
@@ -40,7 +34,7 @@ import { AvatarService } from './avatar.service';
      [ngStyle]="avatarStyle"
      class="avatar-content">{{data}}</div>
    </div>`
-  })
+})
 export class AvatarComponent implements OnChanges {
 
   @Input() round: boolean = true;
@@ -61,9 +55,9 @@ export class AvatarComponent implements OnChanges {
   @Input('src') custom: string;
   @Input('name') initials: string;
   @Input('value') value: string;
-  @Input('placeholder') placeholder: string; 
-  @Input('initialsSize') initialsSize: number;    
-  @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
+  @Input('placeholder') placeholder: string;
+  @Input('initialsSize') initialsSize: number;
+  @Output() clickOnAvatar: EventEmitter<Source> = new EventEmitter<Source>();
 
   _currentSource: number = 0;
   _sources: Source[] = Array();
@@ -76,7 +70,7 @@ export class AvatarComponent implements OnChanges {
   hostStyle: any = {};
 
   constructor(public renderer: Renderer2, public elementRef: ElementRef,
-    public sourceFactory: SourceFactory, private avatarService:AvatarService) {
+    public sourceFactory: SourceFactory, private avatarService: AvatarService) {
     // listen to click events on the root element
     this.renderer.listen(this.elementRef.nativeElement, "click", (event) => {
       this.clickOnAvatar.emit(this._sources[this._currentSource - 1]);
@@ -101,7 +95,6 @@ export class AvatarComponent implements OnChanges {
     // reintialize the avatar component when a source property value has changed
     // the fallback system must be re-invoked with the new values.
     this._initializeAvatar()
-
   }
 
   /**
@@ -144,11 +137,8 @@ export class AvatarComponent implements OnChanges {
       } else {
         this.src = avatarSource.getAvatar(this.size);
       }
-
     }
     this._currentSource++;
-
-
   }
 
   /**
@@ -169,7 +159,6 @@ export class AvatarComponent implements OnChanges {
       lineHeight: this.size + 'px',
       ...this.style
     }
-
   }
 
   /**
@@ -203,8 +192,6 @@ export class AvatarComponent implements OnChanges {
         console.error(`ngx-avatar: error while fetching ${source.sourceType} avatar `);
       });
   }
-  
-
 
   /**
    * Add avatar source
@@ -218,8 +205,8 @@ export class AvatarComponent implements OnChanges {
         this._sources.push(this.sourceFactory.newInstance(sourceType, sourceValue));
       }
     }
-
   }
+
   /**
    * This method check wether an avatar source has been added. If so
    * the source value will be updated with the new value passed as
@@ -240,5 +227,4 @@ export class AvatarComponent implements OnChanges {
     }
     return false;
   }
-
 }
