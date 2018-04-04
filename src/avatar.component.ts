@@ -111,8 +111,8 @@ export class AvatarComponent implements OnChanges {
     this._currentSource = 0;
     if (this._sources.length > 0 && this._sources[this._currentSource]) {
       // Order sources array by source priority
-      this._sources.sort((leftSide, rightSide) => {
-        return this.avatarService.getSourcePriority(leftSide.sourceId) - this.avatarService.getSourcePriority(rightSide.sourceId);
+      this._sources.sort((leftSide: Source, rightSide: Source) => {
+        return this.avatarService.getSourcePriority(leftSide.sourceType) - this.avatarService.getSourcePriority(rightSide.sourceType);
       });
       // Host style 
       this.hostStyle = {
