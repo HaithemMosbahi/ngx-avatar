@@ -1,7 +1,7 @@
 import { AVATAR_CONFIG } from './avatar-config.token';
 import { AvatarConfig } from './avatar-config';
-import { Injectable,Inject,Optional } from '@angular/core';
-import { Http } from "@angular/http";
+import { Injectable, Inject, Optional } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
@@ -42,10 +42,10 @@ const defaultColors = [
 @Injectable()
 export class AvatarService {
 
-    private _avatarColors:string[];
+    private _avatarColors: string[];
 
-    constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig:AvatarConfig,
-                private http: Http) { 
+    constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig: AvatarConfig,
+        private http: HttpClient) {
     }
 
     /**
@@ -57,6 +57,7 @@ export class AvatarService {
     * @returns {string} 
     */
     getRandomColor(value: string): string {
+        // tslint:disable-next-line:curly
         if (!value)
             return 'transparent';
         const asciiCodeSum = this._calculateAsciiCode(value);
@@ -69,7 +70,7 @@ export class AvatarService {
      * 
      * @returns {string[]}
      */
-    getSources():string[] {
+    getSources(): string[] {
         return sources;
     }
 
@@ -78,8 +79,8 @@ export class AvatarService {
      * 
      * @returns {string[]}
      */
-    getDefaultColors():string[] {
-      return defaultColors;
+    getDefaultColors(): string[] {
+        return defaultColors;
     }
 
     /**
@@ -89,11 +90,11 @@ export class AvatarService {
      * 
      * @returns {string[]}
      */
-    getAvatarColors():string[] {
-       if(this.avatarConfig && this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0){
-           return this.avatarConfig.avatarColors;
-       }
-       return this.getDefaultColors();
+    getAvatarColors(): string[] {
+        if (this.avatarConfig && this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0) {
+            return this.avatarConfig.avatarColors;
+        }
+        return this.getDefaultColors();
     }
 
     /**
@@ -144,8 +145,8 @@ export class AvatarService {
      * @param {avatarUrl} url of the avatar
      * @return {Observable} of json data
      */
-    fetchAvatar(avatarUrl:string):Observable<any>{
-       return this.http.get(avatarUrl).map(response => response.json());
+    fetchAvatar(avatarUrl: string): Observable<any> {
+        return this.http.get(avatarUrl).map(response => response);
     }
 
 }
