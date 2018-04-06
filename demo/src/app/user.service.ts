@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { User } from "./user.model";
@@ -12,18 +12,18 @@ import { User } from "./user.model";
  */
 @Injectable()
 export class UserService {
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    fetchInformations():Observable<User>{
+    fetchInformations(): Observable<User> {
         return this.http.get("assets/data/data.json")
-                        .map(response => response.json() as User);
+            .map(response => response as User);
     }
 
-    getUserFacebook():Observable<string>{
-       return this.http.get("assets/data/data.json")
-                        .map(response => response.json().facebookId);
+    getUserFacebook(): Observable<string> {
+        return this.http.get("assets/data/data.json")
+            .map((response: any) => response.facebookId);
     }
 
 
-    
+
 }
