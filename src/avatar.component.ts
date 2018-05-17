@@ -8,7 +8,6 @@ import { SourceFactory } from './sources/source.factory';
 import { AvatarService } from './avatar.service';
 
 
-
 /**
  * Universal avatar component that
  * generates avatar from different sources

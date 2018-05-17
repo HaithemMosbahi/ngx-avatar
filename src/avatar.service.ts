@@ -1,11 +1,11 @@
-import { AVATAR_CONFIG } from './avatar-config.token';
-import { AvatarConfig } from './avatar-config';
-import { Injectable,Inject,Optional } from '@angular/core';
-import { Http } from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
-
+import { AVATAR_CONFIG } from './avatar-config.token';
+import { AvatarConfig } from './avatar-config';
+import { Injectable,Inject,Optional } from '@angular/core';
 
 /**
  * list of Supported avatar sources
@@ -45,7 +45,7 @@ export class AvatarService {
     private _avatarColors:string[];
 
     constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig:AvatarConfig,
-                private http: Http) { 
+                private http: HttpClient) {
     }
 
     /**
@@ -145,7 +145,7 @@ export class AvatarService {
      * @return {Observable} of json data
      */
     fetchAvatar(avatarUrl:string):Observable<any>{
-       return this.http.get(avatarUrl).map(response => response.json());
+       return this.http.get(avatarUrl);
     }
 
 }
