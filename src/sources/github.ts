@@ -5,8 +5,6 @@ import { AsyncSource } from "./async-source";
  *  Fetch avatar source based on github identifier
  *
  * @export
- * @class Github
- * @implements {AsyncSource}
  */
 export class Github extends AsyncSource {
     readonly sourceType = "GITHUB";
@@ -22,8 +20,8 @@ export class Github extends AsyncSource {
     /**
     * extract github avatar from json data
     *
-    * @param {*} data The data returned from the souce API
-    * @param {number} size The size of the image requested
+    * @param any data The data returned from the souce API
+    * @param number size The size of the image requested
     * @returns url of the github avatar icon
     * @memberof AvatarComponent
     */

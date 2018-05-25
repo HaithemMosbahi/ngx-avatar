@@ -4,7 +4,6 @@
  * in order to provide the avatar source.
  *
  * @export
- * @interface Source
  */
 export interface Source {
     readonly sourceType: string;

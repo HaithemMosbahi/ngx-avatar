@@ -5,8 +5,6 @@ import { Source } from "./source";
  *  return the initals of the given value
  *
  * @export
- * @class Value
- * @implements {Source}
  */
 export class Initials implements Source {
   readonly sourceType: string = "INITIALS";

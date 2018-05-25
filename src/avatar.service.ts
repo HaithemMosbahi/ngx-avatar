@@ -1,7 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
+import { Observable } from "rxjs";
 
 import { AVATAR_CONFIG } from './avatar-config.token';
 import { AvatarConfig } from './avatar-config';
@@ -54,7 +53,7 @@ export class AvatarService {
     * This will guarantee that avatars with the same value
     * will have the same background color
     * 
-    * @returns {string} 
+    * @returns string 
     */
     getRandomColor(value: string): string {
         if (!value)
@@ -67,7 +66,7 @@ export class AvatarService {
     /**
      * Returns the list of supported avatar sources.
      * 
-     * @returns {string[]}
+     * @returns string[]
      */
     getSources():string[] {
         return sources;
@@ -76,7 +75,7 @@ export class AvatarService {
     /**
      * Returns the list of defaul colors.
      * 
-     * @returns {string[]}
+     * @returns string[]
      */
     getDefaultColors():string[] {
       return defaultColors;
@@ -87,7 +86,7 @@ export class AvatarService {
      * of text avatars. If the user has provided a list of colors, Then this list 
      * will be returned. Otherwise, the default colors will be used.
      * 
-     * @returns {string[]}
+     * @returns string[]
      */
     getAvatarColors():string[] {
        if(this.avatarConfig && this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0){
@@ -110,8 +109,8 @@ export class AvatarService {
      * Check if the given source is a valid avatar source or not.
      * 
      * @export
-     * @param {string} source 
-     * @returns {boolean} 
+     * @param string source 
+     * @returns boolean 
      */
     isSource(source: string): boolean {
         return sources.findIndex((item) => item === source.toUpperCase()) > -1;
@@ -131,8 +130,8 @@ export class AvatarService {
      * Check wether the type of avatar is text or not.
      * 
      * @export
-     * @param {string} sourceType 
-     * @returns {boolean} 
+     * @param string sourceType 
+     * @returns boolean 
      */
     isTextAvatar(sourceType: string): boolean {
         return ["INITIALS", "VALUE"].indexOf(sourceType) > -1;
@@ -141,8 +140,8 @@ export class AvatarService {
 
     /**
      * Retuns an Observable which is responisble of fetching async avatars
-     * @param {avatarUrl} url of the avatar
-     * @return {Observable} of json data
+     * @param avatarUrl url of the avatar
+     * @return Observable of json data
      */
     fetchAvatar(avatarUrl:string):Observable<any>{
        return this.http.get(avatarUrl);

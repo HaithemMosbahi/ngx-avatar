@@ -19,7 +19,6 @@ import { SourceCreator } from "./source.creator";
  * on the source Type
  * 
  * @export
- * @class SourceFactory
  */
 @Injectable()
 export class SourceFactory {

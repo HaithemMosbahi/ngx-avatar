@@ -5,8 +5,6 @@ import { Source } from "./source";
  *  and image size
  * 
  * @export
- * @class Facebook
- * @implements {Source}
  */
 export class Facebook implements Source {
     readonly sourceType: string = "FACEBOOK";

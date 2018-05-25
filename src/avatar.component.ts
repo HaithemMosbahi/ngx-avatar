@@ -13,8 +13,6 @@ import { AvatarService } from './avatar.service';
  * generates avatar from different sources
  * 
  * @export 
- * @class AvatarComponent
- * @implements {OnInit} 
  */
 
 @Component({
@@ -85,7 +83,7 @@ export class AvatarComponent implements OnChanges {
   /**
    * Detect inputs change
    * 
-   * @param {{ [propKey: string]: SimpleChange }} changes 
+   * @param ({ [propKey: string]: SimpleChange }) changes 
    * 
    * @memberof AvatarComponent
    */
@@ -126,7 +124,7 @@ export class AvatarComponent implements OnChanges {
   /**
    * Fetch avatar source
    * 
-   * @param {any} event 
+   * @param any event 
    * 
    * @memberOf AvatarComponent
    */
@@ -190,7 +188,7 @@ export class AvatarComponent implements OnChanges {
   /**
    * Fetch avatar image asynchrounsly.
    * 
-   * @param {Source} source represents avatar source
+   * @param Source source represents avatar source
    * @memberof AvatarComponent
    */
   _fetchAsyncAvatar(source: AsyncSource) {
@@ -226,8 +224,8 @@ export class AvatarComponent implements OnChanges {
    * It returns true if the source exists and update has been performed,
    * returns false if the source was not found
    * 
-   * @param {string} sourceType the type of the source
-   * @param {string} sourceValue the new value of the source 
+   * @param string sourceType the type of the source
+   * @param string sourceValue the new value of the source 
    * 
    * @memberof AvatarComponent
    */

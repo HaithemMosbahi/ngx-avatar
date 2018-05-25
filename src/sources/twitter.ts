@@ -6,8 +6,6 @@ import { Source } from "./source";
  *  and image size
  * 
  * @export
- * @class Twitter
- * @implements {Source}
  */
 export class Twitter implements Source {
     readonly sourceType: string = "TWITTER";

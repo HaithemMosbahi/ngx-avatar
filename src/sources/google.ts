@@ -6,8 +6,6 @@ import { AsyncSource } from "./async-source";
  *  and image size
  *
  * @export
- * @class Google
- * @implements {AsyncSource}
  */
 export class Google extends AsyncSource {
     readonly sourceType = "GOOGLE";
@@ -24,7 +22,7 @@ export class Google extends AsyncSource {
     /**
      * Extract google avatar from json data
      *
-     * @param {*} data
+     * @param any data
      * @returns
      * @memberof Google
      */
