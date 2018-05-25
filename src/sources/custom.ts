@@ -4,8 +4,6 @@ import { Source } from "./source";
  *  return custom image as an avatar
  * 
  * @export
- * @class Custom
- * @implements {Source}
  */
 export class Custom implements Source {
     readonly sourceType: string = "CUSTOM";

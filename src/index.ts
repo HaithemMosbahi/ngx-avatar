@@ -3,7 +3,7 @@ import { AvatarConfig } from './avatar-config';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvatarComponent } from './avatar.component';
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
 import { SourceFactory } from "./sources/source.factory";
 import { AVATAR_CONFIG } from "./avatar-config.token";
 export * from './avatar.component';
@@ -17,7 +17,7 @@ export * from "./avatar-config.token";
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpClientModule
   ],
   declarations: [
     AvatarComponent

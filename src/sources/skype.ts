@@ -4,8 +4,6 @@ import { Source } from "./source";
  *  Fetch avatar source based on skype identifier
  * 
  * @export
- * @class Skype
- * @implements {Source}
  */
 export class Skype implements Source {
     readonly sourceType: string = "SKYPE";

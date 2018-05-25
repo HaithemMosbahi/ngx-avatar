@@ -6,8 +6,6 @@ import { AsyncSource } from "./async-source";
  *  and image size
  * 
  * @export
- * @class Google
- * @implements {AsyncSource}
  */
 const apiVersion = 5.8;
 export class Vkontakte extends AsyncSource {
@@ -42,7 +40,7 @@ export class Vkontakte extends AsyncSource {
     /**
      * extract vkontakte avatar from json data
      *
-     * @param {*} data
+     * @param any data
      * @returns
      * @memberof Vkontakte
      */

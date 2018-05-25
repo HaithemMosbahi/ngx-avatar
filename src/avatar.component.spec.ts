@@ -4,7 +4,7 @@ import { DebugElement }    from '@angular/core';
 
 import { AvatarComponent } from './avatar.component';
 import { SourceFactory } from "./sources/source.factory";
-import { Http,HttpModule } from "@angular/http";
+import { HttpClient,HttpClientModule } from "@angular/common/http";
 
 describe('Avatar Component', () => {
 
@@ -17,11 +17,11 @@ describe('Avatar Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientModule],
       declarations: [AvatarComponent], 
       providers:[
       {
-            provide: Http,
+            provide: HttpClient,
             useValue: null
 }]
     });
