@@ -1,5 +1,6 @@
 {
   "name": "ngx-avatar",
+  "description": "A universal avatar component for Angular 2+ applications that fetches / generates avatar based on the information you have about the user.",
   "version": "2.9.0",
   "scripts": {
     "build": "gulp build",
