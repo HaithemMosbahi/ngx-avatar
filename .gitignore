@@ -6,4 +6,7 @@
 node_modules
 typings
 
+# custom
 /dist
+.DS_Store
+src/.DS_Store
