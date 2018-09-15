@@ -3,5 +3,9 @@
   "dest": "../../dist/ngx-avatar",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "is-retina",
+    "ts-md5"
+  ]
 }
