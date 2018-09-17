@@ -7,8 +7,6 @@ import { AvatarService } from './avatar.service';
 import { AvatarConfig } from './avatar-config';
 import { AVATAR_CONFIG } from './avatar-config.token';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +22,6 @@ import { AVATAR_CONFIG } from './avatar-config.token';
   exports: [
     AvatarComponent
   ]
-
 })
 export class AvatarModule {
   static forRoot(avatarConfig: AvatarConfig): ModuleWithProviders {

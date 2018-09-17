@@ -1,5 +1,5 @@
 /*
  * Public API Surface of ngx-avatar
  */
-
-export * from './lib';
+export * from './lib/avatar.module';
+export * from './lib/avatar-config';
