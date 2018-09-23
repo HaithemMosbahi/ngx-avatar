@@ -24,10 +24,11 @@ import { AVATAR_CONFIG } from './avatar-config.token';
   ]
 })
 export class AvatarModule {
-  static forRoot(avatarConfig: AvatarConfig): ModuleWithProviders {
+  static forRoot(avatarConfig?: AvatarConfig): ModuleWithProviders {
     return {
       ngModule: AvatarModule,
-      providers: [{ provide: AVATAR_CONFIG, useValue: avatarConfig }]
+      providers: [
+        { provide: AVATAR_CONFIG, useValue: avatarConfig ? avatarConfig:{} }]
     };
   }
 }

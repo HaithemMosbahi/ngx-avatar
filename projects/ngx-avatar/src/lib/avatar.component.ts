@@ -1,12 +1,17 @@
 import {
-  Component, Input, Output,
-  EventEmitter, ElementRef, OnChanges, SimpleChange
-} from '@angular/core';
-import { Source } from './sources/source';
-import { AsyncSource } from './sources/async-source';
-import { SourceFactory } from './sources/source.factory';
-import { AvatarService } from './avatar.service';
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  OnChanges,
+  SimpleChange
+} from "@angular/core";
 
+import { Source } from "./sources/source";
+import { AsyncSource } from "./sources/async-source";
+import { SourceFactory } from "./sources/source.factory";
+import { AvatarService } from "./avatar.service";
 
 /**
  * Universal avatar component that
@@ -14,17 +19,19 @@ import { AvatarService } from './avatar.service';
  *
  * export
  * class AvatarComponent
- * implements {OnInit}
+ * implements {OnChanges}
  */
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'ngx-avatar',
-  styles: [`
-  :host{
-    border-radius: "50%";
-  }
-  `],
+  selector: "ngx-avatar",
+  styles: [
+    `
+      :host {
+        border-radius: "50%";
+      }
+    `
+  ],
   template: `
     <div (click)="handleClickEvent($event)" class="avatar-container" [ngStyle]="hostStyle">
     <img *ngIf="src"
@@ -42,44 +49,64 @@ import { AvatarService } from './avatar.service';
    </div>`
 })
 export class AvatarComponent implements OnChanges {
+  @Input()
+  round: boolean = true;
+  @Input()
+  size: number = 50;
+  @Input()
+  textSizeRatio: number = 3;
+  @Input()
+  bgColor: string;
+  @Input()
+  fgColor = "#FFF";
+  @Input()
+  borderColor: string;
+  @Input()
+  style: any = {};
+  @Input()
+  cornerRadius = 0;
+  @Input("facebookId")
+  facebook: string;
+  @Input("twitterId")
+  twitter: string;
+  @Input("googleId")
+  google: string;
+  @Input("vkontakteId")
+  vkontakte: string;
+  @Input("skypeId")
+  skype: string;
+  @Input("gravatarId")
+  gravatar: string;
+  @Input("githubId")
+  github: string;
+  @Input("src")
+  custom: string;
+  @Input("name")
+  initials: string;
+  @Input("value")
+  value: string;
+  @Input("placeholder")
+  placeholder: string;
+  @Input("initialsSize")
+  initialsSize: number;
+  @Output()
+  clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input() round = true;
-  @Input() size = 50;
-  @Input() textSizeRatio = 3;
-  @Input() bgColor: string;
-  @Input() fgColor = '#FFF';
-  @Input() borderColor: string;
-  @Input() style: any = {};
-  @Input() cornerRadius = 0;
-  @Input('facebookId') facebook: string;
-  @Input('twitterId') twitter: string;
-  @Input('googleId') google: string;
-  @Input('vkontakteId') vkontakte: string;
-  @Input('skypeId') skype: string;
-  @Input('gravatarId') gravatar: string;
-  @Input('githubId') github: string;
-  @Input('src') custom: string;
-  @Input('name') initials: string;
-  @Input('value') value: string;
-  @Input('placeholder') placeholder: string;
-  @Input('initialsSize') initialsSize: number;
-  @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
-
-  _currentSource = 0;
-  _sources: Source[] = Array();
   // avatar img src
-  src: string;
+  public src: string;
   // avatar text value
-  data: string;
+  public data: string;
+  public avatarStyle: any = {};
+  public hostStyle: any = {};
 
-  avatarStyle: any = {};
-  hostStyle: any = {};
+  private _currentSource = 0;
+  private _sources: Source[] = Array();
 
   constructor(
     public elementRef: ElementRef,
     public sourceFactory: SourceFactory,
     private avatarService: AvatarService
-  ) { }
+  ) {}
 
   // handle click event
   handleClickEvent(event: any) {
@@ -101,12 +128,10 @@ export class AvatarComponent implements OnChanges {
         const currentValue = changes[propName].currentValue;
         this._addSource(propName, currentValue);
       }
-
     }
     // reintialize the avatar component when a source property value has changed
     // the fallback system must be re-invoked with the new values.
     this._initializeAvatar();
-
   }
 
   /**
@@ -117,12 +142,15 @@ export class AvatarComponent implements OnChanges {
     if (this._sources.length > 0 && this._sources[this._currentSource]) {
       // Order sources array by source priority
       this._sources.sort((leftSide, rightSide) => {
-        return this.avatarService.getSourcePriority(leftSide.sourceId) - this.avatarService.getSourcePriority(rightSide.sourceId);
+        return (
+          this.avatarService.getSourcePriority(leftSide.sourceId) -
+          this.avatarService.getSourcePriority(rightSide.sourceId)
+        );
       });
       // Host style
       this.hostStyle = {
-        width: this.size + 'px',
-        height: this.size + 'px'
+        width: this.size + "px",
+        height: this.size + "px"
       };
       // Fetch avatar source
       this.fetch();
@@ -152,11 +180,8 @@ export class AvatarComponent implements OnChanges {
       } else {
         this.src = avatarSource.getAvatar(this.size);
       }
-
     }
     this._currentSource++;
-
-
   }
 
   /**
@@ -167,17 +192,20 @@ export class AvatarComponent implements OnChanges {
    */
   _initialsStyle(avatarValue: string) {
     return {
-      textAlign: 'center',
-      borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
-      border: this.borderColor ? '1px solid ' + this.borderColor : '',
-      textTransform: 'uppercase',
+      textAlign: "center",
+      borderRadius: this.round ? "100%" : this.cornerRadius + "px",
+      border: this.borderColor ? "1px solid " + this.borderColor : "",
+      textTransform: "uppercase",
       color: this.fgColor,
-      backgroundColor: this.bgColor ? this.bgColor : this.avatarService.getRandomColor(avatarValue),
-      font: Math.floor(this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
-      lineHeight: this.size + 'px',
+      backgroundColor: this.bgColor
+        ? this.bgColor
+        : this.avatarService.getRandomColor(avatarValue),
+      font:
+        Math.floor(this.size / this.textSizeRatio) +
+        "px Helvetica, Arial, sans-serif",
+      lineHeight: this.size + "px",
       ...this.style
     };
-
   }
 
   /**
@@ -188,9 +216,9 @@ export class AvatarComponent implements OnChanges {
    */
   _imageStyle() {
     return {
-      maxWidth: '100%',
-      borderRadius: this.round ? '50%' : this.cornerRadius + 'px',
-      border: this.borderColor ? '1px solid ' + this.borderColor : '',
+      maxWidth: "100%",
+      borderRadius: this.round ? "50%" : this.cornerRadius + "px",
+      border: this.borderColor ? "1px solid " + this.borderColor : "",
       width: this.size,
       height: this.size,
       ...this.style
@@ -203,16 +231,18 @@ export class AvatarComponent implements OnChanges {
    * memberof AvatarComponent
    */
   _fetchAsyncAvatar(source: AsyncSource) {
-    this.avatarService.fetchAvatar(source.getAvatar()).subscribe(data => {
-      // extract avatar image from the response data
-      this.src = source.processResponse(data, this.size);
-    },
+    this.avatarService.fetchAvatar(source.getAvatar()).subscribe(
+      data => {
+        // extract avatar image from the response data
+        this.src = source.processResponse(data, this.size);
+      },
       err => {
-        console.error(`ngx-avatar: error while fetching ${source.sourceType} avatar `);
-      });
+        console.error(
+          `ngx-avatar: error while fetching ${source.sourceType} avatar `
+        );
+      }
+    );
   }
-
-
 
   /**
    * Add avatar source
@@ -223,10 +253,11 @@ export class AvatarComponent implements OnChanges {
   _addSource(sourceType: string, sourceValue: string) {
     if (sourceValue) {
       if (!this._updateExistingSource(sourceType, sourceValue)) {
-        this._sources.push(this.sourceFactory.newInstance(sourceType, sourceValue));
+        this._sources.push(
+          this.sourceFactory.newInstance(sourceType, sourceValue)
+        );
       }
     }
-
   }
   /**
    * This method check wether an avatar source has been added. If so
@@ -241,12 +272,13 @@ export class AvatarComponent implements OnChanges {
    * memberof AvatarComponent
    */
   _updateExistingSource(sourceType: string, sourceValue: string) {
-    const sourceIndex = this._sources.findIndex((source) => source.sourceType === sourceType.toUpperCase());
+    const sourceIndex = this._sources.findIndex(
+      source => source.sourceType === sourceType.toUpperCase()
+    );
     if (sourceIndex > -1) {
       this._sources[sourceIndex].sourceId = sourceValue;
       return true;
     }
     return false;
   }
-
 }

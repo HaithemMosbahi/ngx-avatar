@@ -88,8 +88,8 @@ export class AvatarService {
    * returns {string[]}
    */
   getAvatarColors(): string[] {
-    if (this.avatarConfig && this.avatarConfig.avatarColors && this.avatarConfig.avatarColors.length > 0) {
-      return this.avatarConfig.avatarColors;
+    if (this.avatarConfig && this.avatarConfig.colors && this.avatarConfig.colors.length > 0) {
+      return this.avatarConfig.colors;
     }
     return this.getDefaultColors();
   }

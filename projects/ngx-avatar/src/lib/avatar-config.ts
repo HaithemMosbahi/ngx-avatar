@@ -1,9 +1,6 @@
-
 /**
- * Represents avatar configuration Object.
+ * Represents avatar configuration object
  */
-export class AvatarConfig {
-
-  constructor(public avatarColors?: string[]) { }
-
+export interface AvatarConfig {
+  colors?: string[];
 }
