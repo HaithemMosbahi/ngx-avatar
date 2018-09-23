@@ -149,9 +149,42 @@ The avatar module provides the possibility of customizing the avatar component b
 
 All you need to do is to configure the AvatarModule by calling **forRoot** method. The forRoot method takes an AvatarConfig Object that contains the overridden options. 
 
-At this moment, the AvatarConfig object has one parameter which is the avatarColors. In future releases, we will probably enrich this object to override more options ( such as the source priority )
+At this moment, the AvatarConfig object has one parameter which is the avatarColors. In future releases, more options will be added to the configuration ( such as the source priority )
 
 Here's an example on how to import the AvatarModule with your own set of colors.
+
+* Starting from version 3.1, overriding the avatar configuration can be done as follows:
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { UserService } from "./user.service";
+import { AvatarModule } from "ngx-avatar";
+import { HttpClientModule } from "@angular/common/http";
+
+const avatarColors = ["#FFB6C1", "#2c3e50", "#95a5a6", "#f39c12", "#1abc9c"];
+
+@NgModule({
+  declarations: [
+    AppComponent  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    // import AvatarModule in your app with your own configuration
+    AvatarModule.forRoot({
+      colors: avatarColors
+    })
+  ],
+  providers: [UserService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
+* Users who use a prior version of ngx-avatar ( < 3.1 ) can override the configuration as follows:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -180,7 +213,6 @@ export class AppModule { }
 
 ```
 
-
  **Avatar Styling**
 
  In addition to the style attribute, ngx-avatar style can be customized using css classes. Thus, the generated code offers two css classes that can be overridden :
@@ -201,6 +233,8 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 3.1 : fixes AOT / Prod build when loading avatar module with config
+  * This version has a **breaking change** in the way the module with configuration is imported, for more details see Override Avatar Configuration section. 
 * 3.0 : Add support to Angular 6
   * Build the library with Angular CLI
 * 2.9 : Bug fixes [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16) & [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16)
