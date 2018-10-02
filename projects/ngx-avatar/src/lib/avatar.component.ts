@@ -106,7 +106,7 @@ export class AvatarComponent implements OnChanges {
     public elementRef: ElementRef,
     public sourceFactory: SourceFactory,
     private avatarService: AvatarService
-  ) {}
+  ) { }
 
   // handle click event
   handleClickEvent(event: any) {
@@ -143,8 +143,8 @@ export class AvatarComponent implements OnChanges {
       // Order sources array by source priority
       this._sources.sort((leftSide, rightSide) => {
         return (
-          this.avatarService.getSourcePriority(leftSide.sourceId) -
-          this.avatarService.getSourcePriority(rightSide.sourceId)
+          this.avatarService.getSourcePriority(leftSide.sourceType)
+          - this.avatarService.getSourcePriority(rightSide.sourceType)
         );
       });
       // Host style
