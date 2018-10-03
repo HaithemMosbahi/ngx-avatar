@@ -11,14 +11,14 @@ export class Github extends AsyncSource {
     super(sourceId);
   }
 
-  getAvatar(): string {
+  public getAvatar(): string {
     return `https://api.github.com/users/${this.sourceId}`;
   }
 
   /**
   * extract github avatar from json data
   */
-  processResponse(data: any, size?: number) {
+ public processResponse(data: any, size?: number): string {
     if (size) {
       return `${data.avatar_url}&s=${size}`;
     }

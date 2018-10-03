@@ -12,7 +12,7 @@ export class Google extends AsyncSource {
     super(sourceId);
   }
 
-  getAvatar(): string {
+  public getAvatar(): string {
     return `https://picasaweb.google.com/data/entry/api/user/${this.sourceId}?alt=json`;
   }
 
@@ -20,7 +20,7 @@ export class Google extends AsyncSource {
   /**
    * Extract google avatar from json data
    */
-  processResponse(data: any, size?: number) {
+  public processResponse(data: any, size?: number): string {
     const avatarSrc = data.entry.gphoto$thumbnail.$t;
     if (avatarSrc) {
       return avatarSrc.replace('s64', 's' + size);

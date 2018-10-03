@@ -10,12 +10,13 @@ export class Twitter implements Source {
 
   constructor(public sourceId: string) {
   }
-  getAvatar(size: number): string {
-    const twitterImgSize = this._getImageSize(size);
+
+  public getAvatar(size: number): string {
+    const twitterImgSize = this.getImageSize(size);
     return `https://twitter.com/${this.sourceId}/profile_image?size=${twitterImgSize}`;
   }
 
-  _getImageSize(size: number) {
+  private getImageSize(size: number) {
     if (size <= 24) {
       return 'mini';
     }

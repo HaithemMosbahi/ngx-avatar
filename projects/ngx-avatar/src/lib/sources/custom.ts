@@ -10,7 +10,7 @@ export class Custom implements Source {
   constructor(public sourceId: string) {
   }
 
-  getAvatar(): string {
+  public getAvatar(): string {
     return this.sourceId;
   }
 }
