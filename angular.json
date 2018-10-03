@@ -101,7 +101,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
+            ],
+            "watch": false
           }
         },
         "lint": {
@@ -168,7 +169,8 @@
           "options": {
             "main": "projects/ngx-avatar/src/test.ts",
             "tsConfig": "projects/ngx-avatar/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-avatar/karma.conf.js"
+            "karmaConfig": "projects/ngx-avatar/karma.conf.js",
+            "watch": false
           }
         },
         "lint": {
