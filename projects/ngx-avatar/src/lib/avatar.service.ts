@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+
 import { AVATAR_CONFIG } from "./avatar-config.token";
 import { AvatarConfig } from "./avatar-config";
 import { Injectable, Inject, Optional } from "@angular/core";
@@ -47,6 +48,15 @@ export class AvatarService {
   ) {}
 
   /**
+   * Retuns an Observable which is responisble of fetching async avatars
+   * param {avatarUrl} url of the avatar
+   * return {Observable} of json data
+   */
+  public fetchAvatar(avatarUrl: string): Observable<any> {
+    return this.http.get(avatarUrl);
+  }
+
+  /**
    * Get a random color.
    * The color is based on the ascii code of the given value.
    * This will guarantee that avatars with the same value
@@ -54,21 +64,13 @@ export class AvatarService {
    *
    * returns {string}
    */
-  public getRandomColor(value: string): string {
-    if (!value) {
+  public getRandomColor(avatarText: string): string {
+    if (!avatarText) {
       return "transparent";
     }
-    const asciiCodeSum = this.calculateAsciiCode(value);
+    const asciiCodeSum = this.calculateAsciiCode(avatarText);
     const colors = this.getAvatarColors();
-  }
-
-  /**
-   * Returns the list of supported avatar sources.
-   *
-   * returns {string[]}
-   */
-  getSources(): string[] {
-    return sources;
+    return colors[asciiCodeSum % colors.length];
   }
 
   /**
@@ -96,7 +98,7 @@ export class AvatarService {
      * param avatarSources
      return colors[asciiCodeSum % colors.length];
    */
-  getSourcePriority(source: string, avatarSources = sources) {
+  public getSourcePriority(source: string, avatarSources = sources) {
     return avatarSources.indexOf(source.toUpperCase());
   }
 
@@ -107,7 +109,7 @@ export class AvatarService {
    * param {string} source
    * returns {boolean}
    */
-  isSource(source: string): boolean {
+  public isSource(source: string): boolean {
     return sources.includes(source.toUpperCase());
   }
 
@@ -120,15 +122,6 @@ export class AvatarService {
    */
   public isTextAvatar(sourceType: string): boolean {
     return ["INITIALS", "VALUE"].includes(sourceType);
-  }
-
-  /**
-   * Retuns an Observable which is responisble of fetching async avatars
-   * param {avatarUrl} url of the avatar
-   * return {Observable} of json data
-   */
-  public fetchAvatar(avatarUrl: string): Observable<any> {
-    return this.http.get(avatarUrl);
   }
 
   /**
