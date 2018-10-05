@@ -43,6 +43,11 @@ export class AvatarService {
 
   constructor(@Optional() @Inject(AVATAR_CONFIG) private avatarConfig: AvatarConfig,
     private http: HttpClient) {
+
+    if (avatarConfig && avatarConfig.sourcePriorityOrder !== undefined && avatarConfig.sourcePriorityOrder.length !== 0) {
+      this.setDefaultSourceOrder(avatarConfig.sourcePriorityOrder);
+  }
+
   }
 
   /**
@@ -144,6 +149,35 @@ export class AvatarService {
    */
   fetchAvatar(avatarUrl: string): Observable<any> {
     return this.http.get(avatarUrl);
+  }
+
+
+  private setDefaultSourceOrder(sourcePriorityOrder: string[]) {
+
+   let sourcePriorityOrderUppercase =  sourcePriorityOrder.map(source => { return source.toUpperCase() })
+
+    sources.sort((a, b) => {
+    
+      let leftSide = sourcePriorityOrderUppercase.indexOf(a);
+      let rightSide = sourcePriorityOrderUppercase.indexOf(b);
+  
+      if (leftSide === -1 && rightSide === -1) {
+          return 0;
+      }
+      if (leftSide === -1) {
+          return 1;
+      }
+      if (rightSide === -1) {
+          return -1;
+      }
+  
+      let diff = leftSide - rightSide
+  
+      return diff
+  })
+
+
+
   }
 
 }

@@ -3,4 +3,6 @@
  */
 export interface AvatarConfig {
   colors?: string[];
+
+  sourcePriorityOrder?: string[];
 }
