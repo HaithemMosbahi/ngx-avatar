@@ -1,10 +1,11 @@
 import { Source } from './source';
+import { AvatarSource } from './avatar-source.enum';
 /**
  *  Skype source impelementation.
  *  Fetch avatar source based on skype identifier
  */
 export class Skype implements Source {
-  readonly sourceType: string = 'SKYPE';
+  readonly sourceType: AvatarSource = AvatarSource.SKYPE;
 
   constructor(public sourceId: string) {
   }

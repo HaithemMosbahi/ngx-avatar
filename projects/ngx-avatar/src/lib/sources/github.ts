@@ -1,11 +1,12 @@
 import { AsyncSource } from './async-source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Github source impelementation.
  *  Fetch avatar source based on github identifier
  */
 export class Github extends AsyncSource {
-  readonly sourceType = 'GITHUB';
+  readonly sourceType: AvatarSource = AvatarSource.GITHUB;
 
   constructor(sourceId: string) {
     super(sourceId);

@@ -4,21 +4,23 @@ import { HttpClient } from "@angular/common/http";
 import { AVATAR_CONFIG } from "./avatar-config.token";
 import { AvatarConfig } from "./avatar-config";
 import { Injectable, Inject, Optional } from "@angular/core";
+import { AvatarSource } from "./sources/avatar-source.enum";
+import { Source } from "./sources/source";
 
 /**
  * list of Supported avatar sources
  */
-const sources = [
-  "FACEBOOK",
-  "GOOGLE",
-  "TWITTER",
-  "VKONTAKTE",
-  "SKYPE",
-  "GRAVATAR",
-  "GITHUB",
-  "CUSTOM",
-  "INITIALS",
-  "VALUE"
+const defaultSources = [
+  AvatarSource.FACEBOOK,
+  AvatarSource.GOOGLE,
+  AvatarSource.TWITTER,
+  AvatarSource.VKONTAKTE,
+  AvatarSource.SKYPE,
+  AvatarSource.GRAVATAR,
+  AvatarSource.GITHUB,
+  AvatarSource.CUSTOM,
+  AvatarSource.INITIALS,
+  AvatarSource.VALUE
 ];
 
 /**
@@ -47,13 +49,12 @@ export class AvatarService {
     private http: HttpClient
   ) {}
 
-  /**
-   * Retuns an Observable which is responisble of fetching async avatars
-   * param {avatarUrl} url of the avatar
-   * return {Observable} of json data
-   */
   public fetchAvatar(avatarUrl: string): Observable<any> {
     return this.http.get(avatarUrl);
+  }
+
+  public getSources(): AvatarSource[] {
+    return defaultSources;
   }
 
   /**
@@ -66,20 +67,13 @@ export class AvatarService {
    */
   public getRandomColor(avatarText: string): string {
     if (!avatarText) {
-      return "transparent";
+      return 'transparent';
     }
     const asciiCodeSum = this.calculateAsciiCode(avatarText);
     const colors = this.getAvatarColors();
     return colors[asciiCodeSum % colors.length];
   }
 
-  /**
-   * Returns a set of colors that will be used to fill the background color
-   * of text avatars. If the user has provided a list of colors, Then this list
-   * will be returned. Otherwise, the default colors will be used.
-   *
-   * returns {string[]}
-   */
   public getAvatarColors(): string[] {
     if (
       this.avatarConfig &&
@@ -91,6 +85,11 @@ export class AvatarService {
     return defaultColors;
   }
 
+  public copmareSources(source1: Source, source2: Source): number {
+    return this.getSourcePriority(source1.sourceType)
+          - this.getSourcePriority(source1.sourceType)
+  }
+
   /**
      * Get source priority
      * Facebook has the highest priority, Value has the lowest
@@ -98,19 +97,15 @@ export class AvatarService {
      * param avatarSources
      return colors[asciiCodeSum % colors.length];
    */
-  public getSourcePriority(source: string, avatarSources = sources) {
-    return avatarSources.indexOf(source.toUpperCase());
+  public getSourcePriority(sourceType: AvatarSource) {
+    return this.getSources().indexOf(sourceType);
   }
 
-  /**
-   * Check if the given source is a valid avatar source or not.
-   *
-   * export
-   * param {string} source
-   * returns {boolean}
-   */
   public isSource(source: string): boolean {
-    return sources.includes(source.toUpperCase());
+    if(!(source in AvatarSource)) {
+      return false;
+    }
+    return this.getSources().includes(source as AvatarSource);
   }
 
   /**
@@ -120,8 +115,8 @@ export class AvatarService {
    * param {string} sourceType
    * returns {boolean}
    */
-  public isTextAvatar(sourceType: string): boolean {
-    return ["INITIALS", "VALUE"].includes(sourceType);
+  public isTextAvatar(sourceType: AvatarSource): boolean {
+    return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
   }
 
   /**
@@ -130,7 +125,7 @@ export class AvatarService {
    */
   private calculateAsciiCode(value: string): number {
     return value
-      .split("")
+      .split('')
       .map(letter => letter.charCodeAt(0))
       .reduce((previous, current) => previous + current);
   }

@@ -1,4 +1,5 @@
 import { AsyncSource } from './async-source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Google source impelementation.
@@ -6,7 +7,7 @@ import { AsyncSource } from './async-source';
  *  and image size
  */
 export class Google extends AsyncSource {
-  readonly sourceType = 'GOOGLE';
+  readonly sourceType: AvatarSource = AvatarSource.GOOGLE;
 
   constructor(sourceId: string) {
     super(sourceId);

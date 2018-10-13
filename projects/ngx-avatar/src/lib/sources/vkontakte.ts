@@ -1,4 +1,5 @@
 import { AsyncSource } from './async-source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Vkontakte source impelementation.
@@ -7,7 +8,7 @@ import { AsyncSource } from './async-source';
  */
 const apiVersion = 5.8;
 export class Vkontakte extends AsyncSource {
-  readonly sourceType: string = 'VKONTAKTE';
+  readonly sourceType: AvatarSource = AvatarSource.VKONTAKTE;
 
   constructor(sourceId: string) {
     super(sourceId);

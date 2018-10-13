@@ -1,11 +1,12 @@
 import { Source } from "./source";
+import { AvatarSource } from "./avatar-source.enum";
 
 /**
  *  Initials source impelementation.
  *  return the initals of the given value
  */
 export class Initials implements Source {
-  readonly sourceType: string = "INITIALS";
+  readonly sourceType: AvatarSource = AvatarSource.INITIALS;
 
   constructor(public sourceId: string) {}
 

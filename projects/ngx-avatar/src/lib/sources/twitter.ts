@@ -1,4 +1,5 @@
 import { Source } from './source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Twitter source impelementation.
@@ -6,7 +7,7 @@ import { Source } from './source';
  *  and image size
  */
 export class Twitter implements Source {
-  readonly sourceType: string = 'TWITTER';
+  readonly sourceType: AvatarSource = AvatarSource.TWITTER;
 
   constructor(public sourceId: string) {
   }
