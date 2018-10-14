@@ -63,15 +63,12 @@ fdescribe("AvatarService", () => {
 
   describe("isTextAvatar", () => {
     it("should return true when the given value is a text avatar", () => {
-      const isValidAvatar = avatarService.isSource(AvatarSource.GITHUB);
-
-      expect(isValidAvatar).toBeTruthy();
+      expect(avatarService.isTextAvatar(AvatarSource.INITIALS)).toBeTruthy();
     });
 
     it("should return false when the given value is not a text avatar", () => {
-      const isValidAvatar = avatarService.isSource("unknown-source");
+      expect(avatarService.isTextAvatar(AvatarSource.GITHUB)).toBeFalsy();
 
-      expect(isValidAvatar).toBeFalsy();
     });
   });
 
