@@ -12,6 +12,7 @@ import { Source } from "./sources/source";
 import { AsyncSource } from "./sources/async-source";
 import { SourceFactory } from "./sources/source.factory";
 import { AvatarService } from "./avatar.service";
+import { AvatarSource } from "./sources/avatar-source.enum";
 
 /**
  * Universal avatar component that
@@ -126,7 +127,7 @@ export class AvatarComponent implements OnChanges {
     for (const propName in changes) {
       if (this.avatarService.isSource(propName)) {
         const currentValue = changes[propName].currentValue;
-        this._addSource(propName, currentValue);
+        this._addSource(AvatarSource[propName.toUpperCase()], currentValue);
       }
     }
     // reintialize the avatar component when a source property value has changed
@@ -141,7 +142,7 @@ export class AvatarComponent implements OnChanges {
     this._currentSource = 0;
     if (this._sources.length > 0 && this._sources[this._currentSource]) {
       // Order sources array by source priority
-      this._sources.sort(this.avatarService.copmareSources);
+      this._sources.sort((source1, source2) => this.avatarService.copmareSources(source1.sourceType, source2.sourceType));
       // Host style
       this.hostStyle = {
         width: this.size + "px",
@@ -245,7 +246,7 @@ export class AvatarComponent implements OnChanges {
    * param sourceType avatar source type e.g facebook,twitter, etc.
    * param sourceValue  source value e.g facebookId value, etc.
    */
-  _addSource(sourceType: string, sourceValue: string) {
+  _addSource(sourceType: AvatarSource, sourceValue: string) {
     if (sourceValue) {
       if (!this._updateExistingSource(sourceType, sourceValue)) {
         this._sources.push(

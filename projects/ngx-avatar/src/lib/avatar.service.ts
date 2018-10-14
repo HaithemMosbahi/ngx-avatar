@@ -5,7 +5,6 @@ import { AVATAR_CONFIG } from "./avatar-config.token";
 import { AvatarConfig } from "./avatar-config";
 import { Injectable, Inject, Optional } from "@angular/core";
 import { AvatarSource } from "./sources/avatar-source.enum";
-import { Source } from "./sources/source";
 
 /**
  * list of Supported avatar sources
@@ -42,91 +41,69 @@ const defaultColors = [
  */
 @Injectable()
 export class AvatarService {
+  public avatarSources: AvatarSource[] = defaultSources;
+  public avatarColors: string[] = defaultColors;
+
   constructor(
     @Optional()
     @Inject(AVATAR_CONFIG)
     private avatarConfig: AvatarConfig,
     private http: HttpClient
-  ) {}
+  ) {
+    if (this.avatarConfig) {
+      this.overrideAvatarSources();
+      this.overrideAvatarColors();
+    }
+  }
 
   public fetchAvatar(avatarUrl: string): Observable<any> {
     return this.http.get(avatarUrl);
   }
 
-  public getSources(): AvatarSource[] {
-    return defaultSources;
-  }
-
-  /**
-   * Get a random color.
-   * The color is based on the ascii code of the given value.
-   * This will guarantee that avatars with the same value
-   * will have the same background color
-   *
-   * returns {string}
-   */
   public getRandomColor(avatarText: string): string {
     if (!avatarText) {
-      return 'transparent';
+      return "transparent";
     }
     const asciiCodeSum = this.calculateAsciiCode(avatarText);
-    const colors = this.getAvatarColors();
-    return colors[asciiCodeSum % colors.length];
+    return this.avatarColors[asciiCodeSum % this.avatarColors.length];
   }
 
-  public getAvatarColors(): string[] {
-    if (
-      this.avatarConfig &&
-      this.avatarConfig.colors &&
-      this.avatarConfig.colors.length > 0
-    ) {
-      return this.avatarConfig.colors;
-    }
-    return defaultColors;
-  }
-
-  public copmareSources(source1: Source, source2: Source): number {
-    return this.getSourcePriority(source1.sourceType)
-          - this.getSourcePriority(source1.sourceType)
-  }
-
-  /**
-     * Get source priority
-     * Facebook has the highest priority, Value has the lowest
-     * param source
-     * param avatarSources
-     return colors[asciiCodeSum % colors.length];
-   */
-  public getSourcePriority(sourceType: AvatarSource) {
-    return this.getSources().indexOf(sourceType);
+  public copmareSources(
+    sourceType1: AvatarSource,
+    sourceType2: AvatarSource
+  ): number {
+    return (
+      this.getSourcePriority(sourceType1) - this.getSourcePriority(sourceType2)
+    );
   }
 
   public isSource(source: string): boolean {
-    if(!(source in AvatarSource)) {
-      return false;
-    }
-    return this.getSources().includes(source as AvatarSource);
+    return this.avatarSources.includes(source as AvatarSource);
   }
 
-  /**
-   * Check wether the type of avatar is text or not.
-   *
-   * export
-   * param {string} sourceType
-   * returns {boolean}
-   */
   public isTextAvatar(sourceType: AvatarSource): boolean {
     return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
   }
 
-  /**
-   * return the sum of ascii code of the given string
-   * param value
-   */
+  private overrideAvatarSources(): void {
+    // TODO: add sources to avatarConfig and implement this
+  }
+
+  private overrideAvatarColors(): void {
+    if (this.avatarConfig.colors && this.avatarConfig.colors.length > 0) {
+      this.avatarColors = this.avatarConfig.colors;
+    }
+  }
+
   private calculateAsciiCode(value: string): number {
     return value
-      .split('')
+      .split("")
       .map(letter => letter.charCodeAt(0))
       .reduce((previous, current) => previous + current);
   }
+
+  private getSourcePriority(sourceType: AvatarSource) {
+    return this.avatarSources.indexOf(sourceType);
+  }
+
 }

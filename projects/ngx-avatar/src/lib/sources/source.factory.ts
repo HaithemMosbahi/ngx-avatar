@@ -36,7 +36,8 @@ export class SourceFactory {
     this.sources[AvatarSource.GITHUB] = Github;
   }
 
-  public newInstance(sourceType: string, sourceValue: string): Source {
+  public newInstance(sourceType: AvatarSource, sourceValue: string): Source {
+    console.log('new instance ', sourceType);
     return new this.sources[sourceType](sourceValue);
   }
 }
