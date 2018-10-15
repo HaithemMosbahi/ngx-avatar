@@ -8,7 +8,7 @@ import { AvatarService } from "./avatar.service";
 import { AVATAR_CONFIG } from "./avatar-config.token";
 import { AvatarSource } from "./sources/avatar-source.enum";
 
-fdescribe("AvatarService", () => {
+describe("AvatarService", () => {
   let avatarService: AvatarService;
   let httpMock: HttpTestingController;
 
