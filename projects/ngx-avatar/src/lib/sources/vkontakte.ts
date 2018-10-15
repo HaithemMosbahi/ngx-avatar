@@ -1,4 +1,5 @@
 import { AsyncSource } from './async-source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Vkontakte source impelementation.
@@ -7,22 +8,33 @@ import { AsyncSource } from './async-source';
  */
 const apiVersion = 5.8;
 export class Vkontakte extends AsyncSource {
-  readonly sourceType: string = 'VKONTAKTE';
+  readonly sourceType: AvatarSource = AvatarSource.VKONTAKTE;
 
   constructor(sourceId: string) {
     super(sourceId);
   }
 
-  getAvatar(size: number): string {
-    const imgSize = this._getImageSize(size);
+  public getAvatar(size: number): string {
+    const imgSize = this.getImageSize(size);
     return `https://api.vk.com/method/users.get?user_id=${this.sourceId}&v=${apiVersion}&fields=${imgSize}`;
+  }
+
+   /**
+   * extract vkontakte avatar from json data
+   */
+  public processResponse(data: any): string {
+    // avatar key property is the size used to generate avatar url
+    // size property is always the last key in the response object
+    const sizeProperty = Object.keys(data['response'][0]).pop();
+    // return avatar src
+    return data['response'][0][sizeProperty];
   }
 
   /**
    * Returns image size related to vkontakte API
    * @param size
    */
-  _getImageSize(size: number) {
+  private getImageSize(size: number): string {
     if (size <= 50) {
       return 'photo_50';
     }
@@ -38,14 +50,4 @@ export class Vkontakte extends AsyncSource {
     return 'photo_max';
   }
 
-  /**
-   * extract vkontakte avatar from json data
-   */
-  processResponse(data: any) {
-    // avatar key property is the size used to generate avatar url
-    // size property is always the last key in the response object
-    const sizeProperty = Object.keys(data['response'][0]).pop();
-    // return avatar src
-    return data['response'][0][sizeProperty];
-  }
 }

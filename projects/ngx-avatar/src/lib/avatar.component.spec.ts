@@ -5,12 +5,12 @@ import { SourceFactory } from "./sources/source.factory";
 import { AvatarService } from "./avatar.service";
 
 const AvatarServiceStub = {
-  getSourcePriority: jasmine.createSpy('avatarService.getSourcePriority'),
-  isSource: jasmine.createSpy('avatarService.isSource'),
-  isTextAvatar: jasmine.createSpy('avatarService.isTextAvatar'),
-  getRandomColors: jasmine.createSpy('avatarService.getRandomColors') ,
-  fetchAvatar: jasmine.createSpy('avatarService.fetchAvatar')
-}
+  getSourcePriority: jasmine.createSpy("avatarService.getSourcePriority"),
+  isSource: jasmine.createSpy("avatarService.isSource"),
+  isTextAvatar: jasmine.createSpy("avatarService.isTextAvatar"),
+  getRandomColors: jasmine.createSpy("avatarService.getRandomColors"),
+  fetchAvatar: jasmine.createSpy("avatarService.fetchAvatar")
+};
 
 describe("AvatarComponent", () => {
   let component: AvatarComponent;
@@ -21,7 +21,7 @@ describe("AvatarComponent", () => {
       declarations: [AvatarComponent],
       providers: [
         SourceFactory,
-        {provide: AvatarService, useValue: AvatarServiceStub}
+        { provide: AvatarService, useValue: AvatarServiceStub }
       ]
     }).compileComponents();
   }));
