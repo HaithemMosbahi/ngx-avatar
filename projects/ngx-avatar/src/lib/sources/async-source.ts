@@ -1,11 +1,12 @@
 import { Source } from './source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  * Contract of all async sources.
  * Every async source must implement the processResponse method that extracts the avatar url from the data
  */
 export abstract class AsyncSource implements Source {
-  readonly sourceType: string;
+  readonly sourceType: AvatarSource;
 
   constructor(public sourceId: string) { }
 

@@ -1,37 +1,53 @@
-import { Source } from './source';
+import { Source } from "./source";
+import { AvatarSource } from "./avatar-source.enum";
 
 /**
- *  Initials source impelementation.
- *  return the initals of the given value
+ * Initials source impelementation.
+ * return the initals of the given value
  */
 export class Initials implements Source {
-  readonly sourceType: string = 'INITIALS';
+  
+  readonly sourceType: AvatarSource = AvatarSource.INITIALS;
 
-  constructor(public sourceId: string) {
+  constructor(
+    public sourceId: string
+  ) { }
+
+  public getAvatar(initialsSize: number): string {
+    return this.getInitials(this.sourceId, initialsSize);
   }
 
-  getAvatar(initialsSize: number): string {
-    return this._getInitials(this.sourceId, initialsSize);
-  }
-
-  _getInitials(name: string, size: number): string {
-    if (name) {
-      const initials = name.trim().split(' ');
-      if (size && size < initials.length) {
-        return this._constructInitials(initials.slice(0, size));
-      } else {
-        return this._constructInitials(initials);
-      }
-
+  /**
+   * Returns the initial letters of a name in a string.
+   */
+  private getInitials(name: string, size: number): string {
+    
+    name = name ? name.trim() : null;
+    
+    if (!name) {
+      return '';
     }
-    return '';
+    
+    const initials = name.split(" ");
+    
+    if (size && size < initials.length) {
+      return this.constructInitials(initials.slice(0, size));
+    } else {
+      return this.constructInitials(initials);
+    }
   }
 
-  _constructInitials(elements: string[]) {
-    if (elements && elements.length > 0) {
-      return elements.filter(element => element && element.length > 0)
-        .map(element => element[0].toUpperCase()).join('');
+  /**
+   * Iterates a person's name string to get the initials of each word in uppercase.
+   */
+  private constructInitials(elements: string[]): string {
+    if (!elements || !elements.length) {
+      return '';
     }
-    return '';
+
+    return elements
+      .filter(element => element && element.length > 0)
+      .map(element => element[0].toUpperCase())
+      .join('');
   }
 }

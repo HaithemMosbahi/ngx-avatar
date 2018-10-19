@@ -9,7 +9,7 @@ You can use this component whether you have a single source or a multiple avatar
 
 Moreover, the component can shows name initials or simple value as avatar.
 
-![Angular Avatar component preview](demo.png)
+![Angular Avatar component preview](https://cdn.rawgit.com/HaithemMosbahi/ngx-avatar/0bac9072/demo.png)
 
 
  Supported avatar sources:
