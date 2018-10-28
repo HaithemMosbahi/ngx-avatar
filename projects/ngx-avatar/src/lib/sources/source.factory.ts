@@ -37,7 +37,6 @@ export class SourceFactory {
   }
 
   public newInstance(sourceType: AvatarSource, sourceValue: string): Source {
-    console.log('new instance ', sourceType);
     return new this.sources[sourceType](sourceValue);
   }
 }
