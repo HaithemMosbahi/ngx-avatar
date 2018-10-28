@@ -8,8 +8,7 @@ import { AvatarSource } from './avatar-source.enum';
 export class Custom implements Source {
   readonly sourceType: AvatarSource = AvatarSource.CUSTOM;
 
-  constructor(public sourceId: string) {
-  }
+  constructor(public sourceId: string) {}
 
   public getAvatar(): string {
     return this.sourceId;

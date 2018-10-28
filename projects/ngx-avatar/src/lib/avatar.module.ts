@@ -10,28 +10,18 @@ import { AVATAR_CONFIG } from './avatar-config.token';
 import { AvatarConfigService } from './avatar-config.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
-  declarations: [
-    AvatarComponent
-  ],
-  providers: [
-    SourceFactory,
-    AvatarService,
-    AvatarConfigService
-  ],
-  exports: [
-    AvatarComponent
-  ]
+  imports: [CommonModule, HttpClientModule],
+  declarations: [AvatarComponent],
+  providers: [SourceFactory, AvatarService, AvatarConfigService],
+  exports: [AvatarComponent]
 })
 export class AvatarModule {
   static forRoot(avatarConfig?: AvatarConfig): ModuleWithProviders {
     return {
       ngModule: AvatarModule,
       providers: [
-        { provide: AVATAR_CONFIG, useValue: avatarConfig ? avatarConfig:{} }]
+        { provide: AVATAR_CONFIG, useValue: avatarConfig ? avatarConfig : {} }
+      ]
     };
   }
 }
