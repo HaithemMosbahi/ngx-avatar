@@ -9,7 +9,7 @@ You can use this component whether you have a single source or a multiple avatar
 
 Moreover, the component can shows name initials or simple value as avatar.
 
-![Angular Avatar component preview](demo.png)
+![Angular Avatar component preview](https://cdn.rawgit.com/HaithemMosbahi/ngx-avatar/0bac9072/demo.png)
 
 
  Supported avatar sources:
@@ -233,6 +233,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 3.2.0 : Add support to Angular 7
 * 3.1.1 : fixes the source priority bug 
 * 3.1 : fixes AOT / Prod build when loading avatar module with config
   * This version has a **breaking change** in the way the module with configuration is imported, for more details see Override Avatar Configuration section. 
