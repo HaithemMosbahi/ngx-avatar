@@ -85,34 +85,39 @@ export class AvatarService {
     return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
   }
 
+  /**
+   * Reorders the source priority.
+   */
   private overrideAvatarSources(): void {
 
-        if (!this.avatarConfig.sourcePriorityOrder || this.avatarConfig.sourcePriorityOrder.length < 1) {
-            return;
-        }
+    if (!this.avatarConfig.sourcePriorityOrder || !this.avatarConfig.sourcePriorityOrder.length) {
+      return;
+    }
 
-        let sourcePriorityOrderLowercase =
-            this.avatarConfig.sourcePriorityOrder.map(source => { return source.toLowerCase() })
+    let sourcePriorityOrderLowercase =
+        this.avatarConfig.sourcePriorityOrder.map(x => x.toLowerCase())
 
-        this.avatarSources.sort((a, b) => {
+    this.avatarSources.sort((a, b) => {
 
-            let leftSide = sourcePriorityOrderLowercase.indexOf(a);
-            let rightSide = sourcePriorityOrderLowercase.indexOf(b);
+      let leftSide = sourcePriorityOrderLowercase.indexOf(a);
+      let rightSide = sourcePriorityOrderLowercase.indexOf(b);
 
-            if (leftSide === -1 && rightSide === -1) {
-                return 0;
-            }
-            if (leftSide === -1) {
-                return 1;
-            }
-            if (rightSide === -1) {
-                return -1;
-            }
+      if (leftSide === -1 && rightSide === -1) {
+        return 0;
+      }
+  
+      if (leftSide === -1) {
+        return 1;
+      }
+  
+      if (rightSide === -1) {
+        return -1;
+      }
 
-            let diff = leftSide - rightSide
+      let diff = leftSide - rightSide;
 
-            return diff
-        });
+      return diff;
+    });
   }
 
   private overrideAvatarColors(): void {
