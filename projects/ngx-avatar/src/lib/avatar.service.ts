@@ -86,7 +86,33 @@ export class AvatarService {
   }
 
   private overrideAvatarSources(): void {
-    // TODO: add sources to avatarConfig and implement this
+
+        if (!this.avatarConfig.sourcePriorityOrder || this.avatarConfig.sourcePriorityOrder.length < 1) {
+            return;
+        }
+
+        let sourcePriorityOrderLowercase =
+            this.avatarConfig.sourcePriorityOrder.map(source => { return source.toLowerCase() })
+
+        this.avatarSources.sort((a, b) => {
+
+            let leftSide = sourcePriorityOrderLowercase.indexOf(a);
+            let rightSide = sourcePriorityOrderLowercase.indexOf(b);
+
+            if (leftSide === -1 && rightSide === -1) {
+                return 0;
+            }
+            if (leftSide === -1) {
+                return 1;
+            }
+            if (rightSide === -1) {
+                return -1;
+            }
+
+            let diff = leftSide - rightSide
+
+            return diff
+        });
   }
 
   private overrideAvatarColors(): void {
