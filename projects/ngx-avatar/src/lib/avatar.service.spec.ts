@@ -30,6 +30,30 @@ describe("AvatarService", () => {
     expect(avatarService).toBeTruthy();
   });
 
+  describe('Override avatar source priority order', () => {
+
+    it('should not override the priority order when the user provide an empty list of sources', () => {
+      
+    });
+
+    it('should not override the priority order when the user provide an unknown list of sources', () => {
+      
+    });
+
+    it('should override the priority order when the user provide valid list of sources', () => {
+      
+    });
+
+    it('should ignore unknown sources', () => {
+      
+    });
+
+    it('should ignore redundant sources', () => {
+      
+    });
+
+  });
+
   describe("fetchAvatar", () => {
     it("should send get request and fetch avatar data from the given url", () => {
       const avatarUrl = "dummy-avatar-url";
