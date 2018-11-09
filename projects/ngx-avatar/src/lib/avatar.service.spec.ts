@@ -7,127 +7,179 @@ import {
 import { AvatarService } from "./avatar.service";
 import { AVATAR_CONFIG } from "./avatar-config.token";
 import { AvatarSource } from "./sources/avatar-source.enum";
+import { AvatarConfig } from "./avatar-config";
+import { HttpClientTestingBackend } from "@angular/common/http/testing/src/backend";
+import { HttpClient } from "@angular/common/http";
+import { assertDataInRangeInternal } from "@angular/core/src/render3/util";
 
 describe("AvatarService", () => {
   let avatarService: AvatarService;
   let httpMock: HttpTestingController;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {} }]
-    });
 
-    avatarService = TestBed.get(AvatarService);
-    httpMock = TestBed.get(HttpTestingController);
-  });
-
-  afterEach(() => {
-    httpMock.verify();
-  });
-
-  it("should be created", () => {
-    expect(avatarService).toBeTruthy();
-  });
-
-  describe('Override avatar source priority order', () => {
-
-    it('should not override the priority order when the user provide an empty list of sources', () => {
-      
-    });
-
-    it('should not override the priority order when the user provide an unknown list of sources', () => {
-      
-    });
-
-    it('should override the priority order when the user provide valid list of sources', () => {
-      
-    });
-
-    it('should ignore unknown sources', () => {
-      
-    });
-
-    it('should ignore redundant sources', () => {
-      
-    });
-
-  });
-
-  describe("fetchAvatar", () => {
-    it("should send get request and fetch avatar data from the given url", () => {
-      const avatarUrl = "dummy-avatar-url";
-      const expectedAvatarData = {
-        img: "url-for-avatar-img"
-      };
-      avatarService.fetchAvatar(avatarUrl).subscribe(avatarData => {
-        expect(avatarData).toEqual(expectedAvatarData);
+  describe("Avatar service with default configuration", () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {} }]
       });
 
-      const req = httpMock.expectOne(
-        request => request.method === "GET" && request.url === avatarUrl
-      );
-      req.flush(expectedAvatarData);
+      avatarService = TestBed.get(AvatarService);
+      httpMock = TestBed.get(HttpTestingController);
+    });
+
+    afterEach(() => {
+      httpMock.verify();
+    });
+
+    it("should be created", () => {
+      expect(avatarService).toBeTruthy();
+    });
+
+    describe("fetchAvatar", () => {
+      it("should send get request and fetch avatar data from the given url", () => {
+        const avatarUrl = "dummy-avatar-url";
+        const expectedAvatarData = {
+          img: "url-for-avatar-img"
+        };
+        avatarService.fetchAvatar(avatarUrl).subscribe(avatarData => {
+          expect(avatarData).toEqual(expectedAvatarData);
+        });
+
+        const req = httpMock.expectOne(
+          request => request.method === "GET" && request.url === avatarUrl
+        );
+        req.flush(expectedAvatarData);
+      });
+    });
+
+    describe("isSource", () => {
+      it("should return true when the given value is a valid avatar source", () => {
+        const isValidAvatar = avatarService.isSource(AvatarSource.GITHUB);
+
+        expect(isValidAvatar).toBeTruthy();
+      });
+
+      it("should return false when the given value is not a valid avatar source", () => {
+        const isValidAvatar = avatarService.isSource("unknown-source");
+
+        expect(isValidAvatar).toBeFalsy();
+      });
+    });
+
+    describe("isTextAvatar", () => {
+      it("should return true when the given value is a text avatar", () => {
+        expect(avatarService.isTextAvatar(AvatarSource.INITIALS)).toBeTruthy();
+      });
+
+      it("should return false when the given value is not a text avatar", () => {
+        expect(avatarService.isTextAvatar(AvatarSource.GITHUB)).toBeFalsy();
+
+      });
+    });
+
+    describe("getRandomColor", () => {
+      it("should return transparent when the given value is undefined", () => {
+        const color = avatarService.getRandomColor(undefined);
+
+        expect(color).toBe("transparent");
+      });
+
+      it("should return a random color based on the ascii code of the given value is", () => {
+        const color = avatarService.getRandomColor("random name");
+        const cssColorRegex = /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/;
+        expect(color).toMatch(cssColorRegex);
+      });
+
+      it("should not return the same color for two different values", () => {
+        const color1 = avatarService.getRandomColor("name1");
+        const color2 = avatarService.getRandomColor("name2");
+
+        expect(color1).not.toBe(color2);
+      });
+    });
+
+    describe("compareSources", () => {
+      it("should return a negative value when the first avatar type comes after the second one", () => {
+        expect(avatarService.copmareSources(AvatarSource.FACEBOOK, AvatarSource.GOOGLE)).toBeLessThan(0);
+      });
+
+      it("should return a positive value when the first avatar type comes before the second one", () => {
+        expect(avatarService.copmareSources(AvatarSource.INITIALS, AvatarSource.FACEBOOK)).toBeGreaterThan(0);
+      });
+
+      it("should return a zero value when the two give values are equales", () => {
+        expect(avatarService.copmareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)).toBe(0);
+      });
     });
   });
 
-  describe("isSource", () => {
-    it("should return true when the given value is a valid avatar source", () => {
-      const isValidAvatar = avatarService.isSource(AvatarSource.GITHUB);
+  describe("Avatar service with custom configuration", () => {
 
-      expect(isValidAvatar).toBeTruthy();
+    let defaultSourcePriorityOrder = getDetaulSourcePriorityOrder();
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule] 
+      });
+
+      
+      httpMock = TestBed.get(HttpTestingController);
     });
+    describe('Override avatar source priority order', () => {
 
-    it("should return false when the given value is not a valid avatar source", () => {
-      const isValidAvatar = avatarService.isSource("unknown-source");
+      it('should not override the priority order when the user provide an empty list of sources', () => {
+        let emptyAvatarConfig:AvatarConfig = {sourcePriorityOrder: []};
+        httpMock = TestBed.get(HttpTestingController);
 
-      expect(isValidAvatar).toBeFalsy();
-    });
-  });
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {emptyAvatarConfig} }]
+        });
+  
+        avatarService = TestBed.get(AvatarService);
 
-  describe("isTextAvatar", () => {
-    it("should return true when the given value is a text avatar", () => {
-      expect(avatarService.isTextAvatar(AvatarSource.INITIALS)).toBeTruthy();
-    });
+        //act
+         let sourcePriorityOrder = avatarService.avatarSources;
+        //assert
+        expect(sourcePriorityOrder).toBe(defaultSourcePriorityOrder);
 
-    it("should return false when the given value is not a text avatar", () => {
-      expect(avatarService.isTextAvatar(AvatarSource.GITHUB)).toBeFalsy();
-
-    });
-  });
-
-  describe("getRandomColor", () => {
-    it("should return transparent when the given value is undefined", () => {
-      const color = avatarService.getRandomColor(undefined);
-
-      expect(color).toBe("transparent");
-    });
-
-    it("should return a random color based on the ascii code of the given value is", () => {
-      const color = avatarService.getRandomColor("random name");
-      const cssColorRegex = /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/;
-      expect(color).toMatch(cssColorRegex);
-    });
-
-    it("should not return the same color for two different values", () => {
-      const color1 = avatarService.getRandomColor("name1");
-      const color2 = avatarService.getRandomColor("name2");
-
-      expect(color1).not.toBe(color2);
-    });
-  });
-
-  describe("compareSources", () => {
-    it("should return a negative value when the first avatar type comes after the second one", () => {
-      expect(avatarService.copmareSources(AvatarSource.FACEBOOK, AvatarSource.GOOGLE)).toBeLessThan(0);
-    });
-
-    it("should return a positive value when the first avatar type comes before the second one", () => {
-      expect(avatarService.copmareSources(AvatarSource.INITIALS, AvatarSource.FACEBOOK)).toBeGreaterThan(0);
-    });
-
-    it("should return a zero value when the two give values are equales", () => {
-      expect(avatarService.copmareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)).toBe(0);
+      });
+  
+      it('should not override the priority order when the user provide an unknown list of sources', () => {
+        let avatarConfg:AvatarConfig = {sourcePriorityOrder: [AvatarSource.GRAVATAR, AvatarSource.GITHUB, AvatarSource.FACEBOOK]};
+      });
+  
+      it('should override the priority order when the user provide valid list of sources', () => {
+        
+      });
+  
+      it('should ignore unknown sources', () => {
+        
+      });
+  
+      it('should ignore redundant sources', () => {
+        
+      });
+  
     });
   });
+
+
 });
+
+//move to a setup method. 
+function getDetaulSourcePriorityOrder(): AvatarSource[]{
+  let avatarService: AvatarService;
+
+  TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule],
+    providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {} }]
+  });
+
+  avatarService = TestBed.get(AvatarService);
+
+
+  let sources = avatarService.avatarSources;
+  TestBed.overrideProvider
+}
