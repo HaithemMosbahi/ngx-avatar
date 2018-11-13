@@ -116,70 +116,155 @@ describe("AvatarService", () => {
 
   describe("Avatar service with custom configuration", () => {
 
-    let defaultSourcePriorityOrder = getDetaulSourcePriorityOrder();
+        const defaultSourcePriorityOrder = getDetaultSourcePriorityOrder();
 
-    beforeEach(() => {
+        describe('Override avatar source priority order', () => {
+
+            it('should not override the priority order when the user provides an empty list of sources',
+                () => {
+                    let configWithEmptySources: AvatarConfig = { sourcePriorityOrder: [] };
+
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule] 
+                        imports: [HttpClientTestingModule],
+                        providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: configWithEmptySources }]
       });
 
+                    avatarService = TestBed.get(AvatarService);
       
-      httpMock = TestBed.get(HttpTestingController);
-    });
-    describe('Override avatar source priority order', () => {
+                    let expectedSourcePriorityOrder = avatarService.avatarSources;
 
-      it('should not override the priority order when the user provide an empty list of sources', () => {
-        let emptyAvatarConfig:AvatarConfig = {sourcePriorityOrder: []};
-        httpMock = TestBed.get(HttpTestingController);
+                    expect(expectedSourcePriorityOrder).toBe(defaultSourcePriorityOrder);
+
+    });
+
+            it('should not override the priority order when the user provide an unknown list of sources',
+                () => {
+
+                    let unknowSources: any = ['unknownSource', 'anotherUnknownSource', 'anotherUnknownSource']
+                    const configWithUnknownSources: AvatarConfig = { sourcePriorityOrder: unknowSources };
 
         TestBed.configureTestingModule({
           imports: [HttpClientTestingModule],
-          providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {emptyAvatarConfig} }]
+                        providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: configWithUnknownSources }]
         });
   
         avatarService = TestBed.get(AvatarService);
 
-        //act
-         let sourcePriorityOrder = avatarService.avatarSources;
-        //assert
-        expect(sourcePriorityOrder).toBe(defaultSourcePriorityOrder);
+                    let expectedSourcePriorityOrder = avatarService.avatarSources;
+
+                    expect(expectedSourcePriorityOrder).toBe(defaultSourcePriorityOrder);
+      });
+  
+            it('should override the priority order when the user provides a valid list of sources',
+                () => {
+
+                    const avatarConfigWithValidSources: AvatarConfig = {
+                        sourcePriorityOrder: [
+                            AvatarSource.GRAVATAR, AvatarSource.GITHUB, AvatarSource.FACEBOOK, AvatarSource.TWITTER,
+                            AvatarSource.SKYPE
+                        ]
+                    };
+
+                    TestBed.configureTestingModule({
+                        imports: [HttpClientTestingModule],
+                        providers: [
+                            AvatarService, { provide: AVATAR_CONFIG, useValue: avatarConfigWithValidSources }
+                        ]
+      });
+  
+                    avatarService = TestBed.get(AvatarService);
+        
+                    let expectedSourcePriorityOrder = avatarService.avatarSources;
+
+                    expect(expectedSourcePriorityOrder).toBe(defaultSourcePriorityOrder);
 
       });
   
-      it('should not override the priority order when the user provide an unknown list of sources', () => {
-        let avatarConfg:AvatarConfig = {sourcePriorityOrder: [AvatarSource.GRAVATAR, AvatarSource.GITHUB, AvatarSource.FACEBOOK]};
-      });
-  
-      it('should override the priority order when the user provide valid list of sources', () => {
+            it('should ignore redundant sources',
+                () => {
+                    const redundantSource = AvatarSource.GITHUB;
+                    const redundantSources = [redundantSource, redundantSource, redundantSource];
+                    const avatarConfigWithRedundantSources: AvatarConfig =
+                        { sourcePriorityOrder: redundantSources };
         
+                    TestBed.configureTestingModule({
+                        imports: [HttpClientTestingModule],
+                        providers: [
+                            AvatarService, { provide: AVATAR_CONFIG, useValue: avatarConfigWithRedundantSources }
+                        ]
       });
   
-      it('should ignore unknown sources', () => {
+                    avatarService = TestBed.get(AvatarService);
+
+                    let expectedSourcePriorityOrder = avatarService.avatarSources;
+                    let countOfRedundantSource = expectedSourcePriorityOrder
+                        .filter(source => source === redundantSource).length;
         
+                    expect(countOfRedundantSource).toBe(1)
       });
   
-      it('should ignore redundant sources', () => {
-        
-      });
-  
+            it("should maintain sources not provided in configuration", () => {
+
+                const incompleteDefaultSources = defaultSourcePriorityOrder.slice(0, defaultSourcePriorityOrder.length / 2);
+
+
+                TestBed.configureTestingModule({
+                    imports: [HttpClientTestingModule],
+                    providers: [
+                        AvatarService, { provide: AVATAR_CONFIG, useValue: incompleteDefaultSources }
+                    ]
+  });
+
+                avatarService = TestBed.get(AvatarService);
+
+                let expectedSourcePriorityOrder = avatarService.avatarSources;
+
+
+                expect(expectedSourcePriorityOrder.length).toBe(defaultSourcePriorityOrder.length)
+});
+
+            it("should maintain default order of sources if not provided in configuration", () => {
+
+                const validSources = [
+                    AvatarSource.GRAVATAR, AvatarSource.GITHUB, AvatarSource.FACEBOOK, AvatarSource.TWITTER,
+                    AvatarSource.SKYPE
+                ]
+                const avatarConfigWithValidSources: AvatarConfig = { sourcePriorityOrder: validSources };
+
+                const defaultOrderOfSourcesNotProvided = defaultSourcePriorityOrder.filter(function(item) {
+                    return !validSources.includes(item);
+                });
+
+  TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule],
+                    providers: [
+                        AvatarService, { provide: AVATAR_CONFIG, useValue: avatarConfigWithValidSources }
+                    ]
+                });
+                debugger;
+                avatarService = TestBed.get(AvatarService);
+
+                const expectedSourcePriorityOrder = avatarService.avatarSources;
+
+                const sourcesNotProvided = expectedSourcePriorityOrder.filter(function(item) {
+                    return !validSources.includes(item);
+                });
+                expect(sourcesNotProvided).toEqual(defaultOrderOfSourcesNotProvided)
+
+            });
+        });
+
     });
   });
 
 
-});
+function getDetaultSourcePriorityOrder(): AvatarSource[] {
+    let avatarService: AvatarService;
 
-//move to a setup method. 
-function getDetaulSourcePriorityOrder(): AvatarSource[]{
-  let avatarService: AvatarService;
+    avatarService = new AvatarService(null, null)
 
-  TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule],
-    providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {} }]
-  });
+    return avatarService.avatarSources;
 
-  avatarService = TestBed.get(AvatarService);
-
-
-  let sources = avatarService.avatarSources;
-  TestBed.overrideProvider
 }
+
+
