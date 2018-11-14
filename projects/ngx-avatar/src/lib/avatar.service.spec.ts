@@ -241,7 +241,7 @@ describe("AvatarService", () => {
                         AvatarService, { provide: AVATAR_CONFIG, useValue: avatarConfigWithValidSources }
                     ]
                 });
-                debugger;
+
                 avatarService = TestBed.get(AvatarService);
 
                 const expectedSourcePriorityOrder = avatarService.avatarSources;
