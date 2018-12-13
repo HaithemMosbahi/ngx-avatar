@@ -134,7 +134,7 @@ $ ng serve
 | `size`        | *number*             | 50      | Size of the avatar                                                                                     |
 | `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
 | `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
-| `borderCorner`       | *number*            | 0   | Square avatars can have rounded corners using this property                                                                              |
+| `cornerRadius`       | *number*            | 0   | Square avatars can have rounded corners using this property                                                                              |
 | `borderColor`       | *string*            | undefined   | Add border with the given color. boder's default style is '1px solid borderColor'                                                                               |
 | `style`         | *object*          |         | Style that will be applied on the root element
 | `clickOnAvatar`         | *Output*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.||
