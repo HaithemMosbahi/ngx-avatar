@@ -269,7 +269,7 @@ export class AvatarComponent implements OnChanges {
    */
   _updateExistingSource(sourceType: string, sourceValue: string) {
     const sourceIndex = this._sources.findIndex(
-      source => source.sourceType === sourceType
+      source => source.sourceType === sourceType.toLowerCase()
     );
     if (sourceIndex > -1) {
       this._sources[sourceIndex].sourceId = sourceValue;
