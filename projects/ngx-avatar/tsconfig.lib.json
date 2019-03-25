@@ -11,6 +11,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "downlevelIteration": true,
     "types": [],
     "lib": [
       "dom",

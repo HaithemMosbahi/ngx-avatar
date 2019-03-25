@@ -1,11 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AvatarComponent } from './avatar.component';
 import { SourceFactory } from './sources/source.factory';
 import { AvatarService } from './avatar.service';
 import { AvatarConfig } from './avatar-config';
 import { AVATAR_CONFIG } from './avatar-config.token';
+import { AvatarConfigService } from './avatar-config.service';
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { AVATAR_CONFIG } from './avatar-config.token';
   ],
   providers: [
     SourceFactory,
-    AvatarService
+    AvatarService,
+    AvatarConfigService
   ],
   exports: [
     AvatarComponent

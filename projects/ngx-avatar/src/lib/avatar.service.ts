@@ -1,15 +1,15 @@
-import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { AVATAR_CONFIG } from "./avatar-config.token";
-import { AvatarConfig } from "./avatar-config";
-import { Injectable, Inject, Optional } from "@angular/core";
-import { AvatarSource } from "./sources/avatar-source.enum";
+import { Observable } from 'rxjs';
+
+import { AvatarConfigService } from './avatar-config.service';
+import { AvatarSource } from './sources/avatar-source.enum';
 
 /**
  * list of Supported avatar sources
  */
-const defaultSources = [
+export const defaultSources = [
   AvatarSource.FACEBOOK,
   AvatarSource.GOOGLE,
   AvatarSource.TWITTER,
@@ -25,15 +25,15 @@ const defaultSources = [
 /**
  * list of default colors
  */
-const defaultColors = [
-  "#1abc9c",
-  "#3498db",
-  "#f1c40f",
-  "#8e44ad",
-  "#e74c3c",
-  "#d35400",
-  "#2c3e50",
-  "#7f8c8d"
+export const defaultColors = [
+  '#1abc9c',
+  '#3498db',
+  '#f1c40f',
+  '#8e44ad',
+  '#e74c3c',
+  '#d35400',
+  '#2c3e50',
+  '#7f8c8d'
 ];
 
 /**
@@ -45,15 +45,11 @@ export class AvatarService {
   public avatarColors: string[] = defaultColors;
 
   constructor(
-    @Optional()
-    @Inject(AVATAR_CONFIG)
-    private avatarConfig: AvatarConfig,
-    private http: HttpClient
+    private http: HttpClient,
+    private avatarConfigService: AvatarConfigService
   ) {
-    if (this.avatarConfig) {
-      this.overrideAvatarSources();
-      this.overrideAvatarColors();
-    }
+    this.overrideAvatarSources();
+    this.overrideAvatarColors();
   }
 
   public fetchAvatar(avatarUrl: string): Observable<any> {
@@ -62,7 +58,7 @@ export class AvatarService {
 
   public getRandomColor(avatarText: string): string {
     if (!avatarText) {
-      return "transparent";
+      return 'transparent';
     }
     const asciiCodeSum = this.calculateAsciiCode(avatarText);
     return this.avatarColors[asciiCodeSum % this.avatarColors.length];
@@ -86,18 +82,18 @@ export class AvatarService {
   }
 
   private overrideAvatarSources(): void {
-    // TODO: add sources to avatarConfig and implement this
+    this.avatarSources = this.avatarConfigService.getAvatarSources(
+      defaultSources
+    );
   }
 
   private overrideAvatarColors(): void {
-    if (this.avatarConfig.colors && this.avatarConfig.colors.length > 0) {
-      this.avatarColors = this.avatarConfig.colors;
-    }
+    this.avatarColors = this.avatarConfigService.getAvatarColors(defaultColors);
   }
 
   private calculateAsciiCode(value: string): number {
     return value
-      .split("")
+      .split('')
       .map(letter => letter.charCodeAt(0))
       .reduce((previous, current) => previous + current);
   }
@@ -105,5 +101,4 @@ export class AvatarService {
   private getSourcePriority(sourceType: AvatarSource) {
     return this.avatarSources.indexOf(sourceType);
   }
-
 }
