@@ -14,6 +14,14 @@ describe('AvatarConfigService', () => {
       );
     });
 
+    it('should return the list of sources with the default order when the user does not provide a custom avatar configuration', () => {
+      const avatarConfigService = new AvatarConfigService({});
+
+      expect(avatarConfigService.getAvatarSources(defaultSources)).toEqual(
+        defaultSources
+      );
+    });
+
     it('should return the list of sources with the default order when the user provides an unknown list of sources', () => {
       const userConfig: AvatarConfig = {
         sourcePriorityOrder: <any>['UNKOWN_SOURCE']

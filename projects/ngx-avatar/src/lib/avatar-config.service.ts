@@ -14,6 +14,7 @@ export class AvatarConfigService {
 
   public getAvatarSources(defaultSources: AvatarSource[]): AvatarSource[] {
     if (
+      this.userConfig &&
       this.userConfig.sourcePriorityOrder &&
       this.userConfig.sourcePriorityOrder.length
     ) {
