@@ -6,10 +6,11 @@ import { AvatarService } from './avatar.service';
 import { By } from '@angular/platform-browser';
 import { SimpleChange } from '@angular/core';
 import { AvatarSource } from './sources/avatar-source.enum';
+import { of } from 'rxjs';
 
-class AvatarServiceStub {
+class AvatarServiceMock {
   public fetchAvatar(source: string) {
-    return '';
+    return of(true);
   }
   public compareSources(source1: AvatarSource, source2: AvatarSource) {
     return 0;
@@ -27,7 +28,7 @@ class AvatarServiceStub {
   }
 }
 
-fdescribe('AvatarComponent', () => {
+describe('AvatarComponent', () => {
   let component: AvatarComponent;
   let fixture: ComponentFixture<AvatarComponent>;
   let avatarService: AvatarService;
@@ -37,7 +38,7 @@ fdescribe('AvatarComponent', () => {
       declarations: [AvatarComponent],
       providers: [
         SourceFactory,
-        { provide: AvatarService, useClass: AvatarServiceStub }
+        { provide: AvatarService, useClass: AvatarServiceMock }
       ]
     }).compileComponents();
   }));
@@ -61,12 +62,12 @@ fdescribe('AvatarComponent', () => {
       component.ngOnChanges({
         initials: new SimpleChange(null, 'John Doe', true)
       });
+
       fixture.detectChanges();
 
       const avatarTextEl = fixture.debugElement.query(
         By.css('.avatar-container > div')
       );
-      console.log(fixture.debugElement.nativeElement);
       expect(avatarTextEl.nativeElement.textContent.trim()).toBe('JD');
     });
   });
