@@ -149,7 +149,41 @@ The avatar module provides the possibility of customizing the avatar component b
 
 All you need to do is to configure the AvatarModule by calling **forRoot** method. The forRoot method takes an AvatarConfig Object that contains the overridden options. 
 
-At this moment, the AvatarConfig object has one parameter which is the avatarColors. In future releases, more options will be added to the configuration ( such as the source priority )
+AvatarConfig interface has two properties: 
+  * **avatarColors:** allows the user to override the default avatar colors by providing a new set of colors
+  * **sourcePriorityOrder:** allows the user to change the avatar source priority order. If you want the avatar component to look for user initials first, twitter before facebook or any order you want, this is can be done using the sourcePriorityOrder property
+
+The following code shows an example on how to import the AvatarModule with your own source priority order. 
+With the given order, the avatar component will look first for the custom avatar image and then for user initials and after that it will look the rest of sources.
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
+
+import { AppComponent } from './app.component';
+import { UserService } from "./user.service";
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
+
+@NgModule({
+  declarations: [
+    AppComponent  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    // import AvatarModule in your app with your own configuration
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    })
+  ],
+  providers: [UserService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
 
 Here's an example on how to import the AvatarModule with your own set of colors.
 

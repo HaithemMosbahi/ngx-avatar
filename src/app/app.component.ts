@@ -17,8 +17,7 @@ export class AppComponent implements OnInit {
     cursor: 'pointer'
   };
 
-  constructor(public userService: UserService) {
-  }
+  constructor(public userService: UserService) {}
 
   ngOnInit() {
     this.userService.fetchInformations().subscribe(user => {

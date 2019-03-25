@@ -5,19 +5,15 @@ import { AppComponent } from './app.component';
 import { UserService } from './user.service';
 
 const userServiceStub = {
-    fetchInformations: jasmine.createSpy('userService.fetchInformations'),
-    getUserFacebook: jasmine.createSpy('userService.getUserFacebook')
-}
+  fetchInformations: jasmine.createSpy('userService.fetchInformations'),
+  getUserFacebook: jasmine.createSpy('userService.getUserFacebook')
+};
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      providers:[
-        {provide: UserService, use: userServiceStub}  
-      ],
+      declarations: [AppComponent],
+      providers: [{ provide: UserService, use: userServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -26,5 +22,4 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-
 });

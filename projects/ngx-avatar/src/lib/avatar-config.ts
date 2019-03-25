@@ -1,10 +1,9 @@
-import { AvatarSource } from "./sources/avatar-source.enum";
+import { AvatarSource } from './sources/avatar-source.enum';
 
 /**
  * Represents avatar configuration object.
  */
 export interface AvatarConfig {
-  
   /**
    * The avatars colors.
    */

@@ -36,8 +36,13 @@ import { takeWhile, map } from 'rxjs/operators';
     `
   ],
   template: `
-    <div (click)="onAvatarClicked()" class="avatar-container" [ngStyle]="hostStyle">
-      <img *ngIf="avatarSrc; else textAvatar"
+    <div
+      (click)="onAvatarClicked()"
+      class="avatar-container"
+      [ngStyle]="hostStyle"
+    >
+      <img
+        *ngIf="avatarSrc; else textAvatar"
         [src]="avatarSrc"
         [width]="size"
         [height]="size"
@@ -46,13 +51,12 @@ import { takeWhile, map } from 'rxjs/operators';
         class="avatar-content"
       />
       <ng-template #textAvatar>
-        <div *ngIf="avatarText" class="avatar-content"
-          [ngStyle]="avatarStyle">
-            {{avatarText}}
+        <div *ngIf="avatarText" class="avatar-content" [ngStyle]="avatarStyle">
+          {{ avatarText }}
         </div>
       </ng-template>
-   </div>
-   `
+    </div>
+  `
 })
 export class AvatarComponent implements OnChanges, OnDestroy {
   @Input()
