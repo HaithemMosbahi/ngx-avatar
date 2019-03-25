@@ -14,9 +14,10 @@ export class Google extends AsyncSource {
   }
 
   public getAvatar(): string {
-    return `https://picasaweb.google.com/data/entry/api/user/${this.sourceId}?alt=json`;
+    return `https://picasaweb.google.com/data/entry/api/user/${
+      this.sourceId
+    }?alt=json`;
   }
-
 
   /**
    * Extract google avatar from json data

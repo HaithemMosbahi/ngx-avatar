@@ -16,10 +16,12 @@ export class Vkontakte extends AsyncSource {
 
   public getAvatar(size: number): string {
     const imgSize = this.getImageSize(size);
-    return `https://api.vk.com/method/users.get?user_id=${this.sourceId}&v=${apiVersion}&fields=${imgSize}`;
+    return `https://api.vk.com/method/users.get?user_id=${
+      this.sourceId
+    }&v=${apiVersion}&fields=${imgSize}`;
   }
 
-   /**
+  /**
    * extract vkontakte avatar from json data
    */
   public processResponse(data: any): string {
@@ -32,7 +34,6 @@ export class Vkontakte extends AsyncSource {
 
   /**
    * Returns image size related to vkontakte API
-   * @param size
    */
   private getImageSize(size: number): string {
     if (size <= 50) {
@@ -49,5 +50,4 @@ export class Vkontakte extends AsyncSource {
 
     return 'photo_max';
   }
-
 }

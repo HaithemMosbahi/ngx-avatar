@@ -9,12 +9,13 @@ import { AvatarSource } from './avatar-source.enum';
 export class Twitter implements Source {
   readonly sourceType: AvatarSource = AvatarSource.TWITTER;
 
-  constructor(public sourceId: string) {
-  }
+  constructor(public sourceId: string) {}
 
   public getAvatar(size: number): string {
     const twitterImgSize = this.getImageSize(size);
-    return `https://twitter.com/${this.sourceId}/profile_image?size=${twitterImgSize}`;
+    return `https://twitter.com/${
+      this.sourceId
+    }/profile_image?size=${twitterImgSize}`;
   }
 
   private getImageSize(size: number) {
@@ -32,5 +33,4 @@ export class Twitter implements Source {
 
     return 'original';
   }
-
 }

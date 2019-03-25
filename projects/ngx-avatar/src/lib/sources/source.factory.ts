@@ -1,18 +1,18 @@
-import { Source } from "./source";
-import { Facebook } from "./facebook";
-import { Twitter } from "./twitter";
-import { Google } from "./google";
-import { Custom } from "./custom";
-import { Initials } from "./initials";
-import { Gravatar } from "./gravatar";
-import { Skype } from "./skype";
-import { Value } from "./value";
-import { Vkontakte } from "./vkontakte";
-import { Github } from "./github";
+import { Injectable } from '@angular/core';
 
-import { Injectable } from "@angular/core";
-import { SourceCreator } from "./source.creator";
-import { AvatarSource } from "./avatar-source.enum";
+import { Source } from './source';
+import { Facebook } from './facebook';
+import { Twitter } from './twitter';
+import { Google } from './google';
+import { Custom } from './custom';
+import { Initials } from './initials';
+import { Gravatar } from './gravatar';
+import { Skype } from './skype';
+import { Value } from './value';
+import { Vkontakte } from './vkontakte';
+import { Github } from './github';
+import { SourceCreator } from './source.creator';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  * Factory class that implements factory method pattern.

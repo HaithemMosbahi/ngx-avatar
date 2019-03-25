@@ -17,14 +17,12 @@ export class Github extends AsyncSource {
   }
 
   /**
-  * extract github avatar from json data
-  */
- public processResponse(data: any, size?: number): string {
+   * extract github avatar from json data
+   */
+  public processResponse(data: any, size?: number): string {
     if (size) {
       return `${data.avatar_url}&s=${size}`;
     }
     return data.avatar_url;
   }
-
-
 }
