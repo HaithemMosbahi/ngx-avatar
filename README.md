@@ -267,7 +267,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
-* 3.3.1 : Bug fixes
+* 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
 * 3.2.0 : Add support to Angular 7
 * 3.1.1 : fixes the source priority bug 

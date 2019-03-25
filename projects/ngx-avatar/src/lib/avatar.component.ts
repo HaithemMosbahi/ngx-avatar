@@ -255,7 +255,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     this.avatarService
       .fetchAvatar(source.getAvatar())
       .pipe(
-        takeWhile(() => !this.isAlive),
+        takeWhile(() => this.isAlive),
         map(response => source.processResponse(response, this.size))
       )
       .subscribe(
