@@ -9,7 +9,7 @@ import { AvatarSource } from './sources/avatar-source.enum';
 /**
  * list of Supported avatar sources
  */
-const defaultSources = [
+export const defaultSources = [
   AvatarSource.FACEBOOK,
   AvatarSource.GOOGLE,
   AvatarSource.TWITTER,
@@ -25,7 +25,7 @@ const defaultSources = [
 /**
  * list of default colors
  */
-const defaultColors = [
+export const defaultColors = [
   '#1abc9c',
   '#3498db',
   '#f1c40f',
@@ -88,9 +88,7 @@ export class AvatarService {
   }
 
   private overrideAvatarColors(): void {
-    const customColors = this.avatarConfigService.getAvatarColors();
-    this.avatarColors =
-      customColors && customColors.length ? customColors : defaultColors;
+    this.avatarColors = this.avatarConfigService.getAvatarColors(defaultColors);
   }
 
   private calculateAsciiCode(value: string): number {

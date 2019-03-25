@@ -29,13 +29,13 @@ export class AvatarConfigService {
     return defaultSources;
   }
 
-  public getAvatarColors(): string[] {
+  public getAvatarColors(defaultColors: string[]): string[] {
     return (
       (this.userConfig &&
         this.userConfig.colors &&
-        !this.userConfig.colors.length &&
+        this.userConfig.colors.length &&
         this.userConfig.colors) ||
-      []
+      defaultColors
     );
   }
 }

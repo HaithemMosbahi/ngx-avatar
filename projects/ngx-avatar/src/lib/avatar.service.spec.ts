@@ -4,13 +4,18 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { AvatarService } from './avatar.service';
-import { AVATAR_CONFIG } from './avatar-config.token';
+import { AvatarService, defaultSources, defaultColors } from './avatar.service';
 import { AvatarSource } from './sources/avatar-source.enum';
-import { AvatarConfig } from './avatar-config';
-import { HttpClientTestingBackend } from '@angular/common/http/testing/src/backend';
-import { HttpClient } from '@angular/common/http';
-import { assertDataInRangeInternal } from '@angular/core/src/render3/util';
+import { AvatarConfigService } from './avatar-config.service';
+
+const avatarServiceCongigSpy = {
+  getAvatarSources: jasmine
+    .createSpy('avatarConfigService.getAvatarSources')
+    .and.returnValue(defaultSources),
+  getAvatarColors: jasmine
+    .createSpy('avatarConfigService.getAvatarColors')
+    .and.returnValue(defaultColors)
+};
 
 describe('AvatarService', () => {
   let avatarService: AvatarService;
@@ -20,7 +25,10 @@ describe('AvatarService', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        providers: [AvatarService, { provide: AVATAR_CONFIG, useValue: {} }]
+        providers: [
+          AvatarService,
+          { provide: AvatarConfigService, useValue: avatarServiceCongigSpy }
+        ]
       });
 
       avatarService = TestBed.get(AvatarService);
@@ -121,22 +129,6 @@ describe('AvatarService', () => {
           avatarService.copmareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)
         ).toBe(0);
       });
-    });
-  });
-
-  fdescribe('Avatar service with custom configuration', () => {
-    describe('Override avatar source priority order', () => {
-      it('should not override the priority order when the user provides an empty list of sources', () => {
-
-      });
-
-      it('should not override the priority order when the user provides an unknown list of sources', () => {});
-
-      it('should override the priority order when the user provide valid list of sources', () => {});
-
-      it('should ignore unknown sources', () => {});
-
-      it('should ignore redundant sources', () => {});
     });
   });
 });
