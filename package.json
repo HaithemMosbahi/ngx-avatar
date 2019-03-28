@@ -1,6 +1,10 @@
 {
   "name": "testing",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HaithemMosbahi/ngx-avatar"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
