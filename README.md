@@ -50,6 +50,7 @@ Once you have installed ngx-avatar, you can import it in your `AppModule`:
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -62,6 +63,7 @@ import { AvatarModule } from 'ngx-avatar';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     // Specify AvatarModule as an import
     AvatarModule
   ],
@@ -70,6 +72,9 @@ import { AvatarModule } from 'ngx-avatar';
 })
 export class AppModule { }
 ```
+
+- `HttpClientModule` is mandatory in order to fetch the avatar from external sources (Gravatar, Google, ...).
+
 2. Start using it:
 
 Once the AvatarModule is imported, you can start using the component in your Angular application:
