@@ -252,20 +252,20 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * memberof AvatarComponent
    */
   private fetchAndProcessAsyncAvatar(source: AsyncSource): void {
-    this.avatarService
-      .fetchAvatar(source.getAvatar())
-      .pipe(
-        takeWhile(() => this.isAlive),
-        map(response => source.processResponse(response, this.size))
-      )
-      .subscribe(
-        avatarSrc => (this.avatarSrc = avatarSrc),
-        err => {
-          console.error(
-            `ngx-avatar: error while fetching ${source.sourceType} avatar `
-          );
-        }
-      );
+    if (!this.avatarService.fetchAvatarHasFailedBefore(source.sourceType)) {
+      this.avatarService
+        .fetchAvatar(source.getAvatar())
+        .pipe(
+          takeWhile(() => this.isAlive),
+          map(response => source.processResponse(response, this.size))
+        )
+        .subscribe(
+          avatarSrc => (this.avatarSrc = avatarSrc),
+          err => {
+            this.avatarService.cacheFailedAvatar(source.sourceType);
+          }
+        );
+    }
   }
 
   /**

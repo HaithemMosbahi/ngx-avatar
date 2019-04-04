@@ -44,6 +44,8 @@ export class AvatarService {
   public avatarSources: AvatarSource[] = defaultSources;
   public avatarColors: string[] = defaultColors;
 
+  private cache: AvatarSource[] = [];
+
   constructor(
     private http: HttpClient,
     private avatarConfigService: AvatarConfigService
@@ -79,6 +81,14 @@ export class AvatarService {
 
   public isTextAvatar(sourceType: AvatarSource): boolean {
     return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
+  }
+
+  public fetchAvatarHasFailedBefore(source: AvatarSource): boolean {
+    return this.cache.includes(source);
+  }
+
+  public cacheFailedAvatar(source: AvatarSource): void {
+    this.cache.push(source);
   }
 
   private overrideAvatarSources(): void {
