@@ -7,6 +7,7 @@ import {
 import { AvatarService, defaultSources, defaultColors } from './avatar.service';
 import { AvatarSource } from './sources/avatar-source.enum';
 import { AvatarConfigService } from './avatar-config.service';
+import { Gravatar } from './sources/gravatar';
 
 const avatarServiceCongigSpy = {
   getAvatarSources: jasmine
@@ -31,8 +32,8 @@ describe('AvatarService', () => {
         ]
       });
 
-      avatarService = TestBed.get(AvatarService);
-      httpMock = TestBed.get(HttpTestingController);
+      avatarService = TestBed.inject(AvatarService);
+      httpMock = TestBed.inject(HttpTestingController);
     });
 
     afterEach(() => {
@@ -108,7 +109,7 @@ describe('AvatarService', () => {
     describe('compareSources', () => {
       it('should return a negative value when the first avatar type comes after the second one', () => {
         expect(
-          avatarService.copmareSources(
+          avatarService.compareSources(
             AvatarSource.FACEBOOK,
             AvatarSource.GOOGLE
           )
@@ -117,7 +118,7 @@ describe('AvatarService', () => {
 
       it('should return a positive value when the first avatar type comes before the second one', () => {
         expect(
-          avatarService.copmareSources(
+          avatarService.compareSources(
             AvatarSource.INITIALS,
             AvatarSource.FACEBOOK
           )
@@ -126,8 +127,28 @@ describe('AvatarService', () => {
 
       it('should return a zero value when the two give values are equales', () => {
         expect(
-          avatarService.copmareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)
+          avatarService.compareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)
         ).toBe(0);
+      });
+
+      it('should be able to tell if a source has failed before', () => {
+          const source1 = new Gravatar('source1');
+          const source1bis = new Gravatar('source1');
+          const source2 = new Gravatar('source2');
+
+          // At first nothing has failed
+          expect(avatarService.sourceHasFailedBefore(source1)).toBe(false);
+          expect(avatarService.sourceHasFailedBefore(source1bis)).toBe(false);
+          expect(avatarService.sourceHasFailedBefore(source2)).toBe(false);
+
+          avatarService.markSourceAsFailed(source1);
+
+          // source1 has failed, and source1bis should also be considered failed so
+          // we don't load the same avatar with failure from two component instances.
+          // source2 is still not failed, even though it is the same type of avatar
+          expect(avatarService.sourceHasFailedBefore(source1)).toBe(true);
+          expect(avatarService.sourceHasFailedBefore(source1bis)).toBe(true);
+          expect(avatarService.sourceHasFailedBefore(source2)).toBe(false);
       });
     });
   });

@@ -3,9 +3,8 @@ import {
   Input,
   Output,
   EventEmitter,
-  ElementRef,
   OnChanges,
-  SimpleChange,
+  SimpleChanges,
   OnDestroy
 } from '@angular/core';
 
@@ -47,7 +46,7 @@ import { takeWhile, map } from 'rxjs/operators';
         [width]="size"
         [height]="size"
         [ngStyle]="avatarStyle"
-        (error)="fetchAvatarSource($event)"
+        (error)="fetchAvatarSource()"
         class="avatar-content"
       />
       <ng-template #textAvatar>
@@ -109,17 +108,16 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   public avatarStyle: any = {};
   public hostStyle: any = {};
 
-  private currentSource = 0;
-  private sources: Source[] = Array();
+  private currentIndex = -1;
+  private sources: Source[] = [];
 
   constructor(
-    public elementRef: ElementRef,
     public sourceFactory: SourceFactory,
     private avatarService: AvatarService
   ) {}
 
   public onAvatarClicked(): void {
-    this.clickOnAvatar.emit(this.sources[this.currentSource - 1]);
+    this.clickOnAvatar.emit(this.sources[this.currentIndex]);
   }
 
   /**
@@ -129,7 +127,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberof AvatarComponent
    */
-  public ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
       if (this.avatarService.isSource(propName)) {
         const sourceType = AvatarSource[propName.toUpperCase()];
@@ -153,18 +151,34 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  public fetchAvatarSource(event?: any): void {
-    const avatarSource = this.sources[this.currentSource];
-    if (!avatarSource) {
+  public fetchAvatarSource(): void {
+    const previousSource = this.sources[this.currentIndex];
+    if (previousSource) {
+      this.avatarService.markSourceAsFailed(previousSource);
+    }
+
+    const source = this.findNextSource();
+    if (!source) {
       return;
     }
-    if (this.avatarService.isTextAvatar(avatarSource.sourceType)) {
-      this.buildTextAvatar(avatarSource);
+
+    if (this.avatarService.isTextAvatar(source.sourceType)) {
+      this.buildTextAvatar(source);
       this.avatarSrc = null;
     } else {
-      this.buildImageAvatar(avatarSource);
+      this.buildImageAvatar(source);
     }
-    this.currentSource++;
+  }
+
+  private findNextSource(): Source | null {
+    while (++this.currentIndex < this.sources.length) {
+      const source = this.sources[this.currentIndex];
+      if (source && !this.avatarService.sourceHasFailedBefore(source)) {
+        return source;
+      }
+    }
+
+    return null;
   }
 
   public ngOnDestroy(): void {
@@ -175,8 +189,8 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * Initialize the avatar component and its fallback system
    */
   private initializeAvatar(): void {
-    this.currentSource = 0;
-    if (this.sources.length > 0 && this.sources[this.currentSource]) {
+    this.currentIndex = -1;
+    if (this.sources.length > 0) {
       this.sortAvatarSources();
       this.fetchAvatarSource();
       this.hostStyle = {
@@ -188,7 +202,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
 
   private sortAvatarSources(): void {
     this.sources.sort((source1, source2) =>
-      this.avatarService.copmareSources(source1.sourceType, source2.sourceType)
+      this.avatarService.compareSources(source1.sourceType, source2.sourceType)
     );
   }
 
@@ -253,20 +267,22 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * memberof AvatarComponent
    */
   private fetchAndProcessAsyncAvatar(source: AsyncSource): void {
+    if (this.avatarService.sourceHasFailedBefore(source)) {
+      return;
+    }
+
     this.avatarService
-      .fetchAvatar(source.getAvatar(this.size))
-      .pipe(
-        takeWhile(() => this.isAlive),
-        map(response => source.processResponse(response, this.size))
-      )
-      .subscribe(
-        avatarSrc => (this.avatarSrc = avatarSrc),
-        err => {
-          console.error(
-            `ngx-avatar: error while fetching ${source.sourceType} avatar `
-          );
-        }
-      );
+        .fetchAvatar(source.getAvatar(this.size))
+        .pipe(
+            takeWhile(() => this.isAlive),
+            map(response => source.processResponse(response, this.size)),
+        )
+        .subscribe(
+            avatarSrc => (this.avatarSrc = avatarSrc),
+            err => {
+              this.avatarService.markSourceAsFailed(source);
+            },
+        );
   }
 
   /**
@@ -303,6 +319,6 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   }
 
   private isSourceExist(avatarSource: AvatarSource): boolean {
-    return this.sources.map(source => source.sourceType).includes(avatarSource);
+    return this.sources.some(source => source.sourceType === avatarSource);
   }
 }
