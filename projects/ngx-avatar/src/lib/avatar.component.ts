@@ -131,15 +131,17 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    */
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }): void {
     for (const propName in changes) {
-      if (
-        this.avatarService.isSource(propName) &&
-        changes[propName].currentValue
-      ) {
-        const currentValue = changes[propName].currentValue;
-        this.addSource(AvatarSource[propName.toUpperCase()], currentValue);
+      if (this.avatarService.isSource(propName)) {
+        const sourceType = AvatarSource[propName.toUpperCase()];
+        if (changes[propName].currentValue) {
+          const currentValue = changes[propName].currentValue;
+          this.addSource(sourceType, currentValue);
+        } else {
+          this.removeSource(sourceType);
+        }
       }
     }
-    // reintialize the avatar component when a source property value has changed
+    // reinitialize the avatar component when a source property value has changed
     // the fallback system must be re-invoked with the new values.
     this.initializeAvatar();
   }
@@ -211,7 +213,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getInitialsStyle(avatarValue: string): void {
+  private getInitialsStyle(avatarValue: string): any {
     return {
       textAlign: 'center',
       borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
@@ -235,7 +237,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getImageStyle(): void {
+  private getImageStyle(): any {
     return {
       maxWidth: '100%',
       borderRadius: this.round ? '50%' : this.cornerRadius + 'px',
@@ -246,7 +248,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     };
   }
   /**
-   * Fetch avatar image asynchrounsly.
+   * Fetch avatar image asynchronously.
    *
    * param {Source} source represents avatar source
    * memberof AvatarComponent
@@ -284,6 +286,20 @@ export class AvatarComponent implements OnChanges, OnDestroy {
         source => source.sourceType === sourceType
       );
       this.sources[index].sourceId = sourceValue;
+    }
+  }
+
+  /**
+   * Remove avatar source
+   *
+   * param sourceType avatar source type e.g facebook,twitter, etc.
+   */
+  private removeSource(sourceType: AvatarSource): void {
+    if (this.isSourceExist(sourceType)) {
+      const index = this.sources.findIndex(
+        source => source.sourceType === sourceType
+      );
+      this.sources.splice(index, 1);
     }
   }
 
