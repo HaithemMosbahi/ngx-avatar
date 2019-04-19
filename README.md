@@ -333,4 +333,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## License
 
-MIT © [Haithem Mosbahi](mailto:elmosbahihaithem@gmail.com)
+MIT © [Haithem Mosbahi](mailto:haithem.mosbahi@gmail.com)
