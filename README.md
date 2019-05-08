@@ -73,6 +73,7 @@ import { AvatarModule } from 'ngx-avatar';
 export class AppModule { }
 ```
 
+Starting from version 3.4.0:
 - `HttpClientModule` is mandatory in order to fetch the avatar from external sources (Gravatar, Google, ...).
 
 2. Start using it:
@@ -272,6 +273,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 3.4.0: http module is removed from the library dependencies. Applicatins' http module will be used instead.
 * 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
 * 3.2.0 : Add support to Angular 7
