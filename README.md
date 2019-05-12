@@ -273,6 +273,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 3.5.0: export Avatar component for Angular elements and ng upgrade
 * 3.4.0: http module is removed from the library dependencies. Applicatins' http module will be used instead.
 * 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
