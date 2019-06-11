@@ -50,6 +50,7 @@ Once you have installed ngx-avatar, you can import it in your `AppModule`:
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -62,6 +63,7 @@ import { AvatarModule } from 'ngx-avatar';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     // Specify AvatarModule as an import
     AvatarModule
   ],
@@ -70,6 +72,10 @@ import { AvatarModule } from 'ngx-avatar';
 })
 export class AppModule { }
 ```
+
+Starting from version 3.4.0:
+- `HttpClientModule` is mandatory in order to fetch the avatar from external sources (Gravatar, Google, ...).
+
 2. Start using it:
 
 Once the AvatarModule is imported, you can start using the component in your Angular application:
@@ -267,6 +273,9 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 3.6.0: Angular 8 support
+* 3.5.0: export Avatar component for Angular elements and ng upgrade
+* 3.4.0: http module is removed from the library dependencies. Applicatins' http module will be used instead.
 * 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
 * 3.2.0 : Add support to Angular 7
@@ -333,4 +342,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## License
 
-MIT © [Haithem Mosbahi](mailto:elmosbahihaithem@gmail.com)
+MIT © [Haithem Mosbahi](mailto:haithem.mosbahi@gmail.com)
