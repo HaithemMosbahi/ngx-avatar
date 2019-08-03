@@ -213,7 +213,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getInitialsStyle(avatarValue: string): any {
+  private getInitialsStyle(avatarValue: string): void {
     return {
       textAlign: 'center',
       borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
@@ -237,7 +237,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getImageStyle(): any {
+  private getImageStyle(): void {
     return {
       maxWidth: '100%',
       borderRadius: this.round ? '50%' : this.cornerRadius + 'px',
