@@ -13,3 +13,4 @@ typings
 /dist
 .DS_Store
 src/.DS_Store
+.angulardoc.json
