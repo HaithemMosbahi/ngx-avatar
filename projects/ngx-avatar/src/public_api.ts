@@ -6,3 +6,4 @@ export * from './lib/avatar.component';
 export * from './lib/avatar-config';
 export * from './lib/avatar.service';
 export * from './lib/sources/avatar-source.enum';
+export { SourceFactory } from './lib/sources/source.factory';
