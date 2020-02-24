@@ -81,6 +81,8 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   public twitter: string;
   @Input('googleId')
   public google: string;
+  @Input('instagramId')
+  public instagram: string;
   @Input('vkontakteId')
   public vkontakte: string;
   @Input('skypeId')
