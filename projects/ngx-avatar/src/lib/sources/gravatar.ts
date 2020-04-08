@@ -1,5 +1,5 @@
 import isRetina from 'is-retina';
-import { Md5 } from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5';
 
 import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
