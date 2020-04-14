@@ -15,7 +15,7 @@ import { AvatarConfigService } from './avatar-config.service';
   exports: [AvatarComponent]
 })
 export class AvatarModule {
-  static forRoot(avatarConfig?: AvatarConfig): ModuleWithProviders {
+  static forRoot(avatarConfig?: AvatarConfig): ModuleWithProviders<AvatarModule> {
     return {
       ngModule: AvatarModule,
       providers: [
