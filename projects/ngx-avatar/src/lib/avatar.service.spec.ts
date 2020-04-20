@@ -86,7 +86,7 @@ describe('AvatarService', () => {
 
     describe('getRandomColor', () => {
       it('should return transparent when the given value is undefined', () => {
-        const color = avatarService.getRandomColor(undefined);
+        const color = avatarService.getRandomColor('');
 
         expect(color).toBe('transparent');
       });

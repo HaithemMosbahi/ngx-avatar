@@ -31,7 +31,7 @@ export class Vkontakte extends AsyncSource {
     if (!sizeProperty) {
       return null;
     }
-// return avatar src
+    // return avatar src
     return data['response'][0][sizeProperty] || null;
   }
 
