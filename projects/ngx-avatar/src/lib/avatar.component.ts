@@ -101,11 +101,11 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   public initialsSize: number;
 
   @Output()
-  public clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
+  public clickOnAvatar: EventEmitter<Source> = new EventEmitter<Source>();
 
   public isAlive = true;
-  public avatarSrc: string;
-  public avatarText: string;
+  public avatarSrc: string | null = null;
+  public avatarText: string | null = null;
   public avatarStyle: any = {};
   public hostStyle: any = {};
 
@@ -160,8 +160,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     }
     if (this.avatarService.isTextAvatar(avatarSource.sourceType)) {
       this.buildTextAvatar(avatarSource);
-      // TODO: check if this is needed
-      this.avatarSrc = undefined;
+      this.avatarSrc = null;
     } else {
       this.buildImageAvatar(avatarSource);
     }
@@ -255,7 +254,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    */
   private fetchAndProcessAsyncAvatar(source: AsyncSource): void {
     this.avatarService
-      .fetchAvatar(source.getAvatar())
+      .fetchAvatar(source.getAvatar(this.size))
       .pipe(
         takeWhile(() => this.isAlive),
         map(response => source.processResponse(response, this.size))

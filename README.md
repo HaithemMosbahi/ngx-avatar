@@ -148,7 +148,7 @@ $ ng serve
  The source object has the following properties:
  * sourceType : avatar source ( Facebook, twitter, etc)
  * sourceId : identifier of the user
- * getAvatar(size?) : method to fetch user avatar from the current source
+ * getAvatar(size) : method to fetch user avatar from the current source
 
 ## Override Avatar Configuration
 The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the backgroud color of the avatar. Thus, it's possible to chnage the default list of colors and to pass your own list.

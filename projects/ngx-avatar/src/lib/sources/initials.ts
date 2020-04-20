@@ -10,15 +10,15 @@ export class Initials implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(initialsSize: number): string {
-    return this.getInitials(this.sourceId, initialsSize);
+  public getAvatar(size: number): string | null {
+    return this.getInitials(this.sourceId, size);
   }
 
   /**
    * Returns the initial letters of a name in a string.
    */
   private getInitials(name: string, size: number): string {
-    name = name ? name.trim() : null;
+    name = name ? name.trim() : '';
 
     if (!name) {
       return '';
