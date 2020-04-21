@@ -8,7 +8,7 @@ import { AvatarSource } from './avatar-source.enum';
 export abstract class AsyncSource implements Source {
   readonly sourceType: AvatarSource;
 
-  protected constructor(public sourceId: string) {}
+  constructor(public sourceId: string) {}
 
   abstract getAvatar(size: number): string;
   abstract processResponse(data: any, size?: number): string | null;
