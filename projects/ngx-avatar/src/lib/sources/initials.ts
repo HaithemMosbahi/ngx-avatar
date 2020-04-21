@@ -24,7 +24,7 @@ export class Initials implements Source {
 
     name = name.trim();
 
-    if (!name) {
+    if (name === '') {
       return '';
     }
 
