@@ -18,7 +18,10 @@ export class Initials implements Source {
    * Returns the initial letters of a name in a string.
    */
   private getInitials(name: string, size: number): string {
-    if (!name) return '';
+    if (!name) {
+      return '';
+    }
+
     name = name.trim();
 
     if (!name) {
