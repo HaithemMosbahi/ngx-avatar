@@ -11,7 +11,7 @@ export class Twitter implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(size: number): string {
+  public getAvatar(size: number): string | null {
     const twitterImgSize = this.getImageSize(size);
     return `https://twitter.com/${
       this.sourceId

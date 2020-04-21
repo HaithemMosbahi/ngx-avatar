@@ -9,7 +9,7 @@ export class Skype implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(): string {
+  public getAvatar(): string | null {
     return `https://api.skype.com/users/${this.sourceId}/profile/avatar`;
   }
 }

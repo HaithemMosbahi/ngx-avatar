@@ -10,7 +10,7 @@ export class Value implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(): string {
+  public getAvatar(): string | null {
     return this.sourceId;
   }
 }
