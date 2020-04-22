@@ -308,9 +308,6 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * param sourceType avatar source type e.g facebook,twitter, etc.
    */
   private removeSource(sourceType: AvatarSource): void {
-    const index = this.sources.findIndex(source => source.sourceType === sourceType);
-    if (index !== -1) {
-      this.sources.splice(index, 1);
-    }
+    this.sources = this.sources.filter(source => source.sourceType !== sourceType);
   }
 }
