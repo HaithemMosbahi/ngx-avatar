@@ -47,12 +47,11 @@
 
 <h2>Failed sources are not retried</h2>
 
-<button (click)="failedSources.push(failedSources.length)">Add 1 more failing source</button>
+<button (click)="failedSources.push(failedSources.length)">Add 1 failing source</button>
 
 <span *ngFor="let i of failedSources">
     <ngx-avatar [name]="'failing'" gravatarId="invalid@example.com"></ngx-avatar>
 </span>
 
 </div>
-
 
