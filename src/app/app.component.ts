@@ -17,10 +17,12 @@ export class AppComponent implements OnInit {
     cursor: 'pointer'
   };
 
+  failedSources: number[] = [];
+  
   constructor(public userService: UserService) {}
 
   ngOnInit() {
-    this.userService.fetchInformations().subscribe(user => {
+    this.userService.fetchInformation().subscribe(user => {
       this.userName = user.username;
       this.userService.getUserFacebook().subscribe(data => {
         this.userFB = data;

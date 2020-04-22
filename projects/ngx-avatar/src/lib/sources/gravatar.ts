@@ -1,11 +1,11 @@
 import isRetina from 'is-retina';
-import { Md5 } from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5';
 
 import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Gravatar source impelementation.
+ *  Gravatar source implementation.
  *  Fetch avatar source based on gravatar email
  */
 export class Gravatar implements Source {

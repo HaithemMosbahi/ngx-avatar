@@ -2,7 +2,7 @@ import { AvatarSource } from './avatar-source.enum';
 
 /**
  * Contract of all Sources.
- * Every source must implements the fetch mehod
+ * Every source must implements the fetch method
  * in order to provide the avatar source.
  */
 export interface Source {
@@ -20,5 +20,5 @@ export interface Source {
    * Gets the avatar that usually is a URL, but,
    * for example it can also be a string of initials from the name.
    */
-  getAvatar(size?: number): string;
+  getAvatar(size: number): string;
 }

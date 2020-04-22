@@ -10,6 +10,6 @@ export abstract class AsyncSource implements Source {
 
   constructor(public sourceId: string) {}
 
-  abstract getAvatar(size?: number): string;
-  abstract processResponse(data: any, size?: number): string;
+  abstract getAvatar(size: number): string;
+  abstract processResponse(data: any, size?: number): string | null;
 }

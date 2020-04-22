@@ -5,8 +5,8 @@
 <ngx-avatar googleId="103055244388830425867" [round]="false" size="70"></ngx-avatar>
 <ngx-avatar twitterId="StevenWilsonHQ" size="70"></ngx-avatar>
 <ngx-avatar vkontakteId="210700286" [round]="false" size="70"></ngx-avatar>
-<ngx-avatar size="100" githubId="sweko" size="70" ></ngx-avatar>
-<ngx-avatar size="70" instagramId="dccomics" ></ngx-avatar>
+<ngx-avatar githubId="sweko" size="70"></ngx-avatar>
+<ngx-avatar instagramId="dccomics" size="70"></ngx-avatar>
 
 <!-- use facebook as avatar source, if it fails, it will use twitter -->
 <ngx-avatar facebookId="15349439434" twitterId="StevenWilsonHQ" size="70"></ngx-avatar>
@@ -31,7 +31,7 @@
 
 <ngx-avatar bgColor="red" fgColor="black" size="50" name="Steven Wilson" value="75%" ></ngx-avatar>
 <ngx-avatar size="50" name="Haithem Mosbahi"></ngx-avatar>
-<ngx-avatar size="50" name="Jhon Doe"></ngx-avatar>
+<ngx-avatar size="50" name="John Doe"></ngx-avatar>
 <ngx-avatar size="50" name="Maikeal Akerfekdt"></ngx-avatar>
 <ngx-avatar size="50" name="Hubert Wolfeschlegelsteinhausenbergerdorff"></ngx-avatar>
 <ngx-avatar size="50" name="Haithem Mosbahi"></ngx-avatar>
@@ -46,6 +46,13 @@
 
 <ngx-avatar [style]="customStyle" size="100" [name]="userName" [facebookId]="userFB" ></ngx-avatar>
 
-</div>
+<h2>Failed sources are not retried</h2>
 
+<button (click)="failedSources.push(failedSources.length)">Add 1 failing source</button>
+
+<span *ngFor="let i of failedSources">
+    <ngx-avatar [name]="'failing'" gravatarId="invalid@example.com"></ngx-avatar>
+</span>
+
+</div>
 

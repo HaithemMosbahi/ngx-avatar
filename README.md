@@ -20,7 +20,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Vkontakte (VK)
  * Skype
  * Gravatar
- * Github
+ * GitHub
  * Custom image
  * name initials
  * value
@@ -122,36 +122,36 @@ $ ng serve
 
 ## Options
 
-|   Attribute   |      Type      | Default |                                              Description                                               |
-| ------------- | ----------------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| `facebookId` | *string* |         | Facebook ID                                                                                                       |
-| `googleId` | *string* |         |  Google ID                                                                                                     |
-| `twitterId`   | *string*             |         | Twitter Handle                                                                                                       |
-| `vkontakteId`   | *string*             |         | VK ID|
-| `skypeId`    | *string*          |       |  Skype ID                                                                                                      |
-| `gravatarId`    | *string*          |         | email or md5 email related to gravatar                                                                                                  |
-| `githubId`    | *string*          |         | Github ID                                                                                      
-| `src`         | *string*          |         | Fallback image to use                                                                                  |
-| `name`        | *string*          |         | Will be used to generate avatar based on the initials of the person                                    |
-| `value`       | *string*          |         | Show a value as avatar                                                                                 |
-| `initialsSize`        | *number*          |   undefined      | Restricts the size of initials - it goes along with the name property and can be used to fix the number of characters that will be displayed as initials.  |
-| `bgColor`       | *string*          | random  | Give the background a fixed color with a hex like for example #FF0000 |
-| `fgColor`     | *string*          | #FFF  | Give the text a fixed color with a hex like for example #FF0000 |
-| `size`        | *number*             | 50      | Size of the avatar                                                                                     |
-| `textSizeRatio` | *number*             | 3      | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)                                 |
-| `round`       | *boolean*            | true   | Round the avatar corners                                                                               |
-| `cornerRadius`       | *number*            | 0   | Square avatars can have rounded corners using this property                                                                              |
-| `borderColor`       | *string*            | undefined   | Add border with the given color. boder's default style is '1px solid borderColor'                                                                               |
-| `style`         | *object*          |         | Style that will be applied on the root element
-| `clickOnAvatar`         | *Output*          |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.||
+|   Attribute   |      Type        | Default |                                              Description                                               |
+| ------------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| `facebookId`  | *string \| null* |         | Facebook ID                                                                                            |
+| `googleId`    | *string \| null* |         |  Google ID                                                                                             |
+| `twitterId`   | *string \| null* |         | Twitter Handle                                                                                         |
+| `vkontakteId` | *string \| null* |         | VK ID                                                                                                  |
+| `skypeId`     | *string \| null* |         |  Skype ID                                                                                              |
+| `gravatarId`  | *string \| null* |         | email or md5 email related to gravatar                                                                 |
+| `githubId`    | *string \| null* |         | Github ID                                                                                              |
+| `src`         | *string \| null* |         | Fallback image to use                                                                                  |
+| `name`        | *string \| null* |         | Will be used to generate avatar based on the initials of the person                                    |
+| `value`       | *string \| null* |         | Show a value as avatar                                                                                 |
+| `initialsSize`| *number*         | 0       | Restricts the size of initials - it goes along with the name property and can be used to fix the number of characters that will be displayed as initials. The `0` means no restrictions. |
+| `bgColor`     | *string*         | random  | Give the background a fixed color with a hex like for example #FF0000                                  |
+| `fgColor`     | *string*         | #FFF    | Give the text a fixed color with a hex like for example #FF0000                                        |
+| `size`        | *number*         | 50      | Size of the avatar                                                                                     |
+| `textSizeRatio`| *number*        | 3       | For text based avatars the size of the text as a fragment of size (size / textSizeRatio)               |
+| `round`       | *boolean*        | true    | Round the avatar corners                                                                               |
+| `cornerRadius`| *number*         | 0       | Square avatars can have rounded corners using this property                                            |
+| `borderColor` | *string*         | undefined | Add border with the given color. boder's default style is '1px solid borderColor'                    |
+| `style`       | *object*         |         | Style that will be applied on the root element                                                         |
+| `clickOnAvatar`| *Output*        |         | Fired when the avatar is clicked. The component emits the source object that has been used to fetch the avatar.|
 
  The source object has the following properties:
  * sourceType : avatar source ( Facebook, twitter, etc)
  * sourceId : identifier of the user
- * getAvatar(size?) : method to fetch user avatar from the current source
+ * getAvatar(size) : method to fetch user avatar from the current source
 
 ## Override Avatar Configuration
-The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the backgroud color of the avatar. Thus, it's possible to chnage the default list of colors and to pass your own list.
+The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the background color of the avatar. Thus, it's possible to change the default list of colors and to pass your own list.
 
 All you need to do is to configure the AvatarModule by calling **forRoot** method. The forRoot method takes an AvatarConfig Object that contains the overridden options. 
 
@@ -256,7 +256,7 @@ export class AppModule { }
  **Avatar Styling**
 
  In addition to the style attribute, ngx-avatar style can be customized using css classes. Thus, the generated code offers two css classes that can be overridden :
- * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar wether is an image or text.
+ * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar whether is an image or text.
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
  
  To overcome Angular's view encapsulation, you may need to use the /deep/ operator to target it. Here's an example that shows how to override ngx-avatar style : 
@@ -275,7 +275,7 @@ export class AppModule { }
 ## Release Notes & History
 * 3.6.0: Angular 8 support
 * 3.5.0: export Avatar component for Angular elements and ng upgrade
-* 3.4.0: http module is removed from the library dependencies. Applicatins' http module will be used instead.
+* 3.4.0: http module is removed from the library dependencies. Applications' http module will be used instead.
 * 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
 * 3.2.0 : Add support to Angular 7

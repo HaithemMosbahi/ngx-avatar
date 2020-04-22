@@ -1,7 +1,7 @@
 import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
 /**
- *  Skype source impelementation.
+ *  Skype source implementation.
  *  Fetch avatar source based on skype identifier
  */
 export class Skype implements Source {

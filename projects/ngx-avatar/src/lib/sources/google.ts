@@ -2,7 +2,7 @@ import { AsyncSource } from './async-source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Google source impelementation.
+ *  Google source implementation.
  *  Fetch avatar source based on google identifier
  *  and image size
  */
@@ -22,10 +22,12 @@ export class Google extends AsyncSource {
   /**
    * Extract google avatar from json data
    */
-  public processResponse(data: any, size?: number): string {
+  public processResponse(data: any, size?: number): string | null {
     const avatarSrc = data.entry.gphoto$thumbnail.$t;
     if (avatarSrc) {
       return avatarSrc.replace('s64', 's' + size);
     }
+
+    return null;
   }
 }

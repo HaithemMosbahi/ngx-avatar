@@ -2,7 +2,7 @@ import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Twitter source impelementation.
+ *  Twitter source implementation.
  *  Fetch avatar source based on google identifier
  *  and image size
  */

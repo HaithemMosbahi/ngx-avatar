@@ -2,7 +2,7 @@ import { AsyncSource } from './async-source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Github source impelementation.
+ *  GitHub source implementation.
  *  Fetch avatar source based on github identifier
  */
 export class Github extends AsyncSource {
