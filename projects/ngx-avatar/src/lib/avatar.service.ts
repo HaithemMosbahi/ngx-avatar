@@ -84,16 +84,16 @@ export class AvatarService {
     return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
   }
 
-  private getKey(source: Source): string {
+  private buildSourceKey(source: Source): string {
     return source.sourceType + '-' + source.sourceId;
   }
 
   public sourceHasFailedBefore(source: Source): boolean {
-    return this.failedSources.has(this.getKey(source));
+    return this.failedSources.has(this.buildSourceKey(source));
   }
 
   public markSourceAsFailed(source: Source): void {
-    this.failedSources.set(this.getKey(source), source);
+    this.failedSources.set(this.buildSourceKey(source), source);
   }
 
   private overrideAvatarSources(): void {
