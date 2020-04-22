@@ -10,7 +10,7 @@ export class Initials implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(size: number): string | null {
+  public getAvatar(size: number): string {
     return this.getInitials(this.sourceId, size);
   }
 

@@ -10,7 +10,7 @@ export class Facebook implements Source {
 
   constructor(public sourceId: string) {}
 
-  public getAvatar(size: number): string | null {
+  public getAvatar(size: number): string {
     return (
       'https://graph.facebook.com/' +
       `${this.sourceId}/picture?width=${size}&height=${size}`
