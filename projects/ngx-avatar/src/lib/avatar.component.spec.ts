@@ -6,17 +6,23 @@ import { AvatarService } from './avatar.service';
 import { By } from '@angular/platform-browser';
 import { SimpleChange } from '@angular/core';
 import { AvatarSource } from './sources/avatar-source.enum';
-import { of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Source } from './sources/source';
 
 class AvatarServiceMock {
-  public fetchAvatar(avatarUrl: string) {
-    return of(true);
+  public fetchAvatar(avatarUrl: string): Observable<any> {
+    return avatarUrl === 'https://api.github.com/users/github-username' ?
+        of({
+          avatar_url: 'https://mocked.url/foo.jpg',
+        }) :
+        throwError(new Error('Mocked error for ' + avatarUrl));
   }
-  public compareSources(source1: AvatarSource, source2: AvatarSource) {
+
+  public compareSources(source1: AvatarSource, source2: AvatarSource): number {
     return 0;
   }
-  public isSource(source: string) {
+
+  public isSource(source: string): boolean {
     return true;
   }
 
@@ -24,11 +30,15 @@ class AvatarServiceMock {
     return true;
   }
 
-  public getRandomColor(avatarText: string) {
+  public getRandomColor(avatarText: string): string {
     return '';
   }
 
-  public sourceHasFailedBefore(source: Source) {
+  public markSourceAsFailed(source: Source): void {
+
+  }
+
+  public sourceHasFailedBefore(source: Source): boolean {
     return source.sourceType === AvatarSource.GRAVATAR;
   }
 }
@@ -46,14 +56,12 @@ describe('AvatarComponent', () => {
         { provide: AvatarService, useClass: AvatarServiceMock }
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AvatarComponent);
     component = fixture.componentInstance;
     avatarService = TestBed.inject(AvatarService);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -61,8 +69,6 @@ describe('AvatarComponent', () => {
 
   describe('AvatarText', () => {
     it('should display the initials of the given value', () => {
-      spyOn(avatarService, 'isSource').and.returnValue(true);
-      spyOn(avatarService, 'isTextAvatar').and.returnValue(true);
       component.initials = 'John Doe';
       component.ngOnChanges({
         initials: new SimpleChange(null, 'John Doe', true)
@@ -78,8 +84,6 @@ describe('AvatarComponent', () => {
   });
 
   it('should not try again failed sources', () => {
-    spyOn(avatarService, 'isSource').and.returnValue(true);
-    spyOn(avatarService, 'isTextAvatar').and.returnValue(true);
     component.gravatar = 'invalid@example.com';
     component.initials = 'John Doe';
     component.ngOnChanges({
@@ -93,6 +97,23 @@ describe('AvatarComponent', () => {
         By.css('.avatar-container > div')
     );
     expect(avatarTextEl.nativeElement.textContent.trim()).toBe('JD');
+  });
+
+  it('should try next async source if first async source fails', () => {
+    spyOn(avatarService, 'isTextAvatar').and.returnValue(false);
+    component.google = 'invalid@example.com';
+    component.github = 'github-username';
+    component.ngOnChanges({
+      google: new SimpleChange(null, 'invalid@example.com', true),
+      github: new SimpleChange(null, 'github-username', true)
+    });
+
+    fixture.detectChanges();
+
+    const avatarImgEl = fixture.debugElement.query(
+        By.css('.avatar-container > img')
+    );
+    expect(avatarImgEl.nativeElement.src).toBe('https://mocked.url/foo.jpg&s=50');
   });
 
   describe('AvatarImage', () => {});
