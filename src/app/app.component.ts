@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
     cursor: 'pointer'
   };
 
-  public failedSources: number[] = [];
+  failedSources: number[] = [];
+  
   constructor(public userService: UserService) {}
 
   ngOnInit() {
