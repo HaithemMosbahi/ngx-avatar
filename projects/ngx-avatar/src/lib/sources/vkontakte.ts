@@ -2,7 +2,7 @@ import { AsyncSource } from './async-source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Vkontakte source impelementation.
+ *  Vkontakte source implementation.
  *  Fetch avatar source based on vkontakte identifier
  *  and image size
  */

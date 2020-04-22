@@ -20,7 +20,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Vkontakte (VK)
  * Skype
  * Gravatar
- * Github
+ * GitHub
  * Custom image
  * name initials
  * value
@@ -151,7 +151,7 @@ $ ng serve
  * getAvatar(size) : method to fetch user avatar from the current source
 
 ## Override Avatar Configuration
-The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the backgroud color of the avatar. Thus, it's possible to chnage the default list of colors and to pass your own list.
+The avatar module provides the possibility of customizing the avatar component by overriding some of its options. For example, the avatar module comes with a set of default colors used to randomly fill the background color of the avatar. Thus, it's possible to change the default list of colors and to pass your own list.
 
 All you need to do is to configure the AvatarModule by calling **forRoot** method. The forRoot method takes an AvatarConfig Object that contains the overridden options. 
 
@@ -256,7 +256,7 @@ export class AppModule { }
  **Avatar Styling**
 
  In addition to the style attribute, ngx-avatar style can be customized using css classes. Thus, the generated code offers two css classes that can be overridden :
- * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar wether is an image or text.
+ * **avatar-container** : class that represents the avatar container - the host element. Styles in this class will be applied on the avatar whether is an image or text.
  * **avatar-content** : css class that represents the avatar element which is embedded inside the avatar-container.
  
  To overcome Angular's view encapsulation, you may need to use the /deep/ operator to target it. Here's an example that shows how to override ngx-avatar style : 
@@ -275,7 +275,7 @@ export class AppModule { }
 ## Release Notes & History
 * 3.6.0: Angular 8 support
 * 3.5.0: export Avatar component for Angular elements and ng upgrade
-* 3.4.0: http module is removed from the library dependencies. Applicatins' http module will be used instead.
+* 3.4.0: http module is removed from the library dependencies. Applications' http module will be used instead.
 * 3.3.x : Bug fixes
 * 3.3.0 : Override Source priority order when importing AvatarModule
 * 3.2.0 : Add support to Angular 7

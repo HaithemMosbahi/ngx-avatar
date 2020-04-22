@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(public userService: UserService) {}
 
   ngOnInit() {
-    this.userService.fetchInformations().subscribe(user => {
+    this.userService.fetchInformation().subscribe(user => {
       this.userName = user.username;
       this.userService.getUserFacebook().subscribe(data => {
         this.userFB = data;

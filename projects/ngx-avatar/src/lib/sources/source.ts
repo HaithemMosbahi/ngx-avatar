@@ -2,7 +2,7 @@ import { AvatarSource } from './avatar-source.enum';
 
 /**
  * Contract of all Sources.
- * Every source must implements the fetch mehod
+ * Every source must implements the fetch method
  * in order to provide the avatar source.
  */
 export interface Source {

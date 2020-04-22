@@ -5,7 +5,7 @@ import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Gravatar source impelementation.
+ *  Gravatar source implementation.
  *  Fetch avatar source based on gravatar email
  */
 export class Gravatar implements Source {

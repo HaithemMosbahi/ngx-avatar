@@ -1,7 +1,7 @@
 import { Source } from './source';
 import { AvatarSource } from './avatar-source.enum';
 /**
- *  Facebook source impelementation.
+ *  Facebook source implementation.
  *  Fetch avatar source based on facebook identifier
  *  and image size
  */

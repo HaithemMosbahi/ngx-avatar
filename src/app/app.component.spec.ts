@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { UserService } from './user.service';
 
 const userServiceStub = {
-  fetchInformations: jasmine.createSpy('userService.fetchInformations'),
+  fetchInformation: jasmine.createSpy('userService.fetchInformation'),
   getUserFacebook: jasmine.createSpy('userService.getUserFacebook')
 };
 
