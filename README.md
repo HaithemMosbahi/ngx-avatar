@@ -134,7 +134,7 @@ $ ng serve
 | `src`         | *string \| null* |         | Fallback image to use                                                                                  |
 | `name`        | *string \| null* |         | Will be used to generate avatar based on the initials of the person                                    |
 | `value`       | *string \| null* |         | Show a value as avatar                                                                                 |
-| `initialsSize`| *number*         | 0       | Restricts the size of initials - it goes along with the name property and can be used to fix the number of characters that will be displayed as initials. 0 means not restrictions. |
+| `initialsSize`| *number*         | 0       | Restricts the size of initials - it goes along with the name property and can be used to fix the number of characters that will be displayed as initials. The `0` means no restrictions. |
 | `bgColor`     | *string*         | random  | Give the background a fixed color with a hex like for example #FF0000                                  |
 | `fgColor`     | *string*         | #FFF    | Give the text a fixed color with a hex like for example #FF0000                                        |
 | `size`        | *number*         | 50      | Size of the avatar                                                                                     |
