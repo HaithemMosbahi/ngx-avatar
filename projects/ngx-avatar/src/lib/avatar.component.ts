@@ -66,35 +66,35 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   @Input()
   public textSizeRatio = 3;
   @Input()
-  public bgColor: string;
+  public bgColor: string | undefined;
   @Input()
   public fgColor = '#FFF';
   @Input()
-  public borderColor: string;
+  public borderColor: string | undefined;
   @Input()
   public style: any = {};
   @Input()
   public cornerRadius = 0;
   @Input('facebookId')
-  public facebook: string;
+  public facebook: string | null;
   @Input('twitterId')
-  public twitter: string;
+  public twitter: string | null;
   @Input('googleId')
-  public google: string;
+  public google: string | null;
   @Input('vkontakteId')
-  public vkontakte: string;
+  public vkontakte: string | null;
   @Input('skypeId')
-  public skype: string;
+  public skype: string | null;
   @Input('gravatarId')
-  public gravatar: string;
+  public gravatar: string | null;
   @Input('githubId')
-  public github: string;
+  public github: string | null;
   @Input('src')
-  public custom: string;
+  public custom: string | null;
   @Input('name')
-  public initials: string;
+  public initials: string | null;
   @Input('value')
-  public value: string;
+  public value: string | null;
   @Input('placeholder')
   public placeholder: string;
   @Input('initialsSize')
@@ -133,8 +133,8 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     for (const propName in changes) {
       if (this.avatarService.isSource(propName)) {
         const sourceType = AvatarSource[propName.toUpperCase()];
-        if (changes[propName].currentValue) {
-          const currentValue = changes[propName].currentValue;
+        const currentValue = changes[propName].currentValue;
+        if (currentValue && typeof currentValue === 'string') {
           this.addSource(sourceType, currentValue);
         } else {
           this.removeSource(sourceType);
