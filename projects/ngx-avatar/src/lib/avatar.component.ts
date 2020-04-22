@@ -292,15 +292,13 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * param sourceValue  source value e.g facebookId value, etc.
    */
   private addSource(sourceType: AvatarSource, sourceValue: string): void {
-    if (!this.isSourceExist(sourceType)) {
-      this.sources.push(
-        this.sourceFactory.newInstance(sourceType, sourceValue)
-      );
+    const source = this.sources.find(s => s.sourceType === sourceType);
+    if (source) {
+      source.sourceId = sourceValue;
     } else {
-      const index = this.sources.findIndex(
-        source => source.sourceType === sourceType
+      this.sources.push(
+          this.sourceFactory.newInstance(sourceType, sourceValue),
       );
-      this.sources[index].sourceId = sourceValue;
     }
   }
 
@@ -310,15 +308,9 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    * param sourceType avatar source type e.g facebook,twitter, etc.
    */
   private removeSource(sourceType: AvatarSource): void {
-    if (this.isSourceExist(sourceType)) {
-      const index = this.sources.findIndex(
-        source => source.sourceType === sourceType
-      );
+    const index = this.sources.findIndex(source => source.sourceType === sourceType);
+    if (index !== -1) {
       this.sources.splice(index, 1);
     }
-  }
-
-  private isSourceExist(avatarSource: AvatarSource): boolean {
-    return this.sources.some(source => source.sourceType === avatarSource);
   }
 }
