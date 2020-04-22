@@ -20,5 +20,5 @@ export interface Source {
    * Gets the avatar that usually is a URL, but,
    * for example it can also be a string of initials from the name.
    */
-  getAvatar(size: number): string | null;
+  getAvatar(size: number): string;
 }

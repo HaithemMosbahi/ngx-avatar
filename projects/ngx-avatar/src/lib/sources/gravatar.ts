@@ -18,7 +18,7 @@ export class Gravatar implements Source {
       : Md5.hashStr(value).toString();
   }
 
-  public getAvatar(size: number): string | null {
+  public getAvatar(size: number): string {
     const avatarSize = isRetina() ? size * 2 : size;
     return `https://secure.gravatar.com/avatar/${
       this.sourceId
