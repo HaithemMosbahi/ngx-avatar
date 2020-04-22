@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { AvatarConfigService } from './avatar-config.service';
 import { AvatarSource } from './sources/avatar-source.enum';
+import { Source } from './sources/source';
 
 /**
  * list of Supported avatar sources
@@ -44,6 +45,8 @@ export class AvatarService {
   public avatarSources: AvatarSource[] = defaultSources;
   public avatarColors: string[] = defaultColors;
 
+  private readonly failedSources = new Map<string, Source>();
+
   constructor(
     private http: HttpClient,
     private avatarConfigService: AvatarConfigService
@@ -64,7 +67,7 @@ export class AvatarService {
     return this.avatarColors[asciiCodeSum % this.avatarColors.length];
   }
 
-  public copmareSources(
+  public compareSources(
     sourceType1: AvatarSource,
     sourceType2: AvatarSource
   ): number {
@@ -79,6 +82,18 @@ export class AvatarService {
 
   public isTextAvatar(sourceType: AvatarSource): boolean {
     return [AvatarSource.INITIALS, AvatarSource.VALUE].includes(sourceType);
+  }
+
+  private buildSourceKey(source: Source): string {
+    return source.sourceType + '-' + source.sourceId;
+  }
+
+  public sourceHasFailedBefore(source: Source): boolean {
+    return this.failedSources.has(this.buildSourceKey(source));
+  }
+
+  public markSourceAsFailed(source: Source): void {
+    this.failedSources.set(this.buildSourceKey(source), source);
   }
 
   private overrideAvatarSources(): void {
