@@ -8,12 +8,12 @@ artifacts.forEach(artifact => {
 
   fs.readFile(fromPath, "utf-8", (err, data) => {
     if (err) {
-      console.log("an error occured while reading file ", fromPath);
+      console.log("an error occurred while reading file ", fromPath);
       return;
     }
     fs.writeFile(toPath, data, err => {
       if (err) {
-        console.log("an error occured while writing file ", toPath);
+        console.log("an error occurred while writing file ", toPath);
         return;
       }
       console.log(`${artifact} copied`);

@@ -8,7 +8,7 @@ import { AvatarService, defaultSources, defaultColors } from './avatar.service';
 import { AvatarSource } from './sources/avatar-source.enum';
 import { AvatarConfigService } from './avatar-config.service';
 
-const avatarServiceCongigSpy = {
+const avatarServiceConfigSpy = {
   getAvatarSources: jasmine
     .createSpy('avatarConfigService.getAvatarSources')
     .and.returnValue(defaultSources),
@@ -27,7 +27,7 @@ describe('AvatarService', () => {
         imports: [HttpClientTestingModule],
         providers: [
           AvatarService,
-          { provide: AvatarConfigService, useValue: avatarServiceCongigSpy }
+          { provide: AvatarConfigService, useValue: avatarServiceConfigSpy }
         ]
       });
 
@@ -124,7 +124,7 @@ describe('AvatarService', () => {
         ).toBeGreaterThan(0);
       });
 
-      it('should return a zero value when the two give values are equales', () => {
+      it('should return a zero value when the two give values are equal', () => {
         expect(
           avatarService.copmareSources(AvatarSource.GITHUB, AvatarSource.GITHUB)
         ).toBe(0);

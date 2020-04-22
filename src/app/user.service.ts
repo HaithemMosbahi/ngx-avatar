@@ -5,7 +5,7 @@ import { User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 
 /**
- * Service used to fecth Async informations about the user
+ * Service used to fetch Async information about the user
  *
  * @export
  * @class AppService
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  fetchInformations(): Observable<User> {
+  fetchInformation(): Observable<User> {
     return this.http.get('assets/data/data.json').pipe(
       map(response => response as User)
     );

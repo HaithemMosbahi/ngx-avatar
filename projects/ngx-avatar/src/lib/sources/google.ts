@@ -2,7 +2,7 @@ import { AsyncSource } from './async-source';
 import { AvatarSource } from './avatar-source.enum';
 
 /**
- *  Google source impelementation.
+ *  Google source implementation.
  *  Fetch avatar source based on google identifier
  *  and image size
  */
