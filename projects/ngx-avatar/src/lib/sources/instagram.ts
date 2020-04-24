@@ -1,5 +1,5 @@
-import { AsyncSource } from './async-source';
-import { AvatarSource } from './avatar-source.enum';
+import { AsyncSource } from "./async-source";
+import { AvatarSource } from "./avatar-source.enum";
 
 /**
  *  Instagram source impelementation.
@@ -20,9 +20,6 @@ export class Instagram extends AsyncSource {
    * extract instagram avatar from json data
    */
   public processResponse(data: any, size?: number): string {
-    console.log(data)
-    if(size){
     return `${data.graphql.user.profile_pic_url_hd}&s=${size}`;
-    }
   }
 }

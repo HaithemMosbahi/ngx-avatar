@@ -17,6 +17,7 @@ Moreover, the component can shows name initials or simple value as avatar.
  * Facebook
  * Google
  * Twitter
+ * Instagram
  * Vkontakte (VK)
  * Skype
  * Gravatar
@@ -89,6 +90,7 @@ Once the AvatarModule is imported, you can start using the component in your Ang
 <ngx-avatar facebookId="1508319875"></ngx-avatar>
 <ngx-avatar googleId="1508319875"></ngx-avatar>
 <ngx-avatar twitterId="1508319875"></ngx-avatar>
+<ngx-avatar instagramId="dccomics" size="70"></ngx-avatar>
 <ngx-avatar skypeId="1508319875"></ngx-avatar>
 <ngx-avatar gravatarId="adde9b2b981a8083cf084c63ad86f753"></ngx-avatar>
 <ngx-avatar gravatarId="user@gmail.com"></ngx-avatar>
@@ -127,6 +129,7 @@ $ ng serve
 | `facebookId`  | *string \| null* |         | Facebook ID                                                                                            |
 | `googleId`    | *string \| null* |         |  Google ID                                                                                             |
 | `twitterId`   | *string \| null* |         | Twitter Handle                                                                                         |
+| `instagramId`   | *string \| null* |         | Instagram Handle                                                                                         |
 | `vkontakteId` | *string \| null* |         | VK ID                                                                                                  |
 | `skypeId`     | *string \| null* |         |  Skype ID                                                                                              |
 | `gravatarId`  | *string \| null* |         | email or md5 email related to gravatar                                                                 |
