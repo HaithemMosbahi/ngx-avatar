@@ -1,5 +1,5 @@
-import { AsyncSource } from "./async-source";
-import { AvatarSource } from "./avatar-source.enum";
+import { AsyncSource } from './async-source';
+import { AvatarSource } from './avatar-source.enum';
 
 /**
  *  Instagram source impelementation.
