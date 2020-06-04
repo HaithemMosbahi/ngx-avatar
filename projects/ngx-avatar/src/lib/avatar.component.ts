@@ -48,6 +48,7 @@ import { takeWhile, map } from 'rxjs/operators';
         [ngStyle]="avatarStyle"
         (error)="fetchAvatarSource()"
         class="avatar-content"
+        loading="lazy"
       />
       <ng-template #textAvatar>
         <div *ngIf="avatarText" class="avatar-content" [ngStyle]="avatarStyle">
