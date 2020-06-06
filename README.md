@@ -40,6 +40,11 @@ Install avatar component using [Yarn](https://yarnpkg.com/)::
 $ yarn add ngx-avatar
 ```
 
+or
+
+```bash
+$ npm install ngx-avatar --save
+```
 
 ## Usage
 
