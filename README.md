@@ -34,13 +34,17 @@ Moreover, the component can shows name initials or simple value as avatar.
 
 ## Installation
 
-Install avatar component using [NPM](https://www.npmjs.com/)::
+Install avatar component using [Yarn](https://yarnpkg.com/)::
+
+```bash
+$ yarn add ngx-avatar
+```
+
+or
 
 ```bash
 $ npm install ngx-avatar --save
 ```
-Or [download as ZIP](https://github.com/HaithemMosbahi/ngx-avatar/archive/master.zip).
-
 
 ## Usage
 
@@ -116,7 +120,7 @@ Moreover, the demo folder contains an application generated with angular cli tha
 
 To run the demo application :
 ```bash
-$ npm install
+$ yarn install
 $ ng serve
 ```
 
