@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AvatarComponent } from './avatar.component';
 import { SourceFactory } from './sources/source.factory';
@@ -48,7 +48,7 @@ describe('AvatarComponent', () => {
   let fixture: ComponentFixture<AvatarComponent>;
   let avatarService: AvatarService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AvatarComponent],
       providers: [
