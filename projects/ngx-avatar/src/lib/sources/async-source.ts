@@ -6,10 +6,10 @@ import { AvatarSource } from './avatar-source.enum';
  * Every async source must implement the processResponse method that extracts the avatar url from the data
  */
 export abstract class AsyncSource implements Source {
-  readonly sourceType: AvatarSource;
+  readonly abstract sourceType: AvatarSource;
 
   constructor(public sourceId: string) {}
 
   abstract getAvatar(size: number): string;
-  abstract processResponse(data: any, size?: number): string | null;
+  abstract processResponse(data: unknown, size?: number): string | null;
 }

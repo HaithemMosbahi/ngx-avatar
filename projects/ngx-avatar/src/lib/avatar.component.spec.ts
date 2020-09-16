@@ -10,7 +10,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { Source } from './sources/source';
 
 class AvatarServiceMock {
-  public fetchAvatar(avatarUrl: string): Observable<any> {
+  public fetchAvatar(avatarUrl: string): Observable<{ avatar_url: string }> {
     return avatarUrl === 'https://api.github.com/users/github-username' ?
         of({
           avatar_url: 'https://mocked.url/foo.jpg',

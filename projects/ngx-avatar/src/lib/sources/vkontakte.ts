@@ -7,6 +7,7 @@ import { AvatarSource } from './avatar-source.enum';
  *  and image size
  */
 const apiVersion = 5.8;
+
 export class Vkontakte extends AsyncSource {
   readonly sourceType: AvatarSource = AvatarSource.VKONTAKTE;
 
@@ -24,7 +25,11 @@ export class Vkontakte extends AsyncSource {
   /**
    * extract vkontakte avatar from json data
    */
-  public processResponse(data: any): string | null {
+  public processResponse(data: {
+    response: {
+      [key: string]: string;
+    }[]
+  }): string | null {
     // avatar key property is the size used to generate avatar url
     // size property is always the last key in the response object
     const sizeProperty = Object.keys(data['response'][0]).pop();

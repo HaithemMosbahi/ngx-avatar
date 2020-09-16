@@ -18,11 +18,8 @@ export class UserService {
   }
 
   getUserFacebook(): Observable<string> {
-    return this.http.get('assets/data/data.json').pipe(
-      map((response: any) => response.facebookId )
+    return this.http.get<{ facebookId: string}>('assets/data/data.json').pipe(
+      map(response => response.facebookId )
     );
   }
-
-
-
 }

@@ -15,6 +15,8 @@ import { AvatarService } from './avatar.service';
 import { AvatarSource } from './sources/avatar-source.enum';
 import { takeWhile, map } from 'rxjs/operators';
 
+type Style = Partial<CSSStyleDeclaration>;
+
 /**
  * Universal avatar component that
  * generates avatar from different sources
@@ -30,7 +32,7 @@ import { takeWhile, map } from 'rxjs/operators';
   styles: [
     `
       :host {
-        border-radius: '50%';
+        border-radius: 50%;
       }
     `
   ],
@@ -62,7 +64,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   @Input()
   public round = true;
   @Input()
-  public size = 50;
+  public size: string | number = 50;
   @Input()
   public textSizeRatio = 3;
   @Input()
@@ -72,35 +74,35 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   @Input()
   public borderColor: string | undefined;
   @Input()
-  public style: any = {};
+  public style: Style = {};
   @Input()
-  public cornerRadius = 0;
+  public cornerRadius: string | number = 0;
   @Input('facebookId')
-  public facebook: string | null;
+  public facebook?: string | null;
   @Input('twitterId')
-  public twitter: string | null;
+  public twitter?: string | null;
   @Input('googleId')
-  public google: string | null;
+  public google?: string | null;
   @Input('instagramId')
-  public instagram: string | null;
+  public instagram?: string | null;
   @Input('vkontakteId')
-  public vkontakte: string | null;
+  public vkontakte?: string | null;
   @Input('skypeId')
-  public skype: string | null;
+  public skype?: string | null;
   @Input('gravatarId')
-  public gravatar: string | null;
+  public gravatar?: string | null;
   @Input('githubId')
-  public github: string | null;
+  public github?: string | null;
   @Input('src')
-  public custom: string | null;
+  public custom?: string | null;
   @Input('name')
-  public initials: string | null;
-  @Input('value')
-  public value: string | null;
-  @Input('placeholder')
-  public placeholder: string;
-  @Input('initialsSize')
-  public initialsSize: number;
+  public initials?: string | null;
+  @Input()
+  public value?: string | null;
+  @Input()
+  public placeholder?: string;
+  @Input()
+  public initialsSize: string | number = 0;
 
   @Output()
   public clickOnAvatar: EventEmitter<Source> = new EventEmitter<Source>();
@@ -108,8 +110,8 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   public isAlive = true;
   public avatarSrc: string | null = null;
   public avatarText: string | null = null;
-  public avatarStyle: any = {};
-  public hostStyle: any = {};
+  public avatarStyle: Style = {};
+  public hostStyle: Style = {};
 
   private currentIndex = -1;
   private sources: Source[] = [];
@@ -133,7 +135,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   public ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
       if (this.avatarService.isSource(propName)) {
-        const sourceType = AvatarSource[propName.toUpperCase()];
+        const sourceType: AvatarSource = AvatarSource[propName.toUpperCase() as keyof typeof AvatarSource] ;
         const currentValue = changes[propName].currentValue;
         if (currentValue && typeof currentValue === 'string') {
           this.addSource(sourceType, currentValue);
@@ -149,8 +151,6 @@ export class AvatarComponent implements OnChanges, OnDestroy {
 
   /**
    * Fetch avatar source
-   *
-   * param {any} event
    *
    * memberOf AvatarComponent
    */
@@ -210,7 +210,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
   }
 
   private buildTextAvatar(avatarSource: Source): void {
-    this.avatarText = avatarSource.getAvatar(this.initialsSize);
+    this.avatarText = avatarSource.getAvatar(+this.initialsSize);
     this.avatarStyle = this.getInitialsStyle(avatarSource.sourceId);
   }
 
@@ -219,7 +219,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     if (avatarSource instanceof AsyncSource) {
       this.fetchAndProcessAsyncAvatar(avatarSource);
     } else {
-      this.avatarSrc = avatarSource.getAvatar(this.size);
+      this.avatarSrc = avatarSource.getAvatar(+this.size);
     }
   }
 
@@ -229,7 +229,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getInitialsStyle(avatarValue: string): void {
+  private getInitialsStyle(avatarValue: string): Style {
     return {
       textAlign: 'center',
       borderRadius: this.round ? '100%' : this.cornerRadius + 'px',
@@ -240,7 +240,7 @@ export class AvatarComponent implements OnChanges, OnDestroy {
         ? this.bgColor
         : this.avatarService.getRandomColor(avatarValue),
       font:
-        Math.floor(this.size / this.textSizeRatio) +
+        Math.floor(+this.size / this.textSizeRatio) +
         'px Helvetica, Arial, sans-serif',
       lineHeight: this.size + 'px',
       ...this.style
@@ -253,14 +253,14 @@ export class AvatarComponent implements OnChanges, OnDestroy {
    *
    * memberOf AvatarComponent
    */
-  private getImageStyle(): void {
+  private getImageStyle(): Style {
     return {
       maxWidth: '100%',
       borderRadius: this.round ? '50%' : this.cornerRadius + 'px',
       border: this.borderColor ? '1px solid ' + this.borderColor : '',
-      width: this.size,
-      height: this.size,
-      ...this.style
+      width: this.size + 'px',
+      height: this.size + 'px',
+      ...this.style,
     };
   }
   /**
@@ -275,10 +275,10 @@ export class AvatarComponent implements OnChanges, OnDestroy {
     }
 
     this.avatarService
-        .fetchAvatar(source.getAvatar(this.size))
+        .fetchAvatar(source.getAvatar(+this.size))
         .pipe(
             takeWhile(() => this.isAlive),
-            map(response => source.processResponse(response, this.size)),
+            map(response => source.processResponse(response, +this.size)),
         )
         .subscribe(
             avatarSrc => (this.avatarSrc = avatarSrc),
