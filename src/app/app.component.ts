@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   };
 
   failedSources: number[] = [];
-  
+
   constructor(public userService: UserService) {}
 
   ngOnInit() {

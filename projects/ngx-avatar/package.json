@@ -1,6 +1,6 @@
 {
   "name": "ngx-avatar",
-  "description": "A universal avatar component for Angular 4+ applications that fetches / generates avatar based on the information you have about the user.",
+  "description": "A universal avatar component for Angular applications that fetches / generates avatar based on the information you have about the user.",
   "version": "3.7.0",
   "keywords": [
     "angular",
@@ -15,10 +15,11 @@
   },
   "dependencies": {
     "is-retina": "^1.0.3",
-    "ts-md5": "^1.2.4"
+    "ts-md5": "^1.2.4",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0"
+    "@angular/common": "^10.1.1",
+    "@angular/core": "^10.1.1"
   }
 }

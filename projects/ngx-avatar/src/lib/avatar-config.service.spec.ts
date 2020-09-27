@@ -83,7 +83,7 @@ describe('AvatarConfigService', () => {
   });
 
   describe('AvatarColors', () => {
-    it("should return the user's list of colors when provided in the avatar configuration", () => {
+    it('should return the user\'s list of colors when provided in the avatar configuration', () => {
       const userColors = ['#ccc', '#fff'];
       const userConfig: AvatarConfig = {
         colors: userColors

@@ -6,9 +6,6 @@ import { HttpClient } from '@angular/common/http';
 
 /**
  * Service used to fetch Async information about the user
- *
- * @export
- * @class AppService
  */
 @Injectable()
 export class UserService {
