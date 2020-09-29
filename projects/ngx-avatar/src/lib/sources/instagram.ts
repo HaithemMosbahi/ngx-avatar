@@ -19,7 +19,7 @@ export class Instagram extends AsyncSource {
   /**
    * extract instagram avatar from json data
    */
-  public processResponse(data: any, size?: number): string {
+  public processResponse(data: { graphql: { user: { profile_pic_url_hd: string } } }, size?: number): string {
     return `${data.graphql.user.profile_pic_url_hd}&s=${size}`;
   }
 }

@@ -13,8 +13,8 @@
     "type": "git",
     "url": "https://github.com/HaithemMosbahi/ngx-avatar"
   },
+  "sideEffects": false,
   "dependencies": {
-    "is-retina": "^1.0.3",
     "ts-md5": "^1.2.4",
     "tslib": "^2.0.0"
   },

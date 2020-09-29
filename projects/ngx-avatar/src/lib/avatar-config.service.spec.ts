@@ -24,7 +24,7 @@ describe('AvatarConfigService', () => {
 
     it('should return the list of sources with the default order when the user provides an unknown list of sources', () => {
       const userConfig: AvatarConfig = {
-        sourcePriorityOrder: <any>['UNKNOWN_SOURCE']
+        sourcePriorityOrder: ['UNKNOWN_SOURCE' as AvatarSource]
       };
       const avatarConfigService = new AvatarConfigService(userConfig);
 

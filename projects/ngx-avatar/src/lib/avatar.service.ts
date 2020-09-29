@@ -56,7 +56,7 @@ export class AvatarService {
     this.overrideAvatarColors();
   }
 
-  public fetchAvatar(avatarUrl: string): Observable<any> {
+  public fetchAvatar(avatarUrl: string): Observable<unknown> {
     return this.http.get(avatarUrl);
   }
 
