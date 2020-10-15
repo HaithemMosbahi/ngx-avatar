@@ -9,6 +9,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:package": "ng build ngx-avatar && cp README.md ./dist/ngx-avatar",
     "postbuild": "node scripts/copy-artifacts.js",
     "test": "ng test",
     "lint": "ng lint",
