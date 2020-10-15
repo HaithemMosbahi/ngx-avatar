@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
-import { Source } from '../../projects/ngx-avatar/src/lib/sources/source';
+import { Source } from '../../../ngx-avatar/src/lib/sources/source';
 
 @Component({
   selector: 'app-root',

@@ -8,7 +8,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ngx-avatar-demo",
     "postbuild": "node scripts/copy-artifacts.js",
     "test": "ng test",
     "lint": "ng lint",
