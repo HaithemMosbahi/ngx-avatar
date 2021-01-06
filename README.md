@@ -34,7 +34,7 @@ Moreover, the component can shows name initials or simple value as avatar.
 
 ## Installation
 
-Install avatar component using [Yarn](https://yarnpkg.com/)::
+Install avatar component using [Yarn](https://yarnpkg.com/):
 
 ```bash
 $ yarn add ngx-avatar
@@ -48,7 +48,7 @@ $ npm install ngx-avatar --save
 
 ## Usage
 
-1. Import AvatarModule :
+1. Import AvatarModule:
 
 Once you have installed ngx-avatar, you can import it in your `AppModule`:
 
@@ -283,29 +283,29 @@ export class AppModule { }
 * 3.6.0: Angular 8 support
 * 3.5.0: export Avatar component for Angular elements and ng upgrade
 * 3.4.0: http module is removed from the library dependencies. Applications' http module will be used instead.
-* 3.3.x : Bug fixes
-* 3.3.0 : Override Source priority order when importing AvatarModule
-* 3.2.0 : Add support to Angular 7
-* 3.1.1 : fixes the source priority bug 
-* 3.1 : fixes AOT / Prod build when loading avatar module with config
+* 3.3.x: Bug fixes
+* 3.3.0: Override Source priority order when importing AvatarModule
+* 3.2.0: Add support to Angular 7
+* 3.1.1: fixes the source priority bug 
+* 3.1: fixes AOT / Prod build when loading avatar module with config
   * This version has a **breaking change** in the way the module with configuration is imported, for more details see Override Avatar Configuration section. 
-* 3.0 : Add support to Angular 6
+* 3.0: Add support to Angular 6
   * Build the library with Angular CLI
-* 2.9 : Bug fixes [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16) & [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16)
-* 2.8 : add initials size option
-* 2.7 : code refactoring
-* 2.6 : Customize avatar options
-* 2.5 : Bug fixes & new css classes
-* 2.4 : Refactor async sources
-* 2.3 : Add support for github avatar
-* 2.2 : Fix prod and aot build
-* 2.1 : Bug fixes
-* 2.0 : add support to vkontakte source
-* 1.4 : background color is now generated based on the sum of ASCII values of avatar's text.
-* 1.3 : Bug Fixes ( support dynamic avatar data )
-* 1.2 : Add border related properties.
-* 1.1 : Listen to click events on avatar and support retina display.
-* 1.0 : Avatar component that fetches / generates user avatar from different sources.
+* 2.9: Bug fixes [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16) & [#16](https://github.com/HaithemMosbahi/ngx-avatar/issues/16)
+* 2.8: add initials size option
+* 2.7: code refactoring
+* 2.6: Customize avatar options
+* 2.5: Bug fixes & new css classes
+* 2.4: Refactor async sources
+* 2.3: Add support for github avatar
+* 2.2: Fix prod and aot build
+* 2.1: Bug fixes
+* 2.0: add support to vkontakte source
+* 1.4: background color is now generated based on the sum of ASCII values of avatar's text.
+* 1.3: Bug Fixes ( support dynamic avatar data )
+* 1.2: Add border related properties.
+* 1.1: Listen to click events on avatar and support retina display.
+* 1.0: Avatar component that fetches / generates user avatar from different sources.
 
 
 ## Contributing
