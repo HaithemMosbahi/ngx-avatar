@@ -280,6 +280,8 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 4.1.0: Angular 11 support
+* 4.0.0: Angular 9 support and minor improvements
 * 3.6.0: Angular 8 support
 * 3.5.0: export Avatar component for Angular elements and ng upgrade
 * 3.4.0: http module is removed from the library dependencies. Applications' http module will be used instead.
