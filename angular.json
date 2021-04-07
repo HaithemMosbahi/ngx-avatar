@@ -173,9 +173,9 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-avatar/ng-package.prod.json"
-            ,              "tsConfig": "projects/ngx-avatar/tsconfig.lib.prod.json"
-}
+              "project": "projects/ngx-avatar/ng-package.prod.json",
+              "tsConfig": "projects/ngx-avatar/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
