@@ -2,13 +2,14 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "yarn",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
     "ngx-avatar-demo": {
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/ngx-avatar-demo",
+      "sourceRoot": "projects/ngx-avatar-demo/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {
@@ -44,16 +45,16 @@
           "options": {
             "aot": true,
             "outputPath": "dist/ngx-avatar-demo",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "index": "projects/ngx-avatar-demo/src/index.html",
+            "main": "projects/ngx-avatar-demo/src/main.ts",
+            "polyfills": "projects/ngx-avatar-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-avatar-demo/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/ngx-avatar-demo/src/favicon.ico",
+              "projects/ngx-avatar-demo/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/ngx-avatar-demo/src/styles.scss"
             ],
             "scripts": []
           },
@@ -67,8 +68,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/ngx-avatar-demo/src/environments/environment.ts",
+                  "with": "projects/ngx-avatar-demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -103,17 +104,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "main": "projects/ngx-avatar-demo/src/test.ts",
+            "polyfills": "projects/ngx-avatar-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-avatar-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-avatar-demo/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "projects/ngx-avatar-demo/src/styles.scss"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/ngx-avatar-demo/src/favicon.ico",
+              "projects/ngx-avatar-demo/src/assets"
             ],
             "watch": false
           }
@@ -122,8 +123,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "projects/ngx-avatar-demo/tsconfig.app.json",
+              "projects/ngx-avatar-demo/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -173,9 +174,9 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-avatar/ng-package.prod.json"
-            ,              "tsConfig": "projects/ngx-avatar/tsconfig.lib.prod.json"
-}
+              "project": "projects/ngx-avatar/ng-package.prod.json",
+              "tsConfig": "projects/ngx-avatar/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
