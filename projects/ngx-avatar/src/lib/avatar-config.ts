@@ -13,4 +13,9 @@ export interface AvatarConfig {
    * The order in which the avatar sources will be used.
    */
   sourcePriorityOrder?: AvatarSource[];
+
+  /**
+   * Disable custom source (for custom images) cache.
+   */
+   disableSrcCache?: boolean;
 }

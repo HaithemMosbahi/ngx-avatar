@@ -1,7 +1,7 @@
 import { AvatarConfigService } from './avatar-config.service';
 import { AvatarSource } from './sources/avatar-source.enum';
 import { AvatarConfig } from './avatar-config';
-import { defaultSources, defaultColors } from './avatar.service';
+import { defaultSources, defaultColors, defaultDisableSrcCache } from './avatar.service';
 
 describe('AvatarConfigService', () => {
   describe('AvatarSources', () => {
@@ -101,6 +101,29 @@ describe('AvatarConfigService', () => {
 
       expect(avatarConfigService.getAvatarColors(defaultColors)).toBe(
         defaultColors
+      );
+    });
+  });
+
+  describe('AvatarDisableCache', () => {
+    it('should return the user\'s disable custom source cache settings when provided in the avatar configuration', () => {
+      const userDisableSrcCache = true;
+      const userConfig: AvatarConfig = {
+        disableSrcCache: userDisableSrcCache
+      };
+
+      const avatarConfigService = new AvatarConfigService(userConfig);
+
+      expect(avatarConfigService.getDisableSrcCache(defaultDisableSrcCache)).toBe(
+        userDisableSrcCache
+      );
+    });
+
+    it('should return the default disable custom source cache settings when no settings are provided in the avatar configuration', () => {
+      const avatarConfigService = new AvatarConfigService({});
+
+      expect(avatarConfigService.getDisableSrcCache(defaultDisableSrcCache)).toBe(
+        defaultDisableSrcCache
       );
     });
   });

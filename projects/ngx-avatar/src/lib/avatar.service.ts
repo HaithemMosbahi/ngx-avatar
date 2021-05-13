@@ -39,6 +39,11 @@ export const defaultColors = [
 ];
 
 /**
+ * Default disable custom source cache settings
+ */
+export const defaultDisableSrcCache = false;
+
+/**
  * Provides utilities methods related to Avatar component
  */
 @Injectable()
