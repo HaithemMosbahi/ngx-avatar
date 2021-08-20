@@ -15,7 +15,7 @@ class AvatarServiceMock {
         of({
           avatar_url: 'https://mocked.url/foo.jpg',
         }) :
-        throwError(new Error('Mocked error for ' + avatarUrl));
+        throwError(()=> new Error('Mocked error for ' + avatarUrl));
   }
 
   public compareSources(source1: AvatarSource, source2: AvatarSource): number {
