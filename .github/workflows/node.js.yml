@@ -28,4 +28,4 @@ jobs:
         cache: 'yarn'
     - run: npm i -g -s --no-progress yarn
     - run: yarn --frozen-lockfile
-    - run: yarn test
+    - run: yarn test-headless
