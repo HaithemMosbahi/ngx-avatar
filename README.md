@@ -280,6 +280,7 @@ export class AppModule { }
  ```
 
 ## Release Notes & History
+* 4.2.0: Angular 12/13 support
 * 4.1.0: Angular 11 support
 * 4.0.0: Angular 9 support and minor improvements
 * 3.6.0: Angular 8 support

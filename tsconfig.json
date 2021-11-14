@@ -10,19 +10,20 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "ES2020",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
-    "target": "es2015",
+    "target": "es6",
     "strictNullChecks": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2017",
-      "dom"
+      "dom",
+      "es2020"
     ],
     "paths": {
       "ngx-avatar": [

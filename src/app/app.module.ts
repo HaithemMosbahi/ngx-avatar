@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AvatarModule } from 'ngx-avatar';
+import { AvatarModule } from  '../../projects/ngx-avatar/src/lib/avatar.module';
 
 import { AppComponent } from './app.component';
 import { UserService } from './user.service';
